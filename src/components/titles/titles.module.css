@@ -1,0 +1,11 @@
+.titles {
+  font-size: 28px !important;
+  line-height: 32px !important;
+  font-weight: 500 !important;
+}
+@media (max-width: 768px) {
+  .titles {
+    font-size: 25px !important;
+    line-height: 30px !important;
+  }
+}

@@ -1,0 +1,55 @@
+.container {
+  z-index: 2;
+  position: absolute;
+  right: 150px;
+  top: 0;
+}
+
+.content {
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
+  min-width: 270px;
+  background: #fff;
+  padding: 15px 5px;
+  border-radius: 10px;
+  position: absolute;
+  top: 51px;
+  left: 74%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+.button input {
+  width: 100%;
+  height: 45px;
+  border: 1px solid #eee;
+  outline: none;
+  padding: 5px;
+  position: relative;
+}
+.button input[type='text'] {
+  padding-right: 68px;
+}
+.button button {
+  background: var(--colorBlue1);
+  color: #fff;
+  padding: 5px 7px;
+  border-radius: 8px;
+  position: absolute;
+  right: 12px;
+  top: 62px;
+}
+.content a {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 3px 5px;
+  border-radius: 5px;
+}
+.content a:hover {
+  background: #f9f9f9;
+}
+.shareButton {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}

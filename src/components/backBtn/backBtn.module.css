@@ -1,0 +1,13 @@
+.backBtn {
+    position: absolute;
+    display: flex;
+    top: -30px;
+    align-items: center;
+    justify-content: center;
+    color: #389738;
+    font-size: 16px;
+}
+
+.backBtn:hover {
+    opacity: 0.8;
+}

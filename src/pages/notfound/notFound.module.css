@@ -1,0 +1,13 @@
+.notFound {
+  display: flex !important;
+  justify-content: center !important;
+  align-content: center !important;
+  height: calc(100vh - 90px) !important;
+  width: 100%;
+}
+.notFound div {
+  margin-top: 200px;
+}
+.notFound div h2 {
+  font-size: 90px;
+}

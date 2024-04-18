@@ -1,0 +1,118 @@
+/* Book dialog form */
+.formTitle {
+  font-size: 20px !important;
+  background-color: #389738;
+  color: #fff;
+  padding: 10px 12px !important;
+  position: relative;
+  border-top-right-radius: 12px;
+  border-top-left-radius: 12px;
+}
+
+.closeBtn {
+  color: #fff;
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.formContent {
+  padding: 20px 6px 0px 30px !important;
+}
+
+.formItem {
+  width: calc(50% - 16px);
+  margin: 8px 8px 8px 0 !important;
+}
+
+.formRemarks label,
+.formItem label{
+  font-size: 16px;
+  color: #000;
+}
+
+.radioGroup {
+  height: 45px;
+  margin-top: 8px;
+}
+
+.formRemarks {
+  margin-top: 8px !important;
+  width: calc(100% - 24px);
+}
+
+.actionGroup {
+  padding: 20px 30px!important;
+}
+
+.disableField {
+  pointer-events: none;
+}
+
+.disableField input {
+  height: 12px;
+  font-size: 14px;
+}
+
+.oneRowInput input {
+  height: 12px;
+}
+
+.successText {
+  font-size: 18px !important;
+  color: #000 !important;
+  text-align: justify;
+  padding: 50px 30px 30px 30px;
+}
+
+.actionGroup .btn {
+  width: 80px;
+  font-size: 14px;
+  padding: 6px 0;
+}
+
+.btn {
+  font-size: 12px;
+  border-radius: 8px;
+  padding: 3px 0;
+  width: 60px;
+  font-weight: 600;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  z-index: 10;
+}
+
+.btn:hover {
+  opacity: 0.75;
+}
+
+.required {
+  color: red;
+}
+
+.btnSuccess {
+  color: #fff;
+  background-color: #389738;
+}
+
+@media (max-width: 767px) {
+  .formItem {
+    width: 100%;
+  }
+
+  .formContent {
+    padding: 20px 20px 0 20px !important;
+  }
+
+  .successText {
+    padding: 30px 20px 10px 20px;
+  }
+
+  .actionGroup {
+    padding: 20px !important;
+  }
+
+}

@@ -1,0 +1,94 @@
+.ListLike li {
+  margin-bottom: 15px;
+  border-radius: 5px;
+  padding: 5px;
+}
+.ListLike li:hover {
+  background: #e6efe8;
+}
+.ListLike img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.ListLike h2 {
+  font-size: 18px;
+}
+.ListLike p {
+  font-size: 13px;
+}
+
+.ListLike h2,
+.ListLike p {
+  text-transform: capitalize;
+}
+.ListLike p {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 20px;
+  -webkit-line-clamp: 2;
+  height: auto;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+.ListLike h2:hover,
+.ListLike p:hover {
+  text-decoration: underline;
+}
+.ListLike a {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.infomation {
+  display: flex;
+  flex-direction: column;
+}
+.infomation h2 {
+  display: flex;
+  gap: 3px;
+}
+.containerListLike {
+  min-width: 450px;
+  max-height: calc(100vh - 300px);
+}
+
+.containerListLike::-webkit-scrollbar {
+  width: 10px;
+}
+
+.containerListLike::-webkit-scrollbar-track {
+  border-radius: 5px;
+}
+
+.containerListLike::-webkit-scrollbar-thumb {
+  background: #525252;
+}
+
+.containerListLike::-webkit-scrollbar-thumb:hover {
+  background: #525252;
+}
+
+.notLoginLike {
+  height: 40px;
+  margin-left: 16px;
+}
+
+.notLoginLike a {
+  color: blue !important;
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.notLoginLike a:hover {
+  opacity: 0.7;
+}
+
+@media (max-width: 767px) {
+  .containerListLike {
+    min-width: 300px !important;
+    max-height: calc(100vh - 300px);
+  }
+}

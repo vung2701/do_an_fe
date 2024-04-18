@@ -1,0 +1,95 @@
+.container {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center;
+  height: 100%;
+  padding: 50px;
+  margin-top: 50px;
+}
+.form {
+  width: 500px;
+  background: #fff;
+  padding: 30px 25px;
+  box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
+}
+
+.btnLogin {
+  margin-top: 30px;
+}
+
+.titleLogin {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.login {
+  width: 100%;
+}
+.or {
+  width: 100%;
+  text-align: center;
+  margin: 24px 0;
+  position: relative;
+}
+.or::after {
+  content: '';
+  position: absolute;
+  background: var(--colorRrey2);
+  width: calc(50% - 20px);
+  height: 1px;
+  right: 0;
+  top: 50%;
+}
+.or::before {
+  content: '';
+  position: absolute;
+  background: var(--colorRrey2);
+  width: calc(50% - 20px);
+  height: 1px;
+  left: 0;
+  top: 50%;
+}
+
+.addLogin {
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+}
+.google {
+  width: 100%;
+}
+.register {
+  width: 100%;
+  font-size: 17px;
+}
+.btnLogin button {
+  font-size: 17px;
+  background: #0b6623;
+  color: #fff;
+}
+.mess {
+  color: #b80000;
+  text-align: center;
+  margin-top: 15px !important;
+  font-style: italic;
+}
+
+.socialLogin {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+.socialBtnBox {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  
+}
+.socialLoginBtn img{
+  width: 36px;
+  height: 36px;
+  
+}

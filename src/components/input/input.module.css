@@ -1,0 +1,43 @@
+.fromControl {
+  margin-top: 30px;
+}
+.fromControl {
+  display: flex;
+  flex-direction: column;
+}
+.fromControl label {
+  margin-bottom: 15px;
+}
+.fromControl input {
+  height: 50px;
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  outline: none;
+  border: 1px solid var(--colorBlack);
+  border-radius: 5px;
+}
+.required {
+  color: red;
+}
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 7px;
+}
+.inputs {
+  position: relative;
+}
+.icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+}
+.icon svg {
+  font-size: 18px;
+  color: var(--colorRrey);
+}
+.inputs input[type='password'] {
+  padding-right: 40px;
+}

@@ -1,0 +1,46 @@
+.link {
+  display: flex;
+}
+
+.link input {
+  width: 100%;
+  height: 50px;
+  outline: none;
+  border: 1px solid var(--colorRrey);
+  border-right: none;
+  font-size: 16px;
+  line-height: 21px;
+  padding: 12px;
+}
+
+.swiperDialogs {
+  margin-bottom: 30px;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.iconList {
+  text-align: center;
+
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center;
+}
+.iconList svg {
+  background: var(--colorRrey2);
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  padding: 10px;
+  color: #fff;
+}
+.swiperDialogs .swiper-button-prev::after,
+.swiperDialogs .swiper-button-next::after {
+  font-size: 18px !important;
+  background: red !important;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}

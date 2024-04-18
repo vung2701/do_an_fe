@@ -1,0 +1,46 @@
+.description {
+  background: rgb(240, 242, 245);
+  border-radius: 12px;
+  padding: 10px;
+  white-space: pre-line;
+}
+
+.listDescription .dots {
+  visibility: hidden;
+}
+.listDescription:hover .dots {
+  visibility: hidden;
+}
+.listDescription {
+  padding: 0 0 15px 0 !important;
+}
+.listDescription:first-child {
+  margin-top: 15px !important;
+}
+.subList {
+  margin-top: 5px;
+  display: flex;
+  gap: 10px;
+}
+.subList li {
+  padding: 0px;
+}
+.subList li:hover {
+  padding: 0px;
+  text-decoration: underline;
+}
+.subList li button {
+  font-size: 12px !important;
+  line-height: 14px !important;
+}
+.contents {
+  display: flex;
+  flex-direction: column;
+}
+.name {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 5px;
+  text-transform: capitalize;
+  font-size: 14px;
+}

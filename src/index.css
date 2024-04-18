@@ -1,0 +1,127 @@
+:root {
+  --colorBlue1: #00a9ff;
+  --colorBlue2: #89cff3;
+  --colorBlue3: #a0e9ff;
+  --colorBlue4: #cdf5fd;
+  --colorRrey: #000000;
+  --colorRrey2: #b0a695;
+  --colorWhite: #f9f9f9;
+  --colorBlack: #000000;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--colorRrey);
+}
+
+.container {
+  max-width: 1300px !important;
+  margin: auto !important;
+  padding: 0 24px !important;
+}
+
+.container-1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin-top: 110px;
+  max-width: 1300px !important;
+  padding: 0 24px !important;
+  position: relative;
+}
+
+@media (max-width: 767px) {
+  .container {
+    max-width: 100% !important;
+    margin: auto !important;
+    padding: 0 12px !important;
+  }
+
+  .hide-on-mobile {
+    display: none;
+  }
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  line-height: 21px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 18px;
+  line-height: 24px;
+  font-family: 'Inter', sans-serif;
+}
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+html *::-webkit-scrollbar {
+  width: 5px;
+  border-radius: 2px;
+}
+
+html *::-webkit-scrollbar-track {
+  background: #bddcbd;
+}
+
+html *::-webkit-scrollbar-thumb {
+  background: #389738;
+}
+
+html *::-webkit-scrollbar-thumb:hover {
+  background: #389738;
+}
+
+/* Custom library css */
+.MuiMenu-root {
+  max-height: 400px;
+}
+
+.MuiInputBase-root {
+  border-radius: 10px !important;
+}
+.MuiPaper-root {
+  border-radius: 12px !important;
+}
+
+.MuiFormControlLabel-label {
+  color: #444;
+  font-size: 14px !important;
+}
+
+.css-dpjnhs-MuiInputBase-root-MuiOutlinedInput-root {
+  padding: 10px !important;
+}
