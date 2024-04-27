@@ -13,7 +13,7 @@ import {
   convertDate,
   convertDateReverse,
   getObjFromLocal
-} from '../../types/untils';
+} from '../../types/utils';
 import styles from './profile.module.css';
 import CreateIcon from '@mui/icons-material/Create';
 import { updateProfileUser } from '../../services';

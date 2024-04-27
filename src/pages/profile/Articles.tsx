@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { getArticle } from '../../services';
 import { TypeArticle } from '../../types';
-import { concatLinkImage } from '../../types/untils';
+import { concatLinkImage } from '../../types/utils';
 import TitleProfile from './TitleProfile';
 import styles from './profile.module.css';
 import { Link, useParams } from 'react-router-dom';

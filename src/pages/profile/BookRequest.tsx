@@ -5,7 +5,7 @@ import { TypeBookRequest } from '../../types';
 import TitleProfile from './TitleProfile';
 import styles from './profile.module.css';
 import { Link, useParams } from 'react-router-dom';
-import { concatLinkImage, convertDate } from '../../types/untils';
+import { concatLinkImage, convertDate } from '../../types/utils';
 
 const BookRequestItems = ({
   book_id,

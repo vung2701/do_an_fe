@@ -1,129 +1,67 @@
-import { Avatar, Box, Container, List, Typography } from '@mui/material';
+import { Avatar, Box, Container, List, Tab, Tabs, Typography } from '@mui/material';
 import styles from './articles.module.css';
-import { ChangeEvent, useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import {
-  getArticle,
-  getArticleReaded,
-  getArticleWithParams,
-  getAuthorName
-} from '../../services';
-import {
-  concatLinkImage,
-  convertDate,
-  convertDateReverse,
-  sortByDate
-} from '../../types/untils';
-import { TypeArticle, TypeAuthor } from '../../types';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { getArticles, getArticlesByType, getKnowledgeType } from '../../services';
+import { concatLinkImage, convertDate, sortByDate } from '../../types/utils';
+import { TypeArticle, TypeAuthor, TypeKnowledgeType } from '../../types';
 import FunctionBar from './FunctionBar';
 import { isLogin } from '../../middlewares/Authorization';
 
 export default function Articles() {
-  const location = useLocation();
   const [articles, setArticles] = useState<TypeArticle[]>([]);
+  const [knowledgeTypes, setKnowledgeTypes] = useState<TypeKnowledgeType[]>([]);
   const [authors, setAuthors] = useState<TypeAuthor[]>([]);
-  const [author, setAuthor] = useState('none');
-  const [state, setState] = useState(location.state);
-  const [publishedFrom, setPublishedFrom] = useState('');
-  const [publishedTo, setPublishedTo] = useState('');
+  const [tab, setTab] = useState('all');
 
-  const [isLanguage, setIsLanguage] = useState<boolean>(
-    location.state === 'true' ? true : false
-  );
-
-  const filteredArticles = articles.filter((item) =>
-    isLanguage ? item.language === '2' : item.language === '1'
-  );
-
-  const handleLanguage = () => {
-    setIsLanguage(!isLanguage);
-  };
+  // pagination
+  const [pageSize, setPageSize] = useState(5);
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
 
   if (articles.length > 0) {
-    sortByDate(filteredArticles, 'created_on');
+    sortByDate(articles, 'created_on');
   }
 
-  const handleChangeAuthor = (event: ChangeEvent<HTMLInputElement>) => {
-    setAuthor(event.target.value);
+  // change tab
+  const handleChangeTab = (event: React.SyntheticEvent, newValue: string) => {
+    setTab(newValue);
+    setPage(1);
   };
 
-  const handleChangePublishedFrom = (event: ChangeEvent<HTMLInputElement>) => {
-    setPublishedFrom(event?.target.value);
-  };
-
-  const handleChangePublishedTo = (event: ChangeEvent<HTMLInputElement>) => {
-    setPublishedTo(event?.target.value);
-  };
   const fetchArticles = async () => {
     try {
-      if (state === 'readed') {
-        const articleData = await getArticleReaded(
-          localStorage.getItem('public_user')
-        );
-        setArticles(articleData);
+      if (tab == 'all') {
+        const res = await getArticles();
+        setArticles(res.article);
       } else {
-        const articleData = await getArticle();
-        setArticles(articleData);
+        const res = await getArticlesByType(tab);
+        setArticles(res.articles);
       }
-      const authorNames = await getAuthorName();
-      setAuthors(authorNames);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error('Error fetching articles:', error);
     }
   };
 
-  const handleFilter = async () => {
+  const fetchKnowledgeTypes = async () => {
     try {
-      let params = '';
-      if (author && author != 'none') {
-        params = `?author=${author}`;
-        if (publishedFrom) {
-          params += `&published_from=${convertDateReverse(publishedFrom)}`;
-          if (publishedTo) {
-            params += `&published_to=${convertDateReverse(publishedTo)}`;
-          } else {
-            const today = new Date();
-            params += `&published_to=${convertDateReverse(today)}`;
-          }
-        } else {
-          if (publishedTo) {
-            params += `&published_to=${convertDateReverse(publishedTo)}`;
-          }
-        }
-      } else {
-        if (publishedFrom) {
-          params += `?published_from=${convertDateReverse(publishedFrom)}`;
-          if (publishedTo) {
-            params += `&published_to=${convertDateReverse(publishedTo)}`;
-          } else {
-            const today = new Date();
-            params += `&published_to=${convertDateReverse(today)}`;
-          }
-        } else {
-          if (publishedTo) {
-            params += `?published_to=${convertDateReverse(publishedTo)}`;
-          } else {
-            params = '';
-          }
-        }
-      }
-      const articleData = await getArticleWithParams(params);
-      setArticles(articleData);
+      const res = await getKnowledgeType();
+      setKnowledgeTypes(res.knowledge_types);
     } catch (error) {
-      console.error('Error filter data:', error);
+      console.error('Error fetching knowledge_types:', error);
     }
-  };
-
-  const handleReset = async () => {
-    setAuthor('none');
-    setPublishedFrom('');
-    setPublishedTo('');
-    await fetchArticles();
   };
 
   useEffect(() => {
+    fetchKnowledgeTypes();
+    if (tab == 'all') {
+      fetchArticles();
+    }
+  }, []);
+
+  useEffect(() => {
     fetchArticles();
-  }, [state]);
+  }, [tab]);
   return (
     <Container className={`container-1`}>
       <Box className={styles.article}>
@@ -133,7 +71,7 @@ export default function Articles() {
           </h2>
         </div>
 
-        <FunctionBar
+        {/* <FunctionBar
           author={author}
           handleChangeAuthor={handleChangeAuthor}
           authors={authors}
@@ -145,38 +83,58 @@ export default function Articles() {
           isLanguage={isLanguage}
           handleLanguage={handleLanguage}
           handleReset={handleReset}
-        />
+        /> */}
 
         <List className={styles.listArticle}>
-          <Box className={styles.boxDivider}>
-            <h3>{state === 'readed' ? 'My Reading List' : 'List of Articles'}</h3>
-            <Box className={styles.divider}></Box>
+          {/* tab in top list */}
+          <Box sx={{ width: '100%' }}>
+            <Tabs
+              value={tab}
+              onChange={handleChangeTab}
+              TabIndicatorProps={{
+                style: {
+                  backgroundColor: '#0b6623',
+                  height: '3px'
+                }
+              }}
+              sx={{ borderBottom: '1px solid #ccc' }}
+            >
+              <Tab
+                value="all"
+                label="All "
+                sx={{
+                  color: '#666',
+                  '&.Mui-selected': {
+                    color: '#0b6623',
+                    fontWeight: '600'
+                  },
+                  textTransform: 'none',
+                  fontSize: '20px',
+                  fontFamily: `'Inter', sans-serif`
+                }}
+              />
+              {knowledgeTypes &&
+                knowledgeTypes.map((item) => (
+                  <Tab
+                    value={item.knowledge_type_id}
+                    label={item.name}
+                    sx={{
+                      color: '#666',
+                      '&.Mui-selected': {
+                        color: '#0b6623',
+                        fontWeight: '600'
+                      },
+                      textTransform: 'none',
+                      fontSize: '20px',
+                      fontFamily: `'Inter', sans-serif`
+                    }}
+                  />
+                ))}
+            </Tabs>
           </Box>
-          {!isLogin() &&
-            (state === 'readed' ? (
-              <div className={styles.backReaded}>
-                <button
-                  onClick={() => {
-                    setState('');
-                  }}
-                >
-                  View all articles
-                </button>
-              </div>
-            ) : (
-              <div className={styles.backReaded}>
-                <button
-                  onClick={() => {
-                    setState('readed');
-                  }}
-                >
-                  View my reading list
-                </button>
-              </div>
-            ))}
 
-          {filteredArticles?.length > 0 ? (
-            filteredArticles.map((item) => (
+          {articles?.length > 0 ? (
+            articles.map((item) => (
               <Link
                 key={item.article_id}
                 to={`/articles/${item.article_id}`}
@@ -212,6 +170,16 @@ export default function Articles() {
             <Box className={styles.noArticles}>No article.</Box>
           )}
         </List>
+        {page * pageSize <= total && (
+          <button
+            className={styles.viewMore}
+            onClick={() => {
+              if (page * pageSize <= total) setPage(page + 1);
+            }}
+          >
+            {t('View_more')}
+          </button>
+        )}
       </Box>
     </Container>
   );

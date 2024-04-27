@@ -3,7 +3,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { concatLinkImage } from '../../types/untils';
+import { concatLinkImage } from '../../types/utils';
 import styles from './header.module.css';
 import { useEffect, useState } from 'react';
 import { getMemberId } from '../../services';

@@ -14,7 +14,7 @@ import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
 import CloseIcon from '@mui/icons-material/Close';
 import styles from './bookform.module.css';
-import { getObjFromLocal } from '../../types/untils';
+import { getObjFromLocal } from '../../types/utils';
 import { useEffect, useState } from 'react';
 import { getMemberId, postBookRequest } from '../../services';
 import { TypeMemberId } from '../../types';

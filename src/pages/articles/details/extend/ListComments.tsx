@@ -1,6 +1,6 @@
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import styles from './listComments.module.css';
-import { concatLinkImage } from '../../../../types/untils';
+import { concatLinkImage } from '../../../../types/utils';
 
 interface TypeListComments {
   description?: string | undefined;

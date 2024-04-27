@@ -5,14 +5,15 @@ import SendIcon from '@mui/icons-material/Send';
 import ShareIcon from '@mui/icons-material/Share';
 import { Box, Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { ExtendProps, TypeMemberId } from '../../../../types';
-import { concatLinkImage } from '../../../../types/untils';
+import { ExtendProps, TypeProfile } from '../../../../types';
+import { concatLinkImage, getObjFromLocal } from '../../../../types/utils';
 import DialogLike from './DialogLike';
 import ListComments from './ListComments';
 import styles from './extend.module.css';
 import { getProfileUser } from '../../../../services';
 import { isLogin } from '../../../../middlewares/Authorization';
 import { Link } from 'react-router-dom';
+import Shares from './Shares';
 
 export default function Extend({
   handleLike,
@@ -30,15 +31,14 @@ export default function Extend({
   open,
   baseUrl,
   isLiked,
-  user,
   showMore
 }: ExtendProps) {
   const [showLike, setShowLike] = useState(false);
-  const [profile, setProfile] = useState<TypeMemberId>();
+  const [profile, setProfile] = useState<TypeProfile>();
 
   const fetchProfile = async () => {
     try {
-      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      const user = getObjFromLocal('user');
       if (user) {
         const data = await getProfileUser(user.user_id);
         const userProfile = data?.profile;
@@ -57,14 +57,14 @@ export default function Extend({
     setShowLike(!showLike);
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e: any) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSubmit(e);
     }
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     setComment && setComment(e.target.value);
   };
 
@@ -73,12 +73,12 @@ export default function Extend({
       <Grid container sx={{ padding: '10px 0' }} className={styles.contentlike}>
         <button onClick={handleShowListLike}>
           {likess} {''}
-          <span>Likes</span>
+          <span> Likes</span>
         </button>
 
         <button>
           {commentd}
-          {''} <span>Comments</span>
+          {''} <span> Comments</span>
         </button>
         <DialogLike
           likeAuth={likeAuth}
@@ -94,24 +94,24 @@ export default function Extend({
           ) : (
             <FavoriteBorderIcon />
           )}
-          <span>Like</span>
+          <span> Like</span>
         </button>
         <button onClick={handleComments}>
           <ChatBubbleOutlineIcon />
-          <span>Comment</span>
+          <span> Comment</span>
         </button>
         <button onClick={handleShare}>
           <ShareIcon />
-          <span>Share</span>
+          <span> Share</span>
         </button>
         {open && <Shares baseUrl={baseUrl} />}
       </Box>
       <Box className={styles.comments}>
         {isLogin() ? (
           <ul className={styles.listMoreComments}>
-            {commentd > 5 && (
+            {commentd && commentd > 5 && (
               <button className={styles.moreComments} onClick={showMore}>
-                See previous comments
+                See previous comment
               </button>
             )}
             {moreComment
@@ -131,7 +131,7 @@ export default function Extend({
           </ul>
         ) : (
           <div className={styles.notLoginComment}>
-            <Link to="/login">{`Please login to see comments!`}</Link>
+            <Link to="/login">Please login to view more content</Link>
           </div>
         )}
         <Box className={styles.containerComment}>

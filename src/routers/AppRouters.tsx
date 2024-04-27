@@ -14,8 +14,8 @@ export default function AppRouters() {
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
       {/* <Route path="/profile/:id" element={<Profile />} /> */}
-      {/* <Route path="articles/:id" element={<Details />} /> */}
-      {/* <Route path="/articles" element={<Articles />} /> */}
+      <Route path="articles/:id" element={<Details />} />
+      <Route path="/articles" element={<Articles />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

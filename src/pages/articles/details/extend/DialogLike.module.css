@@ -77,7 +77,7 @@
 }
 
 .notLoginLike a {
-  color: blue !important;
+  color: var(--colorBlue1) !important;
   font-weight: 500;
   text-decoration: underline;
 }

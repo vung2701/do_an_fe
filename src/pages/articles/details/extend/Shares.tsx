@@ -13,6 +13,7 @@ export default function Shares({ baseUrl = '' }: TypeUrl) {
     navigator.clipboard.writeText(baseUrl);
     setCopied(true);
   };
+  const { t } = useTranslation();
 
   // const share = 'https://avtvn.com/';
   return (

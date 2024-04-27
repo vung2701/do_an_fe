@@ -1,4 +1,4 @@
-import { getObjFromLocal } from "../types/untils"
+import { getObjFromLocal } from "../types/utils"
 
 const isLogin = () => {
     const user = getObjFromLocal('user');

@@ -3,21 +3,63 @@
   position: relative;
 }
 
+.titleDetailsBox {
+  position: sticky;
+  top: 62px;
+  background-color: #fff;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #efefef;
+  z-index: 10;
+}
+
+.titleDetails {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.titleLeft {
+  display: flex;
+  align-items: center;
+}
+
 .titleDetails h2 {
-  font-size: 40px;
-  line-height: 56px;
+  font-size: 32px;
+  line-height: 50px;
   font-weight: bold;
   position: relative;
-  margin-bottom: 20px;
 }
+
 .titleDetails h2::after {
   content: '';
   position: absolute;
   width: 50px;
   height: 6px;
   left: 0px;
-  bottom: -5px;
+  bottom: -4px;
   background: #0b6623;
+}
+
+.btn {
+  font-size: 18px;
+  border-radius: 8px;
+  height: 32px;
+  width: 82px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.btn:hover {
+  opacity: 0.75;
+}
+
+.btnTest {
+  background-color: #389738;
+  color: #fff;
+}
+
+.btnTest a {
+  color: #fff;
 }
 
 .published {
@@ -36,16 +78,17 @@
 .content ul,
 .content li,
 .content p {
-  padding: 5px 0 !important;
+  padding: 5px 0;
 }
 .content ul,
 .content li {
-  margin-left: 15px !important;
-  list-style-type: initial !important;
+  margin-left: 15px;
+  list-style-type: initial;
 }
+
 .content ol {
-  margin-left: 15px !important;
-  list-style-type: initial !important;
+  margin-left: 15px;
+  list-style-type: initial;
 }
 .content img {
   width: 70% !important;
@@ -54,18 +97,20 @@
   margin: auto;
   object-fit: contain;
 }
+
 .tagDetails h2 {
   font-size: 14px;
   line-height: 19px;
-  padding: 20px 0 30px 0;
+  padding-top: 20px;
   display: flex;
   gap: 5px;
   font-style: italic;
 }
 .titleAuthor {
-  font-size: 32px;
+  font-size: 22px;
   line-height: 38px;
   font-weight: 500;
+  margin-top: 30px;
   margin-bottom: 12px;
 }
 .authorAbout {
@@ -90,6 +135,7 @@
   flex-direction: column;
   gap: 12px;
 }
+
 .authorAbout .content h2 {
   font-size: 18px;
   line-height: 21px;
@@ -108,12 +154,12 @@
 .loginToview {
   margin-top: 16px;
   font-size: 20px;
-  color: blue;
+  color: var(--colorBlue1);
   font-style: italic;
 }
 
 .clickHere {
-  color: blue;
+  color: var(--colorBlue1);
   text-decoration: underline;
   font-style: italic;
   margin-left: 4px;
@@ -147,7 +193,6 @@
 }
 
 @media (max-width: 767px) {
-
   .titleDetails h2 {
     font-size: 28px !important;
     line-height: 36px !important;

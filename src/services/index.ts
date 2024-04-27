@@ -51,15 +51,26 @@ const logoutUser = async () => {
     throw error;
   }
 };
-const getArticle = async () => {
+const getArticles = async ( page = 1, per_page= 10) => {
   try {
-    const response = await axiosInstance.get('news/article');
-    return response.data.article;
+    const response = await axiosInstance.get(`article/get_all?page=${page}&per_page=${per_page}&sort=-created_on`);
+    return response.data;
   } catch (error) {
-    console.error('Error fetching careers:', error);
+    console.error('Error fetching articles:', error);
     throw error;
   }
 };
+
+const getArticlesByType = async ( knowledge_type_id?: string, page = 1, per_page= 10) => {
+  try {
+    const response = await axiosInstance.get(`article/get_by_knowledge_type?knowledge_type_id=${knowledge_type_id}&page=${page}&per_page=${per_page}&sort=-created_on`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching articles:', error);
+    throw error;
+  }
+};
+
 
 const getArticleReaded = async (webBrowser: string | null) => {
   try {
@@ -74,7 +85,6 @@ const getArticleReaded = async (webBrowser: string | null) => {
 
 const getArticleWithParams = async (params: string) => {
   try {
-    const axiosInstance = createAxios()
     const response = await axiosInstance.get('news/article' + params);
     return response.data.article;
   } catch (error) {
@@ -83,10 +93,9 @@ const getArticleWithParams = async (params: string) => {
   }
 };
 
-const getArticleDetails = async (id: string | undefined, webBrowser: string | null) => {
+const getArticleDetails = async (id: string | undefined) => {
   try {
-     const axiosInstance = createAxios();
-    const response = await axiosInstance.get(`news/article_details?article_id=${id}&web_browser=${webBrowser}`);
+    const response = await axiosInstance.get(`article/get?article_id=${id}`);
     return response?.data;
   } catch (error) {
     console.error('Error fetching articles detail:', error);
@@ -94,6 +103,16 @@ const getArticleDetails = async (id: string | undefined, webBrowser: string | nu
   }
 };
 
+const getKnowledgeType = async () => {
+  try {
+    
+    const response = await axiosInstance.get(`knowledge/get_all_type`);
+    return response?.data;
+  } catch (error) {
+    console.error('Error fetching knowledge type:', error);
+    throw error;
+  }
+};
 
 
 const getArticlePublic = async ( id: string | undefined, webBrowser: string | null) => { 
@@ -222,16 +241,6 @@ const getProfile = async () => {
   }
 };
 
-const getAuthorById = async (id: string | undefined) => {
-  try {
-    const response = await axiosInstance.get(`news/article_author?article_id=${id}`);
-    return response?.data.profile;
-  } catch (error) {
-    console.error('Error get infomation:', error);
-    throw error;
-  }
-};
-
 const getAuthorName = async () => {
   try {
     const response = await axiosInstance.get(`news/author_articles`);
@@ -326,11 +335,13 @@ export {
   loginGetUser,
   logoutUser,
   deleteLikes,
-  getArticle,
+  getArticles,
+  getArticlesByType,
   getArticleReaded,
   getArticleWithParams,
   getArticleDetails,
   getArticlePublic,
+  getKnowledgeType,
   getComments,
   getProfile,
   getMember,

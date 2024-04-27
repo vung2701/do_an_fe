@@ -7,9 +7,9 @@ import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import styles from './DialogLike.module.css';
 import { useEffect, useState } from 'react';
-import { getMemberId, getProfile } from '../../../../services';
-import { TypeMemberId } from '../../../../types';
-import { concatLinkImage } from '../../../../types/untils';
+import { getMemberId } from '../../../../services';
+import { TypeProfile } from '../../../../types';
+import { concatLinkImage } from '../../../../types/utils';
 import { isLogin } from '../../../../middlewares/Authorization';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -22,7 +22,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }));
 
 const DialogLikeItem = ({ id }: { id: string }) => {
-  const [user, setUser] = useState<TypeMemberId>();
+  const [user, setUser] = useState<TypeProfile>();
 
   const fetchUser = async (id: string) => {
     try {
@@ -46,7 +46,7 @@ const DialogLikeItem = ({ id }: { id: string }) => {
             <span>{user?.last_name}</span>
           </h2>
           <div>
-            {user?.designation}, {user?.company}
+            {user?.major}, {user?.school}
           </div>
         </div>
       </Link>
@@ -107,7 +107,7 @@ export default function DialogLike({
           </ul>
         ) : (
           <div className={styles.notLoginLike}>
-            <Link to="/login">{`Please login to see user liked!`}</Link>
+            <Link to="/login">Login to see user(s) liked.</Link>
           </div>
         )}
       </DialogContent>

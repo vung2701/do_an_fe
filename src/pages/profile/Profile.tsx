@@ -11,7 +11,7 @@ import Articles from './Articles';
 import InfomationUser from './InfomationUser';
 import styles from './profile.module.css';
 import { useAuth } from '../../context/AuthContext';
-import { getObjFromLocal } from '../../types/untils';
+import { getObjFromLocal } from '../../types/utils';
 import BookRequest from './BookRequest';
 
 export default function Profile() {
