@@ -1,0 +1,16 @@
+.fromControl {
+  display: flex;
+  flex-direction: column;
+}
+.fromControl label {
+  margin: 15px 0;
+}
+
+.required {
+  color: red;
+}
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 7px;
+}

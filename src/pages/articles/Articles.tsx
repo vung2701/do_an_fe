@@ -177,7 +177,7 @@ export default function Articles() {
               if (page * pageSize <= total) setPage(page + 1);
             }}
           >
-            {t('View_more')}
+            View more
           </button>
         )}
       </Box>

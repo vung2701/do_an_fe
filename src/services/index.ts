@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { isLogin } from '../middlewares/Authorization';
 import { createAxios, uploadAxios } from './axios';
-import { TypeLogin } from '../types';
+import { TypeLikePost, TypeLogin, TypeNewComment, TypeNewParamsComments, TypePost } from '../types';
 
 let axiosInstance = createAxios();
 
@@ -83,15 +83,15 @@ const getArticleReaded = async (webBrowser: string | null) => {
 };
 
 
-const getArticleWithParams = async (params: string) => {
-  try {
-    const response = await axiosInstance.get('news/article' + params);
-    return response.data.article;
-  } catch (error) {
-    console.error('Error fetching careers:', error);
-    throw error;
-  }
-};
+// const getArticleWithParams = async (params: string) => {
+//   try {
+//     const response = await axiosInstance.get('news/article' + params);
+//     return response.data.article;
+//   } catch (error) {
+//     console.error('Error fetching careers:', error);
+//     throw error;
+//   }
+// };
 
 const getArticleDetails = async (id: string | undefined) => {
   try {
@@ -115,24 +115,24 @@ const getKnowledgeType = async () => {
 };
 
 
-const getArticlePublic = async ( id: string | undefined, webBrowser: string | null) => { 
-  try {
-    const axiosInstance = createAxios();
-    const response = await axiosInstance.get(`news/article_details?article_id=${id}&web_browser=${webBrowser}`);
-    return response?.data;
-  } catch (error) {
-    console.error('Error fetching articles public:', error);
-    throw error;
-  }
-}
+// const getArticlePublic = async ( id: string | undefined, webBrowser: string | null) => { 
+//   try {
+//     const axiosInstance = createAxios();
+//     const response = await axiosInstance.get(`/article_details?article_id=${id}&web_browser=${webBrowser}`);
+//     return response?.data;
+//   } catch (error) {
+//     console.error('Error fetching articles public:', error);
+//     throw error;
+//   }
+// }
 
 
 const postComments = async (newComment: any) => {
   try {
-      const response = await axiosInstance.post('news/comment', newComment);
+      const response = await axiosInstance.post('article/comment', newComment);
       return response;
   } catch (error) {
-    console.error('Error fetching careers:', error);
+    console.error('Error coment article:', error);
     throw error;
   }
 };
@@ -144,33 +144,33 @@ const getComments = async (paramsComments: any) => {
   try {
     if(isLogin()){
       const response = await axiosInstance.get(
-        `news/comment?parent_article=${id}&page=${page}&per_page=${per_page}&sort=-created_on`
+        `article/comment?parent_article=${id}&page=${page}&per_page=${per_page}&sort=-created_on`
       );
       return response?.data;
     }
     return;
   } catch (error) {
-    console.error('Error fetching careers:', error);
+    console.error('Error get comment article:', error);
     throw error;
   }
 };
 
 const postLikes = async (liked: any) => {
   try {
-      const response = await axiosInstance.post('news/article/like_share', liked);
+      const response = await axiosInstance.post('article/like', liked);
       return response;
   } catch (error) {
-    console.error('Error fetching careers:', error);
+    console.error('Error like article:', error);
     throw error;
   }
 };
 
 const deleteLikes = async (newLike: any) => {
   try {
-    const response = await axiosInstance.post('news/article/unlike', newLike);
+    const response = await axiosInstance.post('article/unlike', newLike);
     return response;
   } catch (error) {
-    console.error('Error fetching careers:', error);
+    console.error('Error unlike article:', error);
     throw error;
   }
 };
@@ -231,16 +231,6 @@ const profileUser = async (profile: { profile_id: string |undefined; image: stri
 };
 
 
-const getProfile = async () => {
-  try {
-    const response = await axiosInstance.get(`user/profile/get`);
-    return response.data;
-  } catch (error) {
-    console.error('Error get infomation:', error);
-    throw error;
-  }
-};
-
 const getAuthorName = async () => {
   try {
     const response = await axiosInstance.get(`news/author_articles`);
@@ -251,7 +241,7 @@ const getAuthorName = async () => {
   }
 };
 
-const getMember = async () => {
+const getNewMember = async () => {
   try {
     const axiosInstance = createAxios();
     const response = await axiosInstance.get(`user/new_members`);
@@ -262,18 +252,6 @@ const getMember = async () => {
   }
 };
 
-const getMemberId = async (id: string) => {
-  try {
-    if(isLogin()){
-      const response = await axiosInstance.get(`user/profile/get?user_id=${id}`);
-      return response?.data?.profile;
-    }
-    return;
-  } catch (error) {
-    console.error('Error uploading file:', error);
-    throw error;
-  }
-};
 
 
 
@@ -328,6 +306,96 @@ const getIpInfor = async () => {
       }
     };
 
+const getPosts = async (page = 1, per_page = 10) => {
+  try {
+    const response = await axiosInstance.get(`post/get?page=${page}&per_page=${per_page}&sort=-created_on`);
+    return response?.data;
+  } catch (error) {
+    console.error('Error get posts:', error);
+    throw error;
+  }
+};
+
+const getPost = async (id: string | undefined) => {
+  try {
+    const response = await axiosInstance.get(`post/get?post_id=${id}`);
+    return response?.data;
+  } catch (error) {
+    console.error('Error get posts:', error);
+    throw error;
+  }
+};
+
+
+const postPost = async (values: TypePost) => {
+  try {
+    const response = await axiosInstance.post('post/add', values)
+    return response?.data;
+  } catch (error) {
+    console.error('create post error:', error);
+    throw error;
+  }
+};
+
+const updatePost = async (values: TypePost) => {
+  try {
+    const response = await axiosInstance.post('post/update', values)
+    return response?.data;
+  } catch (error) {
+    console.error('create post error:', error);
+    throw error;
+  }
+};
+
+
+const likePost = async (liked: TypeLikePost) => {
+  try {
+    const response = await axiosInstance.post('post/like', liked);
+    return response;
+  } catch (error) {
+    console.error('Error fetching careers:', error);
+    throw error;
+  }
+};
+
+const unlikePost = async (liked: TypeLikePost) => {
+  try {
+    const response = await axiosInstance.post('post/unlike', liked);
+    return response;
+  } catch (error) {
+    console.error('Error fetching careers:', error);
+    throw error;
+  }
+};
+
+const getPostComment = async (paramsComments: TypeNewParamsComments) => {
+  const id = paramsComments?.id || '';
+  const page = paramsComments?.page || 1;
+  const per_page = paramsComments?.perPage || 5;
+  try {
+    if (isLogin()) {
+      const response = await axiosInstance.get(
+        `post/comment?parent_post=${id}&page=${page}&per_page=${per_page}&sort=-created_on`
+      );
+      return response?.data;
+    }
+    return;
+  } catch (error) {
+    console.error('Error fetching comments:', error);
+    throw error;
+  }
+};
+
+const postPostComment = async (newComment: TypeNewComment) => {
+  try {
+    const response = await axiosInstance.post('post/comment', newComment);
+    return response;
+  } catch (error) {
+    console.error('Error fetching careers:', error);
+    throw error;
+  }
+};
+
 
 export {
   registerUser,
@@ -338,21 +406,26 @@ export {
   getArticles,
   getArticlesByType,
   getArticleReaded,
-  getArticleWithParams,
+  // getArticleWithParams,
   getArticleDetails,
-  getArticlePublic,
+  // getArticlePublic,
   getKnowledgeType,
+  getPost,
+  getPosts,
+  postPost,
+  updatePost,
+  getPostComment,
+  postPostComment,
+  unlikePost,
+  likePost,
   getComments,
-  getProfile,
-  getMember,
-  getMemberId,
+  getNewMember,
   getProfileUser,
   postComments,
   postLikes,
   profileUser,
   updateProfileUser,
   uploadAvatar,
-  getAuthorById,
   getAuthorName,
   LoginFacebook,
   LoginGoogle,

@@ -19,9 +19,7 @@ export default function ListComments({
     <li className={styles.listDescription}>
       <img
         src={
-          created_by_image
-            ? concatLinkImage(created_by_image)
-            : '/images/6596121.png'
+          created_by_image ? concatLinkImage(created_by_image) : '/images/user.png'
         }
         alt="image"
       />

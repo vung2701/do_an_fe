@@ -2,11 +2,10 @@ import { Box } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import { getArticleDetails, getAuthorById } from '../../../services';
+import { getArticleDetails } from '../../../services';
 import { TypeArticle } from '../../../types';
 import styles from './details.module.css';
 import ContentDetails from './ContentDetails';
-import { isLogin } from '../../../middlewares/Authorization';
 import LimitDetails from './LimitDetails';
 
 export default function Details() {

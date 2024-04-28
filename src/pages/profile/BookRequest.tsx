@@ -20,7 +20,7 @@ const BookRequestItems = ({
   return (
     <Link to={`/books/${book_id}`} className={styles.bookRequestItem}>
       <img
-        src={book_image ? concatLinkImage(book_image) : '/public/images/6596121.png'}
+        src={book_image ? concatLinkImage(book_image) : '/public/images/user.png'}
         alt="book"
       />
       <div className={styles.content}>

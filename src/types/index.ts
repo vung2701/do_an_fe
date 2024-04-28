@@ -15,8 +15,8 @@ export type TypeArticle = {
   spotlight?: boolean;
   spotlight_image?: string | undefined;
   created_on?: string | undefined;
-  created_by?: number | undefined;
-  like_auth?: number[] | undefined;
+  created_by?: string | undefined;
+  like_auth?: string[] | undefined;
   last_modified?: string | undefined;
   language?: string | undefined;
   author_description?: string | undefined;
@@ -91,13 +91,12 @@ export interface TypeContentPosts {
   author_user_id?: string | undefined;
   created_on?: string | undefined;
   reference_link?: string | undefined;
-  like_auth?: number[] | undefined;
+  like_auth?: string[] | undefined;
   comments?: number | undefined;
   shares?: number | undefined;
   likes?: number | undefined;
   id?: string | undefined;
-  tag?: number[] | undefined;
-  profileId?: any;
+  knowledge?: string[] | undefined;
   limit?: boolean;
   handleLanguage?: () => void;
   handleViewMore?: () => void;
@@ -153,4 +152,82 @@ export interface TypeProfile {
   location?: string | undefined;
   modified_on?: string | undefined;
   phone?: string | undefined;
+}
+
+export interface TypeButton {
+  clasNames?: string | undefined;
+  text?: string | undefined;
+  htmlFor?: string | undefined;
+  errors?: any | undefined;
+  id?: string | undefined;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onEditorChange?: (a: string, b: any) => void;
+  value?: string | undefined;
+  name?: string | undefined;
+  required?: string | undefined;
+  type?: string | undefined;
+  placeholder?: string | undefined;
+  autoComplete?: string | undefined;
+}
+
+export type TypePost = {
+  post_id?: string | undefined;
+  title?: string | undefined;
+  description?: string | undefined;
+  created_by?: string | undefined;
+  created_on?: string | undefined;
+  likes?: number | undefined;
+  comments?: number | undefined;
+  like_auth?: string[] | undefined;
+  comment_auth?: number[] | undefined;
+  comment_list?: number[] | undefined;
+  created_by_image?: string | undefined;
+  first_name_created_by?: string | undefined;
+  last_name_created_by?: string | undefined;
+  email_created_by?: string | undefined;
+  company_created_by?: string | undefined;
+  designation_created_by?: string | undefined;
+};
+
+
+export interface TypePagination {
+  page?: number | undefined;
+  perPage?: number | undefined;
+}
+
+export interface TypeNewLike {
+  title?: string | undefined;
+  author?: string | undefined;
+  published_on?: string | undefined;
+  article_id?: string | undefined;
+  like_list?: string | undefined;
+  share_list?: string | undefined;
+  like_auth?: string | undefined;
+  share_auth?: string | undefined;
+}
+
+export interface TypeLikePost {
+  post_id?: string | undefined;
+  like_auth?: string | undefined;
+}
+
+export interface TypePostComment {
+  title?: string | undefined | null;
+  parent_comment?: string | undefined;
+  description?: string | undefined;
+  created_by?: string | undefined;
+}
+
+export interface TypeNewComment {
+  title?: string | undefined | null;
+  parent_article?: string | undefined;
+  parent_comment?: string | undefined;
+  description?: string | undefined;
+  created_by?: string | undefined;
+}
+
+export interface TypeNewParamsComments {
+  id?: string | undefined;
+  page?: number | undefined;
+  perPage?: number | undefined;
 }

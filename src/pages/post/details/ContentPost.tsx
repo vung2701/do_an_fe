@@ -2,36 +2,33 @@ import { Box } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  deleteLikes,
-  getComments,
-  postComments,
-  postLikes
+  getPostComment,
+  likePost,
+  postPostComment,
+  unlikePost
 } from '../../../services';
-import { TypeComments, TypeContentPosts, TypeNewLike } from '../../../types';
-import styles from './details.module.css';
-import Extend from './extend/Extend';
-import BackBtn from '../../../components/backBtn/BackBtn';
-import ContentArticleDetails from './ContentArticleDetails';
+import { TypeComments, TypeLikePost, TypePost } from '../../../types';
 import { getObjFromLocal } from '../../../types/utils';
+import styles from './postDetails.module.css';
+import Extend from '../../articles/details/extend/Extend';
+import BackBtn from '../../../components/backBtn/BackBtn';
+import ContenPostDetails from './ContentPostDetails';
 
-const ContentDetails = ({
-  shares,
-  comments,
-  published_on,
+const ContentPost = ({
+  post_id,
   title,
-  content,
-  author_username,
-  author_major,
-  author_school,
+  description,
+  designation_created_by,
+  first_name_created_by,
+  last_name_created_by,
+  company_created_by,
+  created_on,
+  created_by,
+  comments,
   likes,
-  id,
   like_auth,
-  author_description,
-  author_user_id,
-  image,
-  profileId,
-  limit
-}: TypeContentPosts) => {
+  created_by_image
+}: TypePost) => {
   const navigate = useNavigate();
   const baseUrl = window.location.href;
   const [comment, setComment] = useState('');
@@ -51,19 +48,16 @@ const ContentDetails = ({
     if (user) {
       setIsLiked((prevIsLiked) => !prevIsLiked);
       try {
-        const newLike: TypeNewLike = {
-          title: 'like',
-          author: '',
-          published_on: '',
-          article_id: id || undefined,
+        const newLike: TypeLikePost = {
+          post_id: post_id,
           like_auth: user?.user_id
         };
         if (isLiked) {
-          const unlike = await deleteLikes(newLike);
+          const unlike = await unlikePost(newLike);
           setLikess(unlike.data.article.likes);
           setLikeAuth(unlike.data.article.like_auth);
         } else {
-          const like = await postLikes(newLike);
+          const like = await likePost(newLike);
           setLikess(like.data.article.likes);
           setLikeAuth(like.data.article.like_auth);
         }
@@ -100,14 +94,15 @@ const ContentDetails = ({
           const newComment = {
             title: 'comment',
             description: comment,
-            parent_article: id || null,
+            parent_post: post_id || null,
             parent_comment: '',
             created_by: user.user_id,
             comment_id: '',
+            like_list: '',
             like_auth: user.user_id
           };
 
-          const res = await postComments(newComment);
+          const res = await postPostComment(newComment);
           setNewComment(res?.data?.comment);
           setComment('');
         } catch (error) {
@@ -121,8 +116,8 @@ const ContentDetails = ({
 
   const fetchComments = async () => {
     try {
-      const paramsComments = { id: id, page: 1, per_page: 5 };
-      const moreComment = await getComments(paramsComments);
+      const paramsComments = { id: post_id, page: 1, per_page: 5 };
+      const moreComment = await getPostComment(paramsComments);
       if (moreComment?.total) {
         setCommentd(moreComment?.total);
       }
@@ -134,9 +129,9 @@ const ContentDetails = ({
 
   const showMoreComments = async () => {
     const nextPage = currentPage + 1;
-    const paramsComments = { id: id, page: nextPage, perPage: 5 };
+    const paramsComments = { id: post_id, page: nextPage, perPage: 5 };
     try {
-      const moreComments = await getComments(paramsComments);
+      const moreComments = await getPostComment(paramsComments);
       const oldComments = moreComments?.comment;
       if (
         oldComments &&
@@ -162,19 +157,18 @@ const ContentDetails = ({
   return (
     <>
       <Box className={styles.blogLeft}>
-        <BackBtn link="/articles" />
-        <ContentArticleDetails
-          id={id}
+        <BackBtn link="/posts" />
+        <ContenPostDetails
+          post_id={post_id}
           title={title}
-          content={content}
-          published_on={published_on}
-          author_username={author_username}
-          author_major={author_major}
-          author_school={author_school}
-          author_description={author_description}
-          author_user_id={author_user_id}
-          image={image}
-          limit={limit}
+          description={description}
+          designation_created_by={designation_created_by}
+          first_name_created_by={first_name_created_by}
+          last_name_created_by={last_name_created_by}
+          company_created_by={company_created_by}
+          created_on={created_on}
+          created_by={created_by}
+          created_by_image={created_by_image}
         />
         <Extend
           handleLike={handleLike}
@@ -182,7 +176,6 @@ const ContentDetails = ({
           handleComments={handleComments}
           commentd={commentd}
           handleShare={handleShare}
-          shares={shares}
           commentsRef={commentsRef}
           comment={comment}
           setComment={setComment}
@@ -200,4 +193,4 @@ const ContentDetails = ({
   );
 };
 
-export default ContentDetails;
+export default ContentPost;

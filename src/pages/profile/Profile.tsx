@@ -4,8 +4,7 @@ import { Box, Container, Grid } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { getMemberId, getSkilId, profileUser, uploadAvatar } from '../../services';
-import { TypeMemberId } from '../../types';
+import { getProfileUser, profileUser, uploadAvatar } from '../../services';
 import Titles from '../../components/titles/Titles';
 import Articles from './Articles';
 import InfomationUser from './InfomationUser';
@@ -13,16 +12,16 @@ import styles from './profile.module.css';
 import { useAuth } from '../../context/AuthContext';
 import { getObjFromLocal } from '../../types/utils';
 import BookRequest from './BookRequest';
+import { TypeProfile } from '../../types';
 
 export default function Profile() {
   let { id } = useParams();
   const { updateProfile } = useAuth();
   const inputRef = useRef<HTMLInputElement>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [memberId, setMemberId] = useState<TypeMemberId>();
+  const [memberId, setMemberId] = useState<TypeProfile>();
   const [oppen, setOppen] = useState(false);
   const [user, setUser] = useState();
-  const [skills, setSkills] = useState([]);
 
   const navigate = useNavigate();
 
@@ -65,7 +64,7 @@ export default function Profile() {
   const fecthMemberId = async () => {
     try {
       if (id) {
-        const profileId = await getMemberId(id);
+        const profileId = await getProfileUser(id);
         setMemberId(profileId);
       }
     } catch (error) {
@@ -73,17 +72,7 @@ export default function Profile() {
     }
   };
 
-  const fecthSkills = async () => {
-    try {
-      const res = await getSkilId(memberId?.my_skill);
-      setSkills(res?.skill);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
-    fecthSkills();
     fecthMemberId();
   }, [updateProfile, id]);
 

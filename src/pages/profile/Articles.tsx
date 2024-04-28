@@ -11,7 +11,7 @@ const ArticlesItems = ({ article_id, title, image, content }: TypeArticle) => {
   return (
     <Link to={`/articles/${article_id}`} className={styles.contentProject}>
       <img
-        src={image ? concatLinkImage(image) : '/public/images/6596121.png'}
+        src={image ? concatLinkImage(image) : '/public/images/user.png'}
         alt="article"
       />
       <div className={styles.content}>

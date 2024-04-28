@@ -1,11 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { TypeContentPosts } from '../../../types';
-import {
-  concatLinkImageNoMedia,
-  convertDate,
-  getObjFromLocal
-} from '../../../types/utils';
+import { concatLinkImage, convertDate } from '../../../types/utils';
 import styles from './details.module.css';
 
 const ContenArticleDetails = ({
@@ -21,8 +17,6 @@ const ContenArticleDetails = ({
   image,
   limit
 }: TypeContentPosts) => {
-  let user = getObjFromLocal('user');
-
   return (
     <>
       <Box className={styles.titleDetailsBox}>
@@ -66,7 +60,7 @@ const ContenArticleDetails = ({
         <h2 className={styles.titleAuthor}>About The Author</h2>
         <Link to={`/profile/${author_user_id}`} className={styles.authorAbout}>
           <div className={styles.imageAuthor}>
-            <img loading="lazy" src={concatLinkImageNoMedia(image)} alt="author" />
+            <img loading="lazy" src={concatLinkImage(image)} alt="author" />
           </div>
           <div className={styles.content}>
             <h2>

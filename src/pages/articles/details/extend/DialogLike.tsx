@@ -7,7 +7,7 @@ import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import styles from './DialogLike.module.css';
 import { useEffect, useState } from 'react';
-import { getMemberId } from '../../../../services';
+import { getProfileUser } from '../../../../services';
 import { TypeProfile } from '../../../../types';
 import { concatLinkImage } from '../../../../types/utils';
 import { isLogin } from '../../../../middlewares/Authorization';
@@ -26,8 +26,8 @@ const DialogLikeItem = ({ id }: { id: string }) => {
 
   const fetchUser = async (id: string) => {
     try {
-      const data = await getMemberId(id);
-      setUser(data);
+      const data = await getProfileUser(id);
+      setUser(data.profile);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -39,14 +39,20 @@ const DialogLikeItem = ({ id }: { id: string }) => {
   return (
     <li>
       <Link to={`/profile/${user?.user_id}`}>
-        <img loading="lazy" src={concatLinkImage(user?.image)} alt="user" />
+        <img
+          loading="lazy"
+          src={
+            user?.image ? concatLinkImage(user?.image) : '/public/images/user.png'
+          }
+          alt="user"
+        />
         <div className={styles.infomation}>
           <h2>
             <span>{user?.first_name}</span>
             <span>{user?.last_name}</span>
           </h2>
           <div>
-            {user?.major}, {user?.school}
+            {user?.major} {user?.school}
           </div>
         </div>
       </Link>
@@ -61,7 +67,7 @@ type UserType = {
 };
 
 interface TypeDialogLike {
-  open?: boolean | undefined;
+  open: boolean;
   handleClose?: () => void;
   likess?: number;
   likeAuth?: string[];

@@ -68,7 +68,7 @@ export default function InfomationUser({
               src={
                 memberId?.image
                   ? concatLinkImage(memberId?.image)
-                  : '/public/images/6596121.png'
+                  : '/public/images/user.png'
               }
               alt="user"
             />

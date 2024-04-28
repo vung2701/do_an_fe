@@ -143,7 +143,7 @@ export default function Extend({
                 alt="image"
               />
             ) : (
-              <img loading="lazy" src="/public/images/6596121.png" alt="user" />
+              <img loading="lazy" src="/public/images/user.png" alt="user" />
             )}
           </div>
           <div className={styles.textarea}>
