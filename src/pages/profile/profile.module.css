@@ -1,4 +1,3 @@
-
 /* Profile */
 .profile {
   width: 100%;
@@ -95,10 +94,10 @@
 }
 
 .profileEmail {
-  color: blue;
+  color: var(--colorBlue1);
   text-decoration: underline;
 }
-.profileEmailIcon{
+.profileEmailIcon {
   color: black;
 }
 
@@ -146,6 +145,13 @@
   border-bottom-right-radius: 5px;
 }
 
+.contentLink {
+  display: flex;
+  align-items: center;
+  flex: 20;
+  gap: 15px;
+}
+
 .contentProject img {
   flex: 1;
   width: 70px;
@@ -155,7 +161,7 @@
   border-radius: 10%;
 }
 
-.bookRequestItem img{
+.bookRequestItem img {
   flex-basis: 80px;
   height: 60px !important;
   object-fit: cover;
@@ -171,7 +177,7 @@
   height: 70px;
 }
 
-.bookRequestItem .content{
+.bookRequestItem .content {
   height: 50px;
 }
 
@@ -186,21 +192,9 @@
   align-items: start;
 }
 
-.bookRequestItem .contentRight{
+.bookRequestItem .contentRight {
   flex: unset;
   align-items: end;
-}
-
-.bookRequestItem .content h6,
-.contentProject .content h6 {
-  font-size: 16px;
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  -webkit-line-clamp: 1;
-  height: auto;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
 }
 
 .bookRequestItem .content span,
@@ -248,7 +242,7 @@
   margin-bottom: 36px !important;
 }
 
-.profileTitle h4{
+.profileTitle h4 {
   width: 33.3333%;
 }
 
@@ -310,7 +304,6 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  
 }
 
 .articleContent {
@@ -348,7 +341,50 @@
 
 .saveBtn {
   margin-top: 20px;
-} 
+}
+
+.contentProject .content * {
+  font-size: 14px !important;
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 500;
+  font-style: normal;
+  text-decoration: none;
+  overflow: hidden;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100%;
+}
+
+.contentProject .content > p {
+  display: flex;
+  align-items: center;
+  font-size: 14px !important;
+  line-height: 23px !important;
+  color: var(--colorRrey);
+  width: 100%;
+  max-height: 2.8rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+.contentProject .content img {
+  display: none;
+}
+
+.contentProject .content h6 {
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1;
+  height: auto;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
 
 @media (max-width: 768px) {
   .container {
@@ -368,13 +404,13 @@
   .profileBootom div {
     max-width: 100% !important;
   }
-  .profileTitle h4{
+  .profileTitle h4 {
     width: 80%;
     text-align: left;
   }
 
   .f_name {
-  font-size: 24px;
+    font-size: 24px;
   }
 
   .f_name input {
@@ -383,9 +419,5 @@
 
   .contact li {
     width: 100%;
-  }
-
-  .bookRequestItem .contentCenter {
-    display: none;
   }
 }

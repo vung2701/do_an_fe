@@ -8,11 +8,11 @@ import {
   postLikes
 } from '../../../services';
 import { TypeComments, TypeContentPosts, TypeNewLike } from '../../../types';
-import { getObjFromLocal } from '../../../types/untils';
 import styles from './details.module.css';
-import ContentPostDetails from './ContentPostDetails';
 import Extend from './extend/Extend';
 import BackBtn from '../../../components/backBtn/BackBtn';
+import ContentArticleDetails from './ContentArticleDetails';
+import { getObjFromLocal } from '../../../types/utils';
 
 const ContentDetails = ({
   shares,
@@ -20,20 +20,19 @@ const ContentDetails = ({
   published_on,
   title,
   content,
-  author,
+  author_username,
+  author_major,
+  author_school,
   likes,
   id,
   like_auth,
-  user,
-  tag,
   author_description,
   author_user_id,
   image,
-  profileId,
   limit
 }: TypeContentPosts) => {
   const navigate = useNavigate();
-  const baseUrl = window.location.origin;
+  const baseUrl = window.location.href;
   const [comment, setComment] = useState('');
   const [newcomment, setNewComment] = useState({});
   const [open, setOpen] = useState<boolean>(false);
@@ -56,9 +55,7 @@ const ContentDetails = ({
           author: '',
           published_on: '',
           article_id: id || undefined,
-          share_list: '',
-          like_auth: user?.user_id,
-          share_auth: ''
+          like_auth: user?.user_id
         };
         if (isLiked) {
           const unlike = await deleteLikes(newLike);
@@ -104,13 +101,9 @@ const ContentDetails = ({
             description: comment,
             parent_article: id || null,
             parent_comment: '',
-            attachment: '',
             created_by: user.user_id,
             comment_id: '',
-            like_list: '',
-            share_list: '',
-            like_auth: user.user_id,
-            share_auth: user.user_id
+            like_auth: user.user_id
           };
 
           const res = await postComments(newComment);
@@ -169,16 +162,17 @@ const ContentDetails = ({
     <>
       <Box className={styles.blogLeft}>
         <BackBtn link="/articles" />
-        <ContentPostDetails
+        <ContentArticleDetails
+          id={id}
           title={title}
           content={content}
           published_on={published_on}
-          author={author}
-          tag={tag}
+          author_username={author_username}
+          author_major={author_major}
+          author_school={author_school}
           author_description={author_description}
           author_user_id={author_user_id}
           image={image}
-          profileId={profileId}
           limit={limit}
         />
         <Extend
@@ -198,7 +192,6 @@ const ContentDetails = ({
           baseUrl={baseUrl}
           isLiked={isLiked}
           likeAuth={likeAuth}
-          user={user}
           showMore={showMoreComments}
         />
       </Box>

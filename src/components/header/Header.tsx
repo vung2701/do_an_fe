@@ -19,6 +19,20 @@ const Menu = () => {
         >
           <Link to="/articles">Article</Link>
         </li>
+        <li
+          className={`${styles.menuItem} ${
+            location.pathname === '/codes' ? styles.active : ''
+          }`}
+        >
+          <Link to="/codes">Code</Link>
+        </li>
+        <li
+          className={`${styles.menuItem} ${
+            location.pathname === '/posts' ? styles.active : ''
+          }`}
+        >
+          <Link to="/posts">Post</Link>
+        </li>
       </ul>
     </nav>
   );
@@ -43,6 +57,16 @@ export default function Header() {
                     <Link to="/articles">Article</Link>
                   </li>
                 </ul>
+                <ul className={styles.mobileList}>
+                  <li className={styles.mobileItem}>
+                    <Link to="/codes">Code</Link>
+                  </li>
+                </ul>
+                <ul className={styles.mobileList}>
+                  <li className={styles.mobileItem}>
+                    <Link to="/posts">Post</Link>
+                  </li>
+                </ul>
               </>
             ) : (
               <MenuIcon className={styles.menuMobileIcon} />
@@ -51,7 +75,7 @@ export default function Header() {
         </Box>
         <Box className={styles.headerLeft}>
           <Link to={'/'}>
-            <h1 className={styles.logo}>ITv</h1>
+            <h1 className={styles.logo}>ITV</h1>
           </Link>
           <Menu />
         </Box>

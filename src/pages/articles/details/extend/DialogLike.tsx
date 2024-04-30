@@ -7,9 +7,9 @@ import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import styles from './DialogLike.module.css';
 import { useEffect, useState } from 'react';
-import { getMemberId, getProfile } from '../../../../services';
-import { TypeMemberId } from '../../../../types';
-import { concatLinkImage } from '../../../../types/untils';
+import { getProfileUser } from '../../../../services';
+import { TypeProfile } from '../../../../types';
+import { concatLinkImage } from '../../../../types/utils';
 import { isLogin } from '../../../../middlewares/Authorization';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -22,12 +22,12 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }));
 
 const DialogLikeItem = ({ id }: { id: string }) => {
-  const [user, setUser] = useState<TypeMemberId>();
+  const [user, setUser] = useState<TypeProfile>();
 
   const fetchUser = async (id: string) => {
     try {
-      const data = await getMemberId(id);
-      setUser(data);
+      const data = await getProfileUser(id);
+      setUser(data.profile);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -39,14 +39,20 @@ const DialogLikeItem = ({ id }: { id: string }) => {
   return (
     <li>
       <Link to={`/profile/${user?.user_id}`}>
-        <img loading="lazy" src={concatLinkImage(user?.image)} alt="user" />
+        <img
+          loading="lazy"
+          src={
+            user?.image ? concatLinkImage(user?.image) : '/public/images/user.png'
+          }
+          alt="user"
+        />
         <div className={styles.infomation}>
           <h2>
             <span>{user?.first_name}</span>
             <span>{user?.last_name}</span>
           </h2>
           <div>
-            {user?.designation}, {user?.company}
+            {user?.major} {user?.school}
           </div>
         </div>
       </Link>
@@ -61,7 +67,7 @@ type UserType = {
 };
 
 interface TypeDialogLike {
-  open?: boolean | undefined;
+  open: boolean;
   handleClose?: () => void;
   likess?: number;
   likeAuth?: string[];
@@ -107,7 +113,7 @@ export default function DialogLike({
           </ul>
         ) : (
           <div className={styles.notLoginLike}>
-            <Link to="/login">{`Please login to see user liked!`}</Link>
+            <Link to="/login">Login to see user(s) liked.</Link>
           </div>
         )}
       </DialogContent>

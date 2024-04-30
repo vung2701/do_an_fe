@@ -4,25 +4,24 @@ import { Box, Container, Grid } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { getMemberId, getSkilId, profileUser, uploadAvatar } from '../../services';
-import { TypeMemberId } from '../../types';
+import { getProfileUser, profileUser, uploadAvatar } from '../../services';
 import Titles from '../../components/titles/Titles';
 import Articles from './Articles';
 import InfomationUser from './InfomationUser';
 import styles from './profile.module.css';
 import { useAuth } from '../../context/AuthContext';
-import { getObjFromLocal } from '../../types/untils';
-import BookRequest from './BookRequest';
+import { getObjFromLocal } from '../../types/utils';
+import { TypeProfile } from '../../types';
+import Posts from './Posts';
 
 export default function Profile() {
   let { id } = useParams();
   const { updateProfile } = useAuth();
   const inputRef = useRef<HTMLInputElement>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [memberId, setMemberId] = useState<TypeMemberId>();
+  const [memberId, setMemberId] = useState<TypeProfile>();
   const [oppen, setOppen] = useState(false);
   const [user, setUser] = useState();
-  const [skills, setSkills] = useState([]);
 
   const navigate = useNavigate();
 
@@ -65,25 +64,15 @@ export default function Profile() {
   const fecthMemberId = async () => {
     try {
       if (id) {
-        const profileId = await getMemberId(id);
-        setMemberId(profileId);
+        const res = await getProfileUser(id);
+        setMemberId(res.profile);
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  const fecthSkills = async () => {
-    try {
-      const res = await getSkilId(memberId?.my_skill);
-      setSkills(res?.skill);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
-    fecthSkills();
     fecthMemberId();
   }, [updateProfile, id]);
 
@@ -100,10 +89,7 @@ export default function Profile() {
     <Container className="container-1">
       <Box className={styles.profile}>
         <div className={styles.profileTitle}>
-          <Titles
-            classNameAdd={styles.titleLogin}
-            name={`${memberId?.first_name} ${memberId?.last_name} Profile`}
-          />
+          <Titles classNameAdd={styles.titleLogin} name={`Profile`} />
           {id === user && (
             <button onClick={handleShowEditProfile}>
               {oppen ? <CloseIcon /> : <CreateIcon />}
@@ -125,15 +111,9 @@ export default function Profile() {
           className={styles.profileBootom}
         >
           <Grid item xs={12}>
-            {id === user && <BookRequest />}
-
-            {/* <Projects user={memberId?.user} userId={user} idProfile={+id} /> */}
             <Articles />
+            <Posts />
           </Grid>
-          {/* <Grid item xs={4}>
-            <Certifications userId={user} idProfile={+id} />
-            <Skills userId={user} idProfile={+id} skills={skills} />
-          </Grid> */}
         </Grid>
       </Box>
     </Container>

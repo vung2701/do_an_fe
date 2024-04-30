@@ -3,24 +3,24 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { concatLinkImage } from '../../types/untils';
+import { concatLinkImage } from '../../types/utils';
 import styles from './header.module.css';
 import { useEffect, useState } from 'react';
-import { getMemberId } from '../../services';
-import { TypeMemberId } from '../../types';
+import { getProfileUser } from '../../services';
+import { TypeProfile } from '../../types';
 
 const User = () => {
   const { updateProfile } = useAuth();
   const { logout, loggedIn } = useAuth();
-  const [profile, setProfile] = useState<TypeMemberId>();
+  const [profile, setProfile] = useState<TypeProfile>();
   const location = useLocation();
 
   const fetchProfile = async () => {
     try {
       const user = JSON.parse(localStorage.getItem('user') || '{}');
       if (user) {
-        const data = await getMemberId(user.user_id);
-        setProfile(data);
+        const data = await getProfileUser(user.user_id);
+        setProfile(data.profile);
       }
     } catch (error) {
       console.log(error);
@@ -46,7 +46,7 @@ const User = () => {
               src={
                 profile?.image
                   ? concatLinkImage(profile?.image)
-                  : '/public/images/6596121.png'
+                  : '/public/images/user.png'
               }
               alt="user"
               className={styles.imgUser}

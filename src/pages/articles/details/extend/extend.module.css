@@ -16,6 +16,7 @@
   justify-content: center;
   cursor: pointer;
 }
+
 .extend > button:hover {
   background: #f9f9f9;
   border-radius: 10px;
@@ -167,7 +168,7 @@
 }
 
 .notLoginComment a {
-  color: blue !important;
+  color: var(--colorBlue1) !important;
   font-weight: 500;
   text-decoration: underline;
 }

@@ -125,3 +125,16 @@ html *::-webkit-scrollbar-thumb:hover {
 .css-dpjnhs-MuiInputBase-root-MuiOutlinedInput-root {
   padding: 10px !important;
 }
+
+.ql-toolbar {
+  background-color: #fff;
+  border-top-left-radius: 12px !important;
+  border-top-right-radius: 12px !important;
+}
+
+.ql-container {
+  min-height: 250px;
+  border-bottom-left-radius: 12px !important;
+  border-bottom-right-radius: 12px !important;
+  background-color: #fff;
+}

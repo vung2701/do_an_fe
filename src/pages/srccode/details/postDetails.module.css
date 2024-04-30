@@ -1,0 +1,181 @@
+.blogLeft {
+  margin-top: 110px !important;
+  position: relative;
+}
+
+.titleDetails {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.titleDetails h2 {
+  font-size: 32px;
+  line-height: 44px;
+  font-weight: bold;
+  position: relative;
+  margin-bottom: 20px;
+}
+.titleDetails h2::after {
+  content: '';
+  position: absolute;
+  width: 50px;
+  height: 6px;
+  left: 0px;
+  bottom: -5px;
+  background: #0b6623;
+}
+
+.published {
+  color: var(--colorRrey2);
+  font-style: italic;
+}
+
+.content {
+  font-size: 16px !important;
+  line-height: 23px !important;
+  color: var(--colorRrey);
+  padding-top: 10px;
+  text-align: justify;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.content ul,
+.content li,
+.content p {
+  padding: 5px 0;
+}
+.content ul,
+.content li {
+  margin-left: 15px ;
+  list-style-type: initial;
+}
+.content ol {
+  margin-left: 15px ;
+  list-style-type: initial;
+}
+.content img {
+  width: 70% !important;
+  height: unset !important;
+  display: block;
+  margin: auto;
+  object-fit: contain;
+}
+
+.content * {
+  font-family: 'Inter', sans-serif !important;
+}
+
+.content a {
+  font-style: italic;
+  color: var(--colorBlue1);
+}
+
+.content a:hover {
+  text-decoration: underline;
+}
+.tagDetails h2 {
+  font-size: 14px;
+  line-height: 19px;
+  padding: 20px 0 30px 0;
+  display: flex;
+  gap: 5px;
+  font-style: italic;
+}
+.titleAuthor {
+  font-size: 32px;
+  line-height: 38px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+.authorAbout {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  row-gap: 7px;
+  margin-bottom: 20px;
+}
+.authorItem {
+  display: flex;
+}
+.imageAuthor img {
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.authorAbout .content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.authorAbout .content h2 {
+  font-size: 18px;
+  line-height: 21px;
+}
+.contentCompany,
+.contentDesctiption {
+  font-size: 14px;
+  line-height: 18px;
+}
+.authorDesctiption p {
+  font-size: 14px;
+  line-height: 20px;
+  margin-bottom: 20px;
+}
+
+.loginToview {
+  margin-top: 16px;
+  font-size: 20px;
+  color: var(--colorBlue1);
+  font-style: italic;
+}
+
+.clickHere {
+  color: var(--colorBlue1);
+  text-decoration: underline;
+  font-style: italic;
+  margin-left: 4px;
+}
+
+/* Limit details */
+.limitDetails {
+  position: fixed;
+  top: 80%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #333;
+  color: #fff;
+  font-size: 18px;
+  opacity: 0.9;
+}
+
+.limitDetails a {
+  color: #6e6ee2;
+  text-decoration: underline;
+  margin-left: 4px;
+  font-style: italic;
+}
+.readed {
+  margin-top: 8px;
+}
+
+@media (max-width: 767px) {
+
+  .titleDetails h2 {
+    font-size: 28px !important;
+    line-height: 36px !important;
+  }
+  .content img {
+    width: 100% !important;
+    display: block;
+    margin: auto;
+    object-fit: contain;
+  }
+}
