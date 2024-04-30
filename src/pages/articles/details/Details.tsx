@@ -48,6 +48,7 @@ export default function Details() {
             language={details?.language}
             author_description={details?.author_description}
             limit={details?.limit}
+            knowledge={details.knowledge}
           />
           {details?.limit && <LimitDetails />}
         </>

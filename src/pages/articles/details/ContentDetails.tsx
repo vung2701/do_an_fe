@@ -29,7 +29,8 @@ const ContentDetails = ({
   author_description,
   author_user_id,
   image,
-  limit
+  limit,
+  knowledge
 }: TypeContentPosts) => {
   const navigate = useNavigate();
   const baseUrl = window.location.href;
@@ -174,6 +175,7 @@ const ContentDetails = ({
           author_user_id={author_user_id}
           image={image}
           limit={limit}
+          knowledge={knowledge}
         />
         <Extend
           handleLike={handleLike}

@@ -59,6 +59,11 @@ export type TypeKnowledgeType = {
   name?: string
 }
 
+export type TypeKnowledge = {
+  knowledge_id?: string;
+  name?: string
+}
+
 export interface TypeComments {
   attachment?: string | undefined;
   comment_list?: string[] | undefined;

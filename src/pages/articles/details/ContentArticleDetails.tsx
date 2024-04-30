@@ -1,8 +1,10 @@
 import { Box, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { TypeContentPosts } from '../../../types';
+import { TypeContentPosts, TypeKnowledge, TypeKnowledgeType } from '../../../types';
 import { concatLinkImage, convertDate } from '../../../types/utils';
 import styles from './details.module.css';
+import { useEffect, useState } from 'react';
+import { getArticleKnowledge } from '../../../services';
 
 const ContenArticleDetails = ({
   title,
@@ -15,8 +17,22 @@ const ContenArticleDetails = ({
   author_major,
   author_school,
   image,
-  limit
+  limit,
+  knowledge
 }: TypeContentPosts) => {
+  const [knowledges, setKnowledges] = useState<TypeKnowledge[]>([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getArticleKnowledge(knowledge);
+        console.log(data);
+        setKnowledges(data.knowledges.map((item: TypeKnowledge) => item.name));
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, []);
   return (
     <>
       <Box className={styles.titleDetailsBox}>
@@ -53,9 +69,11 @@ const ContenArticleDetails = ({
           </Link>
         </div>
       )}
-      <Box className={styles.tagDetails}>
-        <Typography variant="h2">Knowledge:</Typography>
-      </Box>
+      {knowledges && knowledges.length > 0 && (
+        <Box className={styles.tagDetails}>
+          <Typography variant="h2">Knowledge: {knowledges.join(', ')}</Typography>
+        </Box>
+      )}
       <Box>
         <h2 className={styles.titleAuthor}>About The Author</h2>
         <Link to={`/profile/${author_user_id}`} className={styles.authorAbout}>

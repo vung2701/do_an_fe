@@ -63,7 +63,7 @@ const getArticles = async ( page = 1, per_page= 10) => {
 
 const getArticlesByType = async ( knowledge_type_id?: string, page = 1, per_page= 10) => {
   try {
-    const response = await axiosInstance.get(`article/get_by_knowledge_type?knowledge_type_id=${knowledge_type_id}&page=${page}&per_page=${per_page}&sort=-created_on`);
+    const response = await axiosInstance.get(`article/by_knowledge_type?knowledge_type_id=${knowledge_type_id}&page=${page}&per_page=${per_page}&sort=-created_on`);
     return response.data;
   } catch (error) {
     console.error('Error fetching articles:', error);
@@ -107,6 +107,20 @@ const getKnowledgeType = async () => {
   try {
     
     const response = await axiosInstance.get(`knowledge/get_all_type`);
+    return response?.data;
+  } catch (error) {
+    console.error('Error fetching knowledge type:', error);
+    throw error;
+  }
+};
+
+const getArticleKnowledge = async (ids?: string[]) => {
+  try {
+    const response = await axiosInstance.get('article/knowledge', {
+      params: {
+        knowledge_ids: ids,
+      },
+    });
     return response?.data;
   } catch (error) {
     console.error('Error fetching knowledge type:', error);
@@ -438,4 +452,5 @@ export {
   LoginLinkedIn,
   getIpInfor,
   getSpotlight,
+  getArticleKnowledge
 };
