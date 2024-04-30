@@ -232,3 +232,13 @@ export interface TypeNewParamsComments {
   page?: number | undefined;
   perPage?: number | undefined;
 }
+
+export interface TypeSpotlight {
+  category?: string | undefined;
+  item_id?: number | undefined;
+  spotlight_image?: string | undefined;
+  spotlight_from?: string | undefined;
+  spotlight_to?: string | undefined;
+  spotlight_title?: string | undefined;
+  spotlight_des?: string | undefined;
+}

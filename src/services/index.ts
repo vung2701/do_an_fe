@@ -244,7 +244,7 @@ const getNewMember = async () => {
     const response = await axiosInstance.get(`user/new_members`);
     return response.data;
   } catch (error) {
-    console.error('Error uploading file:', error);
+    console.error('get new member:', error);
     throw error;
   }
 };
@@ -393,6 +393,15 @@ const postPostComment = async (newComment: TypeNewComment) => {
   }
 };
 
+const getSpotlight = async () => {
+  try {
+    const response = await axiosInstance.get(`/news/spotlight`);
+    return [...response?.data?.spotlight_article, ...response?.data?.spotlight_post];
+  } catch (error) {
+    console.error('Error get spotlight:', error);
+    throw error;
+  }
+};
 
 export {
   registerUser,
@@ -428,4 +437,5 @@ export {
   LoginGoogle,
   LoginLinkedIn,
   getIpInfor,
+  getSpotlight,
 };
