@@ -29,7 +29,6 @@ const ContentDetails = ({
   author_description,
   author_user_id,
   image,
-  profileId,
   limit
 }: TypeContentPosts) => {
   const navigate = useNavigate();

@@ -178,13 +178,10 @@ const deleteLikes = async (newLike: any) => {
 
 const getProfileUser = async (id: string) => {
   try {
-    if(isLogin()){
       const response = await axiosInstance.get(`user/profile/get?user_id=${id}`);
       return response.data;
-    }
-    return;
   } catch (error) {
-    console.error('Error uploading file:', error);
+    console.error('Error get profile', error);
     throw error;
   }
 };
@@ -391,7 +388,7 @@ const postPostComment = async (newComment: TypeNewComment) => {
     const response = await axiosInstance.post('post/comment', newComment);
     return response;
   } catch (error) {
-    console.error('Error fetching careers:', error);
+    console.error('Error add postcomment:', error);
     throw error;
   }
 };

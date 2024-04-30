@@ -7,30 +7,26 @@ import { Button, Grid, InputAdornment, TextField } from '@mui/material';
 import { useFormik } from 'formik';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import {
-  concatLinkImage,
-  concatLinkImageNoMedia,
-  convertDate,
-  convertDateReverse,
-  getObjFromLocal
-} from '../../types/utils';
+import { concatLinkImage, convertDate, getObjFromLocal } from '../../types/utils';
 import styles from './profile.module.css';
-import CreateIcon from '@mui/icons-material/Create';
 import { updateProfileUser } from '../../services';
 import { useAuth } from '../../context/AuthContext';
-import * as Yup from 'yup';
+import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 
 export default function InfomationUser({
-  memberId,
-  selectedFile,
-  handleFileClick,
   oppen,
+  memberId,
+  handleFileClick,
   inputRef,
   handleFileChange,
   handleShowEdit
 }: {
-  selectedFile?: File | null;
   oppen?: boolean;
+  memberId?: any;
+  handleFileClick?: any;
+  inputRef?: any;
+  handleFileChange?: any;
+  handleShowEdit?: any;
 }) {
   const { updateProfile } = useAuth();
   const formik = useFormik({
@@ -43,8 +39,8 @@ export default function InfomationUser({
       DOB: memberId?.DOB,
       phone: memberId?.phone,
       location: memberId?.location,
-      company: memberId?.company,
-      designation: memberId?.designation
+      school: memberId?.school,
+      major: memberId?.major
     },
     onSubmit: async (values, { resetForm }: { resetForm: () => void }) => {
       try {
@@ -130,21 +126,6 @@ export default function InfomationUser({
                 </>
               )}
             </div>
-            <div className={styles.designation}>
-              {oppen ? (
-                <span>
-                  <TextField
-                    variant="standard"
-                    value={formik.values.designation || ''}
-                    label="Designation"
-                    name="designation"
-                    onChange={formik.handleChange}
-                  />
-                </span>
-              ) : (
-                <span>{memberId?.designation}</span>
-              )}
-            </div>
           </div>
           <ul className={styles.contact}>
             <li>
@@ -152,33 +133,33 @@ export default function InfomationUser({
               {oppen ? (
                 <span>
                   <TextField
-                    label="Company"
+                    label="School"
                     className={styles.contactInput}
                     variant="standard"
-                    value={formik.values.company || ''}
-                    name="company"
+                    value={formik.values.school || ''}
+                    name="school"
                     onChange={formik.handleChange}
                   />
                 </span>
               ) : (
-                <span>{memberId?.company}</span>
+                <span>{memberId?.school}</span>
               )}
             </li>
             <li>
-              <LocationOnIcon />
+              <BusinessCenterIcon />
               {oppen ? (
                 <span>
                   <TextField
-                    label="Location"
+                    label="Major"
                     className={styles.contactInput}
                     variant="standard"
-                    value={formik.values.location || ''}
-                    name="location"
+                    value={formik.values.major || ''}
+                    name="major"
                     onChange={formik.handleChange}
                   />
                 </span>
               ) : (
-                <span>{memberId?.location}</span>
+                <span>{memberId?.major}</span>
               )}
             </li>
             <li>
@@ -202,24 +183,21 @@ export default function InfomationUser({
               )}
             </li>
             <li>
-              <Link className={styles.profileEmail} to={`mailto:${memberId?.email}`}>
-                <EmailIcon className={styles.profileEmailIcon} />
-                {oppen ? (
-                  <span>
-                    <TextField
-                      label="Email"
-                      className={styles.contactInput}
-                      variant="standard"
-                      disabled
-                      value={formik.values.email}
-                      name="email"
-                      type="email"
-                    />
-                  </span>
-                ) : (
-                  <span>{memberId?.email}</span>
-                )}
-              </Link>
+              <LocationOnIcon />
+              {oppen ? (
+                <span>
+                  <TextField
+                    label="Location"
+                    className={styles.contactInput}
+                    variant="standard"
+                    value={formik.values.location || ''}
+                    name="location"
+                    onChange={formik.handleChange}
+                  />
+                </span>
+              ) : (
+                <span>{memberId?.location}</span>
+              )}
             </li>
             <li>
               <DateRangeIcon />
@@ -243,6 +221,26 @@ export default function InfomationUser({
               ) : (
                 <span>{formik.values.DOB && convertDate(formik.values.DOB)}</span>
               )}
+            </li>
+            <li>
+              <Link className={styles.profileEmail} to={`mailto:${memberId?.email}`}>
+                <EmailIcon className={styles.profileEmailIcon} />
+                {oppen ? (
+                  <span>
+                    <TextField
+                      label="Email"
+                      className={styles.contactInput}
+                      variant="standard"
+                      disabled
+                      value={formik.values.email}
+                      name="email"
+                      type="email"
+                    />
+                  </span>
+                ) : (
+                  <span>{memberId?.email}</span>
+                )}
+              </Link>
             </li>
           </ul>
           {oppen && (

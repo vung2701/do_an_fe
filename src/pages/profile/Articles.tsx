@@ -1,11 +1,11 @@
 import { Box } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { getArticle } from '../../services';
 import { TypeArticle } from '../../types';
 import { concatLinkImage } from '../../types/utils';
 import TitleProfile from './TitleProfile';
 import styles from './profile.module.css';
 import { Link, useParams } from 'react-router-dom';
+import { getArticles } from '../../services';
 
 const ArticlesItems = ({ article_id, title, image, content }: TypeArticle) => {
   return (
@@ -24,14 +24,14 @@ const ArticlesItems = ({ article_id, title, image, content }: TypeArticle) => {
 
 export default function Articles() {
   let { id } = useParams();
-  const [aticles, setArticles] = useState([]);
+  const [aticles, setArticles] = useState<TypeArticle[]>([]);
   useEffect(() => {
     if (id) {
       const fetchArticle = async () => {
         try {
-          const data = await getArticle();
-          const filteredData = data.filter(
-            (i: TypeArticle) => i.author_user_id === id
+          const data = await getArticles();
+          const filteredData = data.article.filter(
+            (i: TypeArticle) => i.author_user_id == id
           );
           setArticles(filteredData);
         } catch (error) {

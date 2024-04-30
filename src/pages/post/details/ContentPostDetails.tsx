@@ -8,7 +8,7 @@ import CreateIcon from '@mui/icons-material/Create';
 const ContenPostDetails = ({
   post_id,
   title,
-  description,
+  content,
   designation_created_by,
   first_name_created_by,
   last_name_created_by,
@@ -46,7 +46,7 @@ const ContenPostDetails = ({
       </Box>
       <p
         className={styles.content}
-        dangerouslySetInnerHTML={{ __html: description || '' }}
+        dangerouslySetInnerHTML={{ __html: content || '' }}
       />
 
       <Box>
@@ -61,7 +61,7 @@ const ContenPostDetails = ({
                   alt="avatar"
                 />
               ) : (
-                <img loading="lazy" src="/images/vm-flag.gif" alt="avatar" />
+                <img loading="lazy" src="/images/user.png" alt="avatar" />
               )}
             </div>
             <div className={styles.content}>

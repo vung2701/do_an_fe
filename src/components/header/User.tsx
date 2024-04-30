@@ -20,7 +20,7 @@ const User = () => {
       const user = JSON.parse(localStorage.getItem('user') || '{}');
       if (user) {
         const data = await getProfileUser(user.user_id);
-        setProfile(data);
+        setProfile(data.profile);
       }
     } catch (error) {
       console.log(error);

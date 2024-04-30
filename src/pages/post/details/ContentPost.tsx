@@ -17,7 +17,7 @@ import ContenPostDetails from './ContentPostDetails';
 const ContentPost = ({
   post_id,
   title,
-  description,
+  content,
   designation_created_by,
   first_name_created_by,
   last_name_created_by,
@@ -95,10 +95,7 @@ const ContentPost = ({
             title: 'comment',
             description: comment,
             parent_post: post_id || null,
-            parent_comment: '',
             created_by: user.user_id,
-            comment_id: '',
-            like_list: '',
             like_auth: user.user_id
           };
 
@@ -161,7 +158,7 @@ const ContentPost = ({
         <ContenPostDetails
           post_id={post_id}
           title={title}
-          description={description}
+          content={content}
           designation_created_by={designation_created_by}
           first_name_created_by={first_name_created_by}
           last_name_created_by={last_name_created_by}

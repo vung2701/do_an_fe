@@ -173,7 +173,7 @@ export interface TypeButton {
 export type TypePost = {
   post_id?: string | undefined;
   title?: string | undefined;
-  description?: string | undefined;
+  content?: string | undefined;
   created_by?: string | undefined;
   created_on?: string | undefined;
   likes?: number | undefined;
@@ -221,6 +221,7 @@ export interface TypePostComment {
 export interface TypeNewComment {
   title?: string | undefined | null;
   parent_article?: string | undefined;
+  parent_post?: string | undefined;
   parent_comment?: string | undefined;
   description?: string | undefined;
   created_by?: string | undefined;

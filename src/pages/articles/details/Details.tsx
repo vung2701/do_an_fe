@@ -30,6 +30,7 @@ export default function Details() {
         <>
           <ContentDetails
             key={details.article_id || uuidv4()}
+            author_user_id={details.author_user_id}
             author_username={details?.author_username}
             author_major={details.author_major}
             author_school={details.author_school}

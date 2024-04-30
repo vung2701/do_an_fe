@@ -14,6 +14,7 @@ import { getProfileUser } from '../../../../services';
 import { isLogin } from '../../../../middlewares/Authorization';
 import { Link } from 'react-router-dom';
 import Shares from './Shares';
+import { bool } from 'yup';
 
 export default function Extend({
   handleLike,
@@ -109,7 +110,7 @@ export default function Extend({
       <Box className={styles.comments}>
         {isLogin() ? (
           <ul className={styles.listMoreComments}>
-            {commentd && commentd > 5 && (
+            {Boolean(commentd && commentd > 5) && (
               <button className={styles.moreComments} onClick={showMore}>
                 See previous comment
               </button>

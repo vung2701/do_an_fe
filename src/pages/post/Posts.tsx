@@ -82,9 +82,7 @@ export default function Posts() {
                     Published on: {convertDate(item.created_on)}
                   </Typography>
                   <Box className={`${styles.content} `}>
-                    <p
-                      dangerouslySetInnerHTML={{ __html: item.description || '' }}
-                    ></p>
+                    <p dangerouslySetInnerHTML={{ __html: item.content || '' }}></p>
                   </Box>
                 </Box>
                 <Box className={styles.articleInfor}>

@@ -5,7 +5,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import SearchIcon from '@mui/icons-material/Search';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 
 export default function FunctionPostBar({
   handleSearch
@@ -13,7 +12,6 @@ export default function FunctionPostBar({
   handleSearch: (searchKey: string) => void;
 }) {
   const [searchValue, setSearchValue] = useState('');
-  const { t } = useTranslation();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
@@ -32,7 +30,7 @@ export default function FunctionPostBar({
       <div className={styles.recommendBox}>
         <Link className={`${styles.btn} ${styles.btnCreate}`} to="/posts/create">
           <AddCircleOutlineIcon />
-          {t('post.Create')}
+          Create
         </Link>
       </div>
       <Box className={styles.searchBox}>

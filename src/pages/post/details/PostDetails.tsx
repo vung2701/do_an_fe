@@ -28,7 +28,7 @@ export default function PostDetails() {
         <ContentPost
           post_id={id}
           title={details?.title}
-          description={details?.description}
+          content={details?.content}
           designation_created_by={details?.designation_created_by}
           first_name_created_by={details?.first_name_created_by}
           last_name_created_by={details?.last_name_created_by}

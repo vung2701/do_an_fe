@@ -33,14 +33,14 @@ export default function PostCreate() {
     initialValues: {
       created_by: user?.user_id,
       title: '',
-      description: ''
+      content: ''
     },
     validationSchema: Yup.object({
       title: Yup.string().required('You must fill this field')
     }),
     onSubmit: async (values, { resetForm }: { resetForm: () => void }) => {
       try {
-        if (values.description) {
+        if (values.content) {
           await postPost(values);
           resetForm();
           setErrors('');
@@ -80,12 +80,12 @@ export default function PostCreate() {
 
             <RichEditor
               clasNames={styles.richEditor}
-              text="Description"
+              text="Content"
               required="required"
-              name="description"
-              value={formik.values.description}
+              name="content"
+              value={formik.values.content}
               onEditorChange={(content: string) =>
-                formik.setFieldValue('description', content)
+                formik.setFieldValue('content', content)
               }
               errors={errors}
             />

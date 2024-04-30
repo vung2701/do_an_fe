@@ -11,8 +11,8 @@ import InfomationUser from './InfomationUser';
 import styles from './profile.module.css';
 import { useAuth } from '../../context/AuthContext';
 import { getObjFromLocal } from '../../types/utils';
-import BookRequest from './BookRequest';
 import { TypeProfile } from '../../types';
+import Posts from './Posts';
 
 export default function Profile() {
   let { id } = useParams();
@@ -64,8 +64,8 @@ export default function Profile() {
   const fecthMemberId = async () => {
     try {
       if (id) {
-        const profileId = await getProfileUser(id);
-        setMemberId(profileId);
+        const res = await getProfileUser(id);
+        setMemberId(res.profile);
       }
     } catch (error) {
       console.log(error);
@@ -89,10 +89,7 @@ export default function Profile() {
     <Container className="container-1">
       <Box className={styles.profile}>
         <div className={styles.profileTitle}>
-          <Titles
-            classNameAdd={styles.titleLogin}
-            name={`${memberId?.first_name} ${memberId?.last_name} Profile`}
-          />
+          <Titles classNameAdd={styles.titleLogin} name={`Profile`} />
           {id === user && (
             <button onClick={handleShowEditProfile}>
               {oppen ? <CloseIcon /> : <CreateIcon />}
@@ -114,15 +111,9 @@ export default function Profile() {
           className={styles.profileBootom}
         >
           <Grid item xs={12}>
-            {id === user && <BookRequest />}
-
-            {/* <Projects user={memberId?.user} userId={user} idProfile={+id} /> */}
             <Articles />
+            <Posts />
           </Grid>
-          {/* <Grid item xs={4}>
-            <Certifications userId={user} idProfile={+id} />
-            <Skills userId={user} idProfile={+id} skills={skills} />
-          </Grid> */}
         </Grid>
       </Box>
     </Container>

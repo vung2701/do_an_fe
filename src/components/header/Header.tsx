@@ -21,10 +21,10 @@ const Menu = () => {
         </li>
         <li
           className={`${styles.menuItem} ${
-            location.pathname === '/srccode' ? styles.active : ''
+            location.pathname === '/codes' ? styles.active : ''
           }`}
         >
-          <Link to="/srccode">Source Code</Link>
+          <Link to="/codes">Code</Link>
         </li>
         <li
           className={`${styles.menuItem} ${
@@ -59,7 +59,7 @@ export default function Header() {
                 </ul>
                 <ul className={styles.mobileList}>
                   <li className={styles.mobileItem}>
-                    <Link to="/srccode">Source Code</Link>
+                    <Link to="/codes">Code</Link>
                   </li>
                 </ul>
                 <ul className={styles.mobileList}>
