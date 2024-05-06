@@ -211,6 +211,7 @@
   -webkit-line-clamp: 2;
   display: -webkit-box;
   -webkit-box-orient: vertical;
+  position: relative;
 }
 
 .content img {

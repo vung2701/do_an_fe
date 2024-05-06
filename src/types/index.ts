@@ -59,6 +59,11 @@ export type TypeKnowledgeType = {
   name?: string
 }
 
+export type TypeLanguage = {
+  id?: string;
+  name?: string
+}
+
 export type TypeKnowledge = {
   knowledge_id?: string;
   name?: string
@@ -192,6 +197,16 @@ export type TypePost = {
   email_created_by?: string | undefined;
   company_created_by?: string | undefined;
   designation_created_by?: string | undefined;
+};
+
+export type TypeSrcCode = {
+  src_code_id?: string | undefined;
+  name?: string | undefined;
+  content?: string | undefined;
+  created_by?: string | undefined;
+  created_on?: string | undefined;
+  created_by_image?: string
+  languages?: string[]; 
 };
 
 

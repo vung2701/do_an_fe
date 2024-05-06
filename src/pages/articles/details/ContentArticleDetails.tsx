@@ -74,6 +74,7 @@ const ContenArticleDetails = ({
           <Typography variant="h2">Knowledge: {knowledges.join(', ')}</Typography>
         </Box>
       )}
+      
       <Box>
         <h2 className={styles.titleAuthor}>About The Author</h2>
         <Link to={`/profile/${author_user_id}`} className={styles.authorAbout}>

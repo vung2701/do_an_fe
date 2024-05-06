@@ -1,5 +1,5 @@
 import { Box, Container, Typography } from '@mui/material';
-import styles from './postCreate.module.css';
+import styles from './srcCodeCreate.module.css';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
@@ -10,7 +10,7 @@ import { postPost } from '../../../services';
 import { getObjFromLocal } from '../../../types/utils';
 import { useNavigate } from 'react-router-dom';
 
-export default function PostCreate() {
+export default function SrcCodeCreate() {
   const user = getObjFromLocal('user');
   const [errors, setErrors] = useState<string>('');
   const navigate = useNavigate();

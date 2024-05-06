@@ -417,6 +417,37 @@ const getSpotlight = async () => {
   }
 };
 
+const getAllLanguage = async () => {
+  try {
+    const response = await axiosInstance.get(`src_code/get_all_language`);
+    return response.data
+  } catch (error) {
+    console.error('Error get all language:', error);
+    throw error;
+  }
+};
+
+const getSrcCode = async (page = 1, per_page = 5, language_id = '') => {
+  try {
+    const response = await axiosInstance.get(`src_code/get_src_code?page=${page}&per_page=${per_page}&sort=-created_on&language_id=${language_id}`);
+    return response.data
+  } catch (error) {
+    console.error('Error get src code:', error);
+    throw error;
+  }
+};
+
+const getSrcCodeDetail = async (srcCodeId?: string) => {
+  try {
+    const response = await axiosInstance.get(`src_code/get_src_code?src_code_id=${srcCodeId}`);
+    return response.data
+  } catch (error) {
+    console.error('Error get src code detail:', error);
+    throw error;
+  }
+};
+
+
 export {
   registerUser,
   loginUser,
@@ -452,5 +483,8 @@ export {
   LoginLinkedIn,
   getIpInfor,
   getSpotlight,
-  getArticleKnowledge
+  getArticleKnowledge,
+  getSrcCode,
+  getAllLanguage,
+  getSrcCodeDetail
 };

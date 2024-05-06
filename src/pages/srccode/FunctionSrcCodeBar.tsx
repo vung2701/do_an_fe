@@ -1,5 +1,5 @@
 import { Box, FormControl, TextField } from '@mui/material';
-import styles from './posts.module.css';
+import styles from './srcCode.module.css';
 import { ChangeEvent, useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import SearchIcon from '@mui/icons-material/Search';
@@ -28,7 +28,7 @@ export default function FunctionPostBar({
   return (
     <Box className={styles.functionPostBar}>
       <div className={styles.recommendBox}>
-        <Link className={`${styles.btn} ${styles.btnCreate}`} to="/posts/create">
+        <Link className={`${styles.btn} ${styles.btnCreate}`} to="/codes/create">
           <AddCircleOutlineIcon />
           Create
         </Link>

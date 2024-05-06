@@ -1,15 +1,14 @@
-import { Avatar, Box, Container, List, Tab, Tabs, Typography } from '@mui/material';
-import styles from './articles.module.css';
+import { Box, Container, List, Tab, Tabs, Typography } from '@mui/material';
+import styles from './srcCode.module.css';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getArticles, getArticlesByType, getKnowledgeType } from '../../services';
-import { concatLinkImage, convertDate, sortByDate } from '../../types/utils';
-import { TypeArticle, TypeAuthor, TypeKnowledgeType } from '../../types';
-import FunctionBar from './FunctionBar';
+import { getAllLanguage, getSrcCode } from '../../services';
+import { convertDate } from '../../types/utils';
+import { TypeLanguage, TypeSrcCode } from '../../types';
 
 export default function Articles() {
-  const [articles, setArticles] = useState<TypeArticle[]>([]);
-  const [knowledgeTypes, setKnowledgeTypes] = useState<TypeKnowledgeType[]>([]);
+  const [srcCodes, setSrcCodes] = useState<TypeSrcCode[]>([]);
+  const [languages, setLanguage] = useState<TypeLanguage[]>([]);
   const [tab, setTab] = useState('all');
 
   // pagination
@@ -17,71 +16,53 @@ export default function Articles() {
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
 
-  if (articles.length > 0) {
-    sortByDate(articles, 'created_on');
-  }
-
   // change tab
   const handleChangeTab = (event: React.SyntheticEvent, newValue: string) => {
     setTab(newValue);
     setPage(1);
   };
 
-  const fetchArticles = async () => {
+  const fetchSrcCodes = async () => {
     try {
       if (tab == 'all') {
-        const res = await getArticles();
-        setArticles(res.article);
+        const res = await getSrcCode(page, pageSize);
+        setSrcCodes(res.srcCode);
       } else {
-        const res = await getArticlesByType(tab);
-        setArticles(res.articles);
+        const res = await getSrcCode(page, pageSize, tab);
+        setSrcCodes(res.srcCode);
       }
     } catch (error) {
-      console.error('Error fetching articles:', error);
+      console.error('Error fetching src codes:', error);
     }
   };
 
-  const fetchKnowledgeTypes = async () => {
+  const fetchLanguages = async () => {
     try {
-      const res = await getKnowledgeType();
-      setKnowledgeTypes(res.knowledge_types);
+      const res = await getAllLanguage();
+      setLanguage(res.languages);
     } catch (error) {
       console.error('Error fetching knowledge_types:', error);
     }
   };
 
   useEffect(() => {
-    fetchKnowledgeTypes();
+    fetchLanguages();
     if (tab == 'all') {
-      fetchArticles();
+      fetchSrcCodes();
     }
   }, []);
 
   useEffect(() => {
-    fetchArticles();
+    fetchSrcCodes();
   }, [tab]);
   return (
     <Container className={`container-1`}>
       <Box className={styles.article}>
         <div className={styles.articleTitleBox}>
           <h2 className={styles.articleTitle}>
-            <Link to={'/articles'}>Articles</Link>
+            <Link to={'/codes'}>Articles</Link>
           </h2>
         </div>
-
-        {/* <FunctionBar
-          author={author}
-          handleChangeAuthor={handleChangeAuthor}
-          authors={authors}
-          publishedFrom={publishedFrom}
-          handleChangePublishedFrom={handleChangePublishedFrom}
-          publishedTo={publishedTo}
-          handleChangePublishedTo={handleChangePublishedTo}
-          handleFilter={handleFilter}
-          isLanguage={isLanguage}
-          handleLanguage={handleLanguage}
-          handleReset={handleReset}
-        /> */}
 
         <List className={styles.listArticle}>
           {/* tab in top list */}
@@ -111,10 +92,10 @@ export default function Articles() {
                   fontFamily: `'Inter', sans-serif`
                 }}
               />
-              {knowledgeTypes &&
-                knowledgeTypes.map((item) => (
+              {languages &&
+                languages.map((item) => (
                   <Tab
-                    value={item.knowledge_type_id}
+                    value={item.id}
                     label={item.name}
                     sx={{
                       color: '#666',
@@ -131,41 +112,29 @@ export default function Articles() {
             </Tabs>
           </Box>
 
-          {articles?.length > 0 ? (
-            articles.map((item) => (
+          {srcCodes?.length > 0 ? (
+            srcCodes.map((item) => (
               <Link
-                key={item.article_id}
-                to={`/articles/${item.article_id}`}
+                key={item.src_code_id}
+                to={`/codes/${item.src_code_id}`}
                 className={styles.articleItem}
               >
                 <Box className={styles.imageItem}>
-                  <img
-                    loading="lazy"
-                    src={concatLinkImage(item.image)}
-                    alt="image"
-                  />
+                  <img loading="lazy" src="/images/code.png" alt="image" />
                 </Box>
                 <Box className={styles.articleContent}>
-                  <Typography variant="h5">{item.title}</Typography>
+                  <Typography variant="h5">{item.name}</Typography>
                   <Typography variant="body1" className={styles.published}>
-                    Published on {convertDate(item.published_on)}
+                    Published on {convertDate(item.created_on)}
                   </Typography>
-                  <Box
-                    className={`${styles.content} `}
-                    dangerouslySetInnerHTML={{ __html: item.content || '' }}
-                  ></Box>
-                </Box>
-                <Box className={styles.articleInfor}>
-                  <Avatar alt={item.author} src={concatLinkImage(item.author_img)} />
-                  <p className={styles.articleInforLike}>{item.likes} likes</p>
-                  <p className={styles.articleInforComment}>
-                    {item.comment_list?.length} comments
-                  </p>
+                  <Box className={`${styles.content} `}>
+                    <p dangerouslySetInnerHTML={{ __html: item.content || '' }}></p>
+                  </Box>
                 </Box>
               </Link>
             ))
           ) : (
-            <Box className={styles.noArticles}>No article.</Box>
+            <Box className={styles.noArticles}>No source code.</Box>
           )}
         </List>
         {page * pageSize <= total && (
