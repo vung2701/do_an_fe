@@ -25,7 +25,7 @@
 }
 
 .content2 {
-  height: 461px;
+  max-height: 450px;
   overflow-y: auto;
 }
 
@@ -46,7 +46,7 @@
 }
 .viewmore {
   text-align: right;
-  padding: 0 10px 10px 10px;
+  padding: 10px !important;
 }
 .viewmore a {
   color: var(--colorBlue1);

@@ -162,7 +162,7 @@ const ContentDetails = ({
   return (
     <>
       <Box className={styles.blogLeft}>
-        <BackBtn link="/articles" />
+        <BackBtn />
         <ContentArticleDetails
           id={id}
           title={title}

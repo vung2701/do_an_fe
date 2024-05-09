@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { TypeArticle } from '../../../types';
-import { sortByDate } from '../../../types/utils';
+import { concatLinkImage, convertDate, sortByDate } from '../../../types/utils';
 import styles from './articlesContent.module.css';
-import { ArticlesContent } from './ArticlesContent';
 import { getArticles } from '../../../services';
+import { Box, Typography } from '@mui/material';
 
 export default function Articles() {
   const [articles, setArticles] = useState<TypeArticle[]>([]);
@@ -38,24 +38,27 @@ export default function Articles() {
       <div className={styles.wrapper2}>
         {articles?.length > 0 &&
           articles.map((item) => (
-            <ArticlesContent
-              key={item.article_id}
-              author={item?.author}
-              content={item?.content}
-              title={item?.title}
-              created_on={item?.created_on}
-              image={item?.image}
-              published_on={item?.published_on}
-              reference_link={item?.reference_link}
-              comments={item?.comments}
-              shares={item?.shares}
-              article_id={item?.article_id}
-              likes={item?.likes}
-              like_auth={item?.like_auth}
-              language={item?.language}
-              comment_list={item?.comment_list}
-              author_username={item?.author_username}
-            />
+            <Link
+              to={`/articles/${item.article_id}`}
+              className={styles.articleContent}
+            >
+              <Box className={styles.contentImage}>
+                <img loading="lazy" src={concatLinkImage(item.image)} alt="image" />
+              </Box>
+              <Typography variant="h3">{item.title}</Typography>
+              <Box className={styles.contentAuthor}>
+                <Typography variant="body1" className={styles.published}>
+                  By {item.author_username ? item.author_username : item.author}
+                </Typography>
+                <Typography variant="body1" className={styles.published}>
+                  on {convertDate(item.published_on)}
+                </Typography>
+              </Box>
+              <p
+                className={`${styles.content} `}
+                dangerouslySetInnerHTML={{ __html: item.content || '' }}
+              ></p>
+            </Link>
           ))}
       </div>
       <div className={styles.viewMore}>

@@ -45,10 +45,10 @@ export default function PostHome() {
                   post_id={row?.post_id}
                 />
               ))}
-            <Box className={styles.viewmore}>
-              <Link to="/posts">View more</Link>
-            </Box>
           </div>
+          <Box className={styles.viewmore}>
+            <Link to="/posts">View more</Link>
+          </Box>
           <Link to="/posts/create" className={styles.createBtn}>
             <AddCircleOutlineIcon />
           </Link>

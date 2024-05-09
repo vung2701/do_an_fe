@@ -50,7 +50,7 @@ const ContenPostDetails = ({
       />
 
       <Box>
-        <h2 className={styles.titleAuthor}>About The User</h2>
+        <h2 className={styles.titleAuthor}>About The Author</h2>
         <Link to={`/profile/${created_by}`} className={styles.authorAbout}>
           <>
             <div className={styles.imageAuthor}>

@@ -154,7 +154,7 @@ const ContentPost = ({
   return (
     <>
       <Box className={styles.blogLeft}>
-        <BackBtn link="/posts" />
+        <BackBtn />
         <ContenPostDetails
           post_id={post_id}
           title={title}

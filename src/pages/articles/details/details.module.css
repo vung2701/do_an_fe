@@ -97,6 +97,18 @@
   object-fit: contain;
 }
 
+.content pre {
+  background-color: #333;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.content code span,
+.content code {
+  background-color: #333;
+  color: #fff;
+}
+
 .tagDetails h2 {
   font-size: 14px;
   line-height: 19px;

@@ -11,6 +11,7 @@ import PostDetails from '../pages/post/details/PostDetails';
 import Posts from '../pages/post/Posts';
 import HomePage from '../pages/home/HomePage';
 import SrcCode from '../pages/srccode/SrcCode';
+import CodeDetails from '../pages/srccode/details/CodeDetails';
 
 export default function AppRouters() {
   return (
@@ -27,6 +28,7 @@ export default function AppRouters() {
       <Route path="/posts" element={<Posts />} />
       {/* <Route path="/posts/create" element={<PostCreate />} /> */}
       {/* <Route path="/posts/update/:id" element={<PostUpdate />} /> */}
+      <Route path="/codes/:id" element={<CodeDetails />} />
       <Route path="/codes" element={<SrcCode />} />
       <Route path="*" element={<NotFound />} />
     </Routes>

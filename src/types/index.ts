@@ -205,7 +205,9 @@ export type TypeSrcCode = {
   content?: string | undefined;
   created_by?: string | undefined;
   created_on?: string | undefined;
-  created_by_image?: string
+  created_by_image?: string;
+  created_by_name?: string;
+  created_by_school?: string;
   languages?: string[]; 
 };
 
