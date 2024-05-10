@@ -50,9 +50,6 @@ export default function Articles() {
                 <Typography variant="body1" className={styles.published}>
                   By {item.author_username ? item.author_username : item.author}
                 </Typography>
-                <Typography variant="body1" className={styles.published}>
-                  on {convertDate(item.published_on)}
-                </Typography>
               </Box>
               <p
                 className={`${styles.content} `}

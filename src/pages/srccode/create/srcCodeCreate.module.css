@@ -30,6 +30,7 @@
 
 .btnGroup {
   text-align: right;
+  margin-left: auto;
 }
 
 .btn {
@@ -55,4 +56,71 @@
   color: #333;
   background-color: #ccc;
   margin-left: 8px;
+}
+
+.form {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.formItem {
+  margin-top: 8px !important;
+  width: calc(50% - 16px);
+}
+
+.formItem.full {
+  width: 100%;
+}
+
+.formRemarks label,
+.formItem label {
+  font-size: 16px;
+  color: #000;
+}
+
+.formRemarks {
+  margin-top: 8px !important;
+  width: calc(100%);
+}
+
+.formRemarks label span,
+.formItem label span,
+.formItem p {
+  color: red;
+}
+
+.formRemarks > div > div,
+.formSelect > div > div,
+.formItem input {
+  background-color: #fff;
+  border-radius: 15px;
+}
+
+.multiSelect {
+  margin-top: 8px;
+  z-index: 10;
+}
+
+.multiSelect > div {
+  border-radius: 12px;
+  background-color: #fff;
+}
+
+.multiSelect input {
+  border-radius: 12px;
+  padding-left: 4px;
+  font-size: 16px;
+  line-height: 26px;
+}
+
+.multiSelect li {
+  display: flex;
+  align-items: center;
+}
+
+.error {
+  font-size: 12px;
+  margin-top: 4px;
+  margin-left: 14px;
 }

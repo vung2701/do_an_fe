@@ -5,6 +5,7 @@ import styles from './blogs.module.css';
 import NewMember from '../newMember/NewMember';
 import PostHome from './postHome/PostHome';
 import { TypeSpotlight } from '../../../types';
+import CodeHome from './codeHome/CodeHome';
 
 export default function Blogs({ spotlight }: { spotlight: TypeSpotlight[] }) {
   return (
@@ -17,6 +18,7 @@ export default function Blogs({ spotlight }: { spotlight: TypeSpotlight[] }) {
           </Grid>
           <Grid item xs={4} sx={{ pl: 2 }}>
             <PostHome />
+            <CodeHome />
           </Grid>
         </Grid>
         <NewMember />

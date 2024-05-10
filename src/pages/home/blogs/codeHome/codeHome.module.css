@@ -4,6 +4,7 @@
   border-radius: 10px;
   overflow: hidden;
   margin-bottom: 30px;
+  margin-top: 30px;
   position: relative;
 }
 
@@ -24,7 +25,7 @@
 }
 
 .content2 {
-  height: 398px;
+  height: 419px;
   overflow-y: auto;
 }
 
@@ -32,7 +33,7 @@
   background: #ececec;
   border-radius: 5px;
   margin: 10px;
-  padding: 10px 12px;
+  padding: 10px;
 }
 
 .contents ul a {
@@ -113,8 +114,8 @@
 }
 
 .imageItems img {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   object-fit: cover;
   border-radius: 50%;
 }

@@ -33,7 +33,7 @@ const Member = ({
       <div className={styles.image}>
         <img
           loading="lazy"
-          src={image ? concatLinkImage(image) : '/images/new2.jpg'}
+          src={image ? concatLinkImage(image) : '/images/user.png'}
           alt="new member"
         />
       </div>

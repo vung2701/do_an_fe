@@ -26,10 +26,10 @@ export default function Articles() {
     try {
       if (tab == 'all') {
         const res = await getSrcCode(page, pageSize);
-        setSrcCodes(res.srcCode);
+        setSrcCodes(res.src_code);
       } else {
         const res = await getSrcCode(page, pageSize, tab);
-        setSrcCodes(res.srcCode);
+        setSrcCodes(res.src_code);
       }
     } catch (error) {
       console.error('Error fetching src codes:', error);

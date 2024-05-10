@@ -138,3 +138,11 @@ html *::-webkit-scrollbar-thumb:hover {
   border-bottom-right-radius: 12px !important;
   background-color: #fff;
 }
+
+.tox-statusbar__help-text {
+  visibility: hidden;
+}
+.tox-statusbar__branding,
+.tox-promotion-link {
+  display: none !important;
+}

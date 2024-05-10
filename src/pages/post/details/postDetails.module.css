@@ -26,6 +26,18 @@
   background: #0b6623;
 }
 
+.content pre {
+  background-color: #333;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.content code span,
+.content code {
+  background-color: #333;
+  color: #fff;
+}
+
 .published {
   color: var(--colorRrey2);
   font-style: italic;
@@ -47,11 +59,11 @@
 }
 .content ul,
 .content li {
-  margin-left: 15px ;
+  margin-left: 15px;
   list-style-type: initial;
 }
 .content ol {
-  margin-left: 15px ;
+  margin-left: 15px;
   list-style-type: initial;
 }
 .content img {
@@ -167,7 +179,6 @@
 }
 
 @media (max-width: 767px) {
-
   .titleDetails h2 {
     font-size: 28px !important;
     line-height: 36px !important;

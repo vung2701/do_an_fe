@@ -24,27 +24,15 @@ export default function RichEditor1({
         tinymceScriptSrc="/tinymce/tinymce.min.js"
         init={{
           plugins: [
-            'advlist',
-            'autolink',
-            'lists',
-            'link',
-            'image',
-            'charmap',
-            'anchor',
-            'searchreplace',
-            'visualblocks',
-            'code',
-            'fullscreen',
-            'insertdatetime',
-            'media',
-            'table',
-            'preview',
-            'help',
-            'wordcount'
+            'code', // Plugin mã nguồn
+            'codesample', // Plugin mã nguồn mẫu
+            'textcolor', // Plugin màu văn bản
+            'link', // Plugin liên kết
+            'fullscreen'
           ],
           toolbar:
-            'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-          content_style: 'body { font-family:Inter; font-size:14px }'
+            'undo redo | formatselect | bold italic forecolor backcolor | link | codesample code | undo redo | blocks fontfamily fontsize | bold italic underline strikethrough ',
+          content_style: 'body { font-family: Inter; font-size: 14px }'
         }}
         onEditorChange={onEditorChange}
       />

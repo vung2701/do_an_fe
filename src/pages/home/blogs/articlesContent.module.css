@@ -78,6 +78,12 @@
   font-size: 20px;
   font-weight: 600;
   margin-top: 10px;
+  height: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
 }
 
 .published {

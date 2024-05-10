@@ -17,7 +17,7 @@ export default function CodeDetails() {
     const fetchData = async () => {
       try {
         const data = await getSrcCodeDetail(id);
-        setDetails(data.srcCode);
+        setDetails(data.src_code);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -34,7 +34,7 @@ export default function CodeDetails() {
             <Typography variant="h2">{details.name}</Typography>
             <div className={styles.icon}>
               {user && user.user_id === details.created_by && (
-                <Link to={`/posts/update/${details.src_code_id}`}>
+                <Link to={`/codes/update/${details.src_code_id}`}>
                   <CreateIcon />
                 </Link>
               )}
