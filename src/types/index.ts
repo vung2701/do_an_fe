@@ -209,6 +209,8 @@ export type TypeSrcCode = {
   created_by_name?: string;
   created_by_school?: string;
   languages?: string[]; 
+  language_ids?: string[]; 
+  post_id?: string; 
 };
 
 

@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { isLogin } from '../middlewares/Authorization';
 import { createAxios, uploadAxios } from './axios';
-import { TypeLikePost, TypeLogin, TypeNewComment, TypeNewParamsComments, TypePost } from '../types';
+import { TypeLikePost, TypeLogin, TypeNewComment, TypeNewParamsComments, TypePost, TypeSrcCode } from '../types';
 
 let axiosInstance = createAxios();
 
@@ -429,7 +429,7 @@ const getAllLanguage = async () => {
 
 const getSrcCode = async (page = 1, per_page = 5, language_id = '') => {
   try {
-    const response = await axiosInstance.get(`src_code/get_src_code?page=${page}&per_page=${per_page}&sort=-created_on&language_id=${language_id}`);
+    const response = await axiosInstance.get(`src_code/get_src_code?page=${page}&per_page=${per_page}&sort=-created_on&language_ids=${language_id}`);
     return response.data
   } catch (error) {
     console.error('Error get src code:', error);
@@ -443,6 +443,16 @@ const getSrcCodeDetail = async (srcCodeId?: string) => {
     return response.data
   } catch (error) {
     console.error('Error get src code detail:', error);
+    throw error;
+  }
+};
+
+const createOrUpdateSrcCode = async (values?: TypeSrcCode) => {
+  try {
+    const response = await axiosInstance.post(`src_code/create_update`, values);
+    return response.data
+  } catch (error) {
+    console.error('Error create or update src code detail:', error);
     throw error;
   }
 };
@@ -486,5 +496,6 @@ export {
   getArticleKnowledge,
   getSrcCode,
   getAllLanguage,
-  getSrcCodeDetail
+  getSrcCodeDetail,
+  createOrUpdateSrcCode
 };

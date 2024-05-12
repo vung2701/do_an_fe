@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { getAllLanguage, getSrcCode } from '../../services';
 import { convertDate } from '../../types/utils';
 import { TypeLanguage, TypeSrcCode } from '../../types';
+import FunctionSrcCodeBar from './FunctionSrcCodeBar';
 
 export default function Articles() {
   const [srcCodes, setSrcCodes] = useState<TypeSrcCode[]>([]);
@@ -22,14 +23,26 @@ export default function Articles() {
     setPage(1);
   };
 
+  const handleSearch = (searchKey: string) => {};
+
   const fetchSrcCodes = async () => {
     try {
       if (tab == 'all') {
         const res = await getSrcCode(page, pageSize);
-        setSrcCodes(res.src_code);
+        if (page == 1) {
+          setSrcCodes(res.src_code);
+          setTotal(res.total);
+        } else {
+          setSrcCodes([...srcCodes, ...res.src_code]);
+        }
       } else {
         const res = await getSrcCode(page, pageSize, tab);
-        setSrcCodes(res.src_code);
+        if (page == 1) {
+          setSrcCodes(res.src_code);
+          setTotal(res.total);
+        } else {
+          setSrcCodes([...srcCodes, ...res.src_code]);
+        }
       }
     } catch (error) {
       console.error('Error fetching src codes:', error);
@@ -63,6 +76,8 @@ export default function Articles() {
             <Link to={'/codes'}>Articles</Link>
           </h2>
         </div>
+
+        <FunctionSrcCodeBar handleSearch={handleSearch} />
 
         <List className={styles.listArticle}>
           {/* tab in top list */}

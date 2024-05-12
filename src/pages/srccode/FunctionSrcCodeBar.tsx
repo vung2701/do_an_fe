@@ -6,7 +6,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Link } from 'react-router-dom';
 
-export default function FunctionPostBar({
+export default function FunctionSrcCodeBar({
   handleSearch
 }: {
   handleSearch: (searchKey: string) => void;
