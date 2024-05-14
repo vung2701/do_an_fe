@@ -7,11 +7,15 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Link } from 'react-router-dom';
 
 export default function FunctionSrcCodeBar({
-  handleSearch
+  seachKey,
+  setPage,
+  setSearchKey
 }: {
-  handleSearch: (searchKey: string) => void;
+  seachKey?: string;
+  setPage?: any;
+  setSearchKey?: any;
 }) {
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState(seachKey);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
@@ -19,7 +23,8 @@ export default function FunctionSrcCodeBar({
 
   const handleEnterKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      handleSearch(searchValue);
+      setSearchKey(searchValue);
+      setPage(1);
     } else if (e.key === 'Delete') {
       setSearchValue(''); // Clear input on Delete key press
     }
@@ -47,7 +52,7 @@ export default function FunctionSrcCodeBar({
         </FormControl>
         <button
           className={`${styles.btn} ${styles.btnSearch}`}
-          onClick={() => handleSearch(searchValue)}
+          onClick={() => setSearchKey(searchValue)}
         >
           <SearchIcon />
         </button>
@@ -56,7 +61,8 @@ export default function FunctionSrcCodeBar({
             className={styles.clearBtn}
             onClick={() => {
               setSearchValue('');
-              handleSearch('');
+              setSearchKey('');
+              setPage(1);
             }}
           >
             <CloseIcon />

@@ -197,6 +197,7 @@ export type TypePost = {
   email_created_by?: string | undefined;
   company_created_by?: string | undefined;
   designation_created_by?: string | undefined;
+  fetchPosts?: () => void;
 };
 
 export type TypeSrcCode = {
@@ -211,6 +212,7 @@ export type TypeSrcCode = {
   languages?: string[]; 
   language_ids?: string[]; 
   post_id?: string; 
+  fetchSrcCodes?: () => void;
 };
 
 

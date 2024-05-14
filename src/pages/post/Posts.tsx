@@ -10,27 +10,16 @@ import { concatLinkImage, convertDate } from '../../types/utils';
 export default function Posts() {
   const [posts, setPosts] = useState<TypePost[]>([]);
   const [filterPosts, setFilterPosts] = useState<TypePost[]>([]);
+  const [searchKey, setSearchKey] = useState('');
   // pagination
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(5);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
-
-  const handleSearch = (searchKey: string) => {
-    setFilterPosts(
-      posts.filter((post) => {
-        const name = `${post.first_name_created_by} ${post.last_name_created_by}`;
-        return (
-          post.title?.toLocaleLowerCase().includes(searchKey.toLocaleLowerCase()) ||
-          name?.toLocaleLowerCase().includes(searchKey.toLocaleLowerCase())
-        );
-      })
-    );
-  };
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const data = await getPosts(page, pageSize);
+        const data = await getPosts(page, pageSize, searchKey);
         setPosts([...posts, ...data.post]);
         setTotal(data.total);
         setFilterPosts([...posts, ...data.post]);
@@ -39,7 +28,7 @@ export default function Posts() {
       }
     };
     fetchPosts();
-  }, [pageSize, page]);
+  }, [pageSize, page, searchKey]);
 
   return (
     <Container className="container-1">
@@ -50,7 +39,11 @@ export default function Posts() {
           </h2>
         </div>
 
-        <FunctionPostBar handleSearch={handleSearch} />
+        <FunctionPostBar
+          seachKey={searchKey}
+          setSearchKey={setSearchKey}
+          setPage={setPage}
+        />
 
         <List className={styles.listArticle}>
           <Box className={styles.boxDivider}>

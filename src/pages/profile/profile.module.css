@@ -386,6 +386,79 @@
   -webkit-box-orient: vertical;
 }
 
+.icon svg {
+  color: var(--colorBlue1) !important;
+  width: 24px;
+  height: 24px;
+}
+
+.icon button:hover {
+  border-bottom: 1px solid var(--colorBlue1);
+}
+
+.viewMore {
+  position: absolute;
+  bottom: 10px;
+  right: 25px;
+  color: var(--colorBlue1);
+}
+.viewMore:hover {
+  text-decoration: underline;
+}
+
+/* form */
+.formTitle {
+  font-size: 20px !important;
+  background-color: #389738;
+  color: #fff;
+  padding: 10px 12px !important;
+  position: relative;
+  border-top-right-radius: 12px;
+  border-top-left-radius: 12px;
+  min-width: 300px;
+}
+
+.closeBtn {
+  color: #fff;
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.successText {
+  font-size: 18px !important;
+  color: #000 !important;
+  text-align: justify;
+  padding: 30px 30px 5px 30px;
+}
+
+.actionGroup {
+  padding: 20px !important;
+}
+
+.actionGroup .btn {
+  width: 90px;
+  font-size: 14px;
+  padding: 6px 0;
+  font-size: 12px;
+  border-radius: 8px;
+  padding: 3px 0;
+  width: 60px;
+  font-weight: 600;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  background-color: #ccc;
+}
+
+.btnDelete {
+  color: #fff;
+  background-color: rgb(239, 87, 87) !important;
+}
+
 @media (max-width: 768px) {
   .container {
     margin-top: 80px;

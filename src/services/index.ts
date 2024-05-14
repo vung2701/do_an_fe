@@ -317,9 +317,9 @@ const getIpInfor = async () => {
       }
     };
 
-const getPosts = async (page = 1, per_page = 10) => {
+const getPosts = async (page = 1, per_page = 10, searchKey = '') => {
   try {
-    const response = await axiosInstance.get(`post/get?page=${page}&per_page=${per_page}&sort=-created_on`);
+    const response = await axiosInstance.get(`post/get?page=${page}&per_page=${per_page}&sort=-created_on&search=${searchKey}`);
     return response?.data;
   } catch (error) {
     console.error('Error get posts:', error);
@@ -344,6 +344,16 @@ const postPost = async (values: TypePost) => {
     return response?.data;
   } catch (error) {
     console.error('create post error:', error);
+    throw error;
+  }
+};
+
+const deletePost = async (post_id?: string) => {
+  try {
+    const response = await axiosInstance.post('post/delete', {post_id})
+    return response?.data;
+  } catch (error) {
+    console.error('delete post error:', error);
     throw error;
   }
 };
@@ -427,9 +437,9 @@ const getAllLanguage = async () => {
   }
 };
 
-const getSrcCode = async (page = 1, per_page = 5, language_id = '') => {
+const getSrcCode = async (page = 1, per_page = 5, language_id = '', searchKey = '') => {
   try {
-    const response = await axiosInstance.get(`src_code/get_src_code?page=${page}&per_page=${per_page}&sort=-created_on&language_ids=${language_id}`);
+    const response = await axiosInstance.get(`src_code/get_src_code?page=${page}&per_page=${per_page}&sort=-created_on&language_ids=${language_id}&search=${searchKey}`);
     return response.data
   } catch (error) {
     console.error('Error get src code:', error);
@@ -457,6 +467,15 @@ const createOrUpdateSrcCode = async (values?: TypeSrcCode) => {
   }
 };
 
+const deleteSrcCode = async (src_code_id?: string) => {
+  try {
+    const response = await axiosInstance.post('src_code/delete', {src_code_id})
+    return response?.data;
+  } catch (error) {
+    console.error('delete src code error:', error);
+    throw error;
+  }
+};
 
 export {
   registerUser,
@@ -475,6 +494,7 @@ export {
   getPosts,
   postPost,
   updatePost,
+  deletePost,
   getPostComment,
   postPostComment,
   unlikePost,
@@ -497,5 +517,6 @@ export {
   getSrcCode,
   getAllLanguage,
   getSrcCodeDetail,
-  createOrUpdateSrcCode
+  createOrUpdateSrcCode,
+  deleteSrcCode,
 };

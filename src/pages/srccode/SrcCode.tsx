@@ -10,6 +10,7 @@ import FunctionSrcCodeBar from './FunctionSrcCodeBar';
 export default function Articles() {
   const [srcCodes, setSrcCodes] = useState<TypeSrcCode[]>([]);
   const [languages, setLanguage] = useState<TypeLanguage[]>([]);
+  const [searchKey, setSearchKey] = useState('');
   const [tab, setTab] = useState('all');
 
   // pagination
@@ -23,12 +24,10 @@ export default function Articles() {
     setPage(1);
   };
 
-  const handleSearch = (searchKey: string) => {};
-
   const fetchSrcCodes = async () => {
     try {
       if (tab == 'all') {
-        const res = await getSrcCode(page, pageSize);
+        const res = await getSrcCode(page, pageSize, '', searchKey);
         if (page == 1) {
           setSrcCodes(res.src_code);
           setTotal(res.total);
@@ -63,7 +62,7 @@ export default function Articles() {
     if (tab == 'all') {
       fetchSrcCodes();
     }
-  }, []);
+  }, [tab, page, pageSize, searchKey]);
 
   useEffect(() => {
     fetchSrcCodes();
@@ -77,7 +76,11 @@ export default function Articles() {
           </h2>
         </div>
 
-        <FunctionSrcCodeBar handleSearch={handleSearch} />
+        <FunctionSrcCodeBar
+          setPage={setPage}
+          setSearchKey={setSearchKey}
+          seachKey={searchKey}
+        />
 
         <List className={styles.listArticle}>
           {/* tab in top list */}

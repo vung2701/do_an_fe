@@ -1,8 +1,8 @@
 import { Box } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { getPosts } from '../../services';
-import { TypePost } from '../../types';
-import { concatLinkImage, getObjFromLocal } from '../../types/utils';
+import { getSrcCode } from '../../services';
+import { TypeSrcCode } from '../../types';
+import { getObjFromLocal } from '../../types/utils';
 import TitleProfile from './TitleProfile';
 import styles from './profile.module.css';
 import CreateIcon from '@mui/icons-material/Create';
@@ -11,14 +11,13 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Link, useParams } from 'react-router-dom';
 import DeleteDialog from './DeleteDialog';
 
-const PostsItems = ({
-  post_id,
-  title,
-  created_by_image,
+const SrcCodeItems = ({
+  src_code_id,
+  name,
   content,
   created_by,
-  fetchPosts
-}: TypePost) => {
+  fetchSrcCodes
+}: TypeSrcCode) => {
   const user = getObjFromLocal('user');
   const [deleteDialog, setDeleteDialog] = useState(false);
 
@@ -28,24 +27,17 @@ const PostsItems = ({
 
   return (
     <Box className={styles.contentProject}>
-      <Link to={`/posts/${post_id}`} className={styles.contentLink}>
-        <img
-          src={
-            created_by_image
-              ? concatLinkImage(created_by_image)
-              : '/public/images/user.png'
-          }
-          alt="post user"
-        />
+      <Link to={`/code/${src_code_id}`} className={styles.contentLink}>
+        <img src={'/public/images/code.png'} alt="post user" />
         <div className={styles.content}>
-          <h6>{title}</h6>
+          <h6>{name}</h6>
           <span dangerouslySetInnerHTML={{ __html: content || '' }}></span>
         </div>
       </Link>
       {created_by === user.user_id && (
         <div className={styles.icon}>
           <button>
-            <Link to={`/posts/update/${post_id}`}>
+            <Link to={`/codes/update/${src_code_id}`}>
               <CreateIcon />
             </Link>
           </button>
@@ -62,31 +54,29 @@ const PostsItems = ({
       <DeleteDialog
         isOpen={deleteDialog}
         handleClose={handleClose}
-        id={post_id}
-        fetchData={fetchPosts}
-        type="post"
+        id={src_code_id}
+        fetchData={fetchSrcCodes}
+        type="code"
       />
     </Box>
   );
 };
 
-export default function Posts() {
+export default function SrcCodes() {
   let { id } = useParams();
-  const [posts, setPosts] = useState([]);
+  const [srcCodes, setSrcCodes] = useState<TypeSrcCode[]>([]);
 
-  const fetchPosts = async () => {
+  const fetchSrcCodes = async () => {
     try {
-      const data = await getPosts(1, 50);
-      const filteredData = data.post.filter((i: TypePost) => i.created_by === id);
-      setPosts(filteredData);
+      const res = await getSrcCode(1, 50);
+      setSrcCodes(res.src_code.filter((item: TypeSrcCode) => item.created_by == id));
     } catch (error) {
-      console.error('Error fetching or filtering post:', error);
+      console.error('Error fetching src codes:', error);
     }
   };
-
   useEffect(() => {
     if (id) {
-      fetchPosts();
+      fetchSrcCodes();
     } else {
       console.error('User data not found in localStorage');
     }
@@ -94,22 +84,21 @@ export default function Posts() {
 
   return (
     <Box className={styles.article} sx={{ marginBottom: '30px' }}>
-      <TitleProfile title="Posts" />
+      <TitleProfile title="Codes" />
       <div className={styles.articleContent}>
-        {posts.length <= 0 ? (
-          <p className={styles.noProject}>No Posts.</p>
+        {srcCodes.length <= 0 ? (
+          <p className={styles.noProject}>No Codes.</p>
         ) : (
           <>
-            {posts.length > 0 &&
-              posts.map((item: TypePost) => (
-                <PostsItems
-                  key={item?.post_id}
-                  post_id={item?.post_id}
-                  created_by_image={item?.created_by_image}
-                  title={item?.title}
+            {srcCodes.length > 0 &&
+              srcCodes.map((item: TypeSrcCode) => (
+                <SrcCodeItems
+                  key={item?.src_code_id}
+                  src_code_id={item?.src_code_id}
+                  name={item?.name}
                   content={item?.content}
                   created_by={item?.created_by}
-                  fetchPosts={fetchPosts}
+                  fetchSrcCodes={fetchSrcCodes}
                 />
               ))}
           </>

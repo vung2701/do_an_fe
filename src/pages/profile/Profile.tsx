@@ -13,6 +13,7 @@ import { useAuth } from '../../context/AuthContext';
 import { getObjFromLocal } from '../../types/utils';
 import { TypeProfile } from '../../types';
 import Posts from './Posts';
+import SrcCodes from './SrcCodes';
 
 export default function Profile() {
   let { id } = useParams();
@@ -113,6 +114,7 @@ export default function Profile() {
           <Grid item xs={12}>
             <Articles />
             <Posts />
+            <SrcCodes />
           </Grid>
         </Grid>
       </Box>
