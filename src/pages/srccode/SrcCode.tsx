@@ -72,7 +72,7 @@ export default function Articles() {
       <Box className={styles.article}>
         <div className={styles.articleTitleBox}>
           <h2 className={styles.articleTitle}>
-            <Link to={'/codes'}>Articles</Link>
+            <Link to={'/codes'}>Codes</Link>
           </h2>
         </div>
 

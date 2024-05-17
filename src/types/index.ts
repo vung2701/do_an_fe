@@ -161,7 +161,8 @@ export interface TypeProfile {
   last_name?: string | undefined;
   location?: string | undefined;
   modified_on?: string | undefined;
-  phone?: string | undefined;
+  class?: string | undefined;
+  student_id?: string | undefined;
 }
 
 export interface TypeButton {

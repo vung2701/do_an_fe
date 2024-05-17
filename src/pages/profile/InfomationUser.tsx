@@ -1,9 +1,9 @@
-import BusinessIcon from '@mui/icons-material/Business';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import EmailIcon from '@mui/icons-material/Email';
-import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { Button, Grid, InputAdornment, TextField } from '@mui/material';
+import SchoolIcon from '@mui/icons-material/School';
+import Groups2Icon from '@mui/icons-material/Groups2';
 import { useFormik } from 'formik';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -40,7 +40,9 @@ export default function InfomationUser({
       phone: memberId?.phone,
       location: memberId?.location,
       school: memberId?.school,
-      major: memberId?.major
+      major: memberId?.major,
+      class: memberId?.class,
+      student_id: memberId?.student_id
     },
     onSubmit: async (values, { resetForm }: { resetForm: () => void }) => {
       try {
@@ -126,10 +128,24 @@ export default function InfomationUser({
                 </>
               )}
             </div>
+            <div className={styles.designation}>
+              {oppen ? (
+                <span>
+                  <TextField
+                    variant="standard"
+                    value={formik.values.student_id}
+                    label="student Id"
+                    disabled
+                  />
+                </span>
+              ) : (
+                <span>{memberId?.student_id}</span>
+              )}
+            </div>
           </div>
           <ul className={styles.contact}>
             <li>
-              <BusinessIcon />
+              <BusinessCenterIcon />
               {oppen ? (
                 <span>
                   <TextField
@@ -146,7 +162,25 @@ export default function InfomationUser({
               )}
             </li>
             <li>
-              <BusinessCenterIcon />
+              <Groups2Icon />
+              {oppen ? (
+                <span>
+                  <TextField
+                    label="Class"
+                    className={styles.contactInput}
+                    variant="standard"
+                    value={formik.values.class}
+                    name="class"
+                    type="class"
+                    onChange={formik.handleChange}
+                  />
+                </span>
+              ) : (
+                <span>{memberId?.class}</span>
+              )}
+            </li>
+            <li>
+              <SchoolIcon />
               {oppen ? (
                 <span>
                   <TextField
@@ -162,26 +196,7 @@ export default function InfomationUser({
                 <span>{memberId?.major}</span>
               )}
             </li>
-            <li>
-              <LocalPhoneIcon />
-              {oppen ? (
-                <span>
-                  <TextField
-                    label="Phone"
-                    className={styles.contactInput}
-                    variant="standard"
-                    value={formik.values?.phone || ''}
-                    name="phone"
-                    onChange={formik.handleChange}
-                    type="number"
-                  />
-                </span>
-              ) : (
-                <Link to={`tel:${memberId?.phone}`}>
-                  <span>{memberId?.phone}</span>
-                </Link>
-              )}
-            </li>
+
             <li>
               <LocationOnIcon />
               {oppen ? (
@@ -222,6 +237,7 @@ export default function InfomationUser({
                 <span>{formik.values.DOB && convertDate(formik.values.DOB)}</span>
               )}
             </li>
+
             <li>
               <Link className={styles.profileEmail} to={`mailto:${memberId?.email}`}>
                 <EmailIcon className={styles.profileEmailIcon} />

@@ -16,20 +16,22 @@ export default function Register() {
 
   useEffect(() => {
     if (isLogin()) {
-      navigate('/')
+      navigate('/');
     }
-  }, [])
+  }, []);
   const formik = useFormik({
     initialValues: {
       first_name: '',
       last_name: '',
       email: '',
+      student_id: '',
       password1: '',
       password2: ''
     },
     validationSchema: Yup.object({
       first_name: Yup.string().required('You must fill in this section'),
       last_name: Yup.string().required('You must fill in this section'),
+      student_id: Yup.string().required('You must fill in this section'),
       email: Yup.string()
         .email('Invalid Email')
         .required('You must fill in this section'),
@@ -44,13 +46,12 @@ export default function Register() {
     onSubmit: async (values, { resetForm }: { resetForm: () => void }) => {
       try {
         const res = await registerUser(values);
-        console.log(res)
-        if (res.status === 200) {
+        if (res.data.error == 0) {
           toast.success('Account successfully created!');
           resetForm();
           navigate('/login', { state: { key: res?.data?.inform_msg } });
-        } else if (res.status === 400) {
-          toast.error('The account already exists or the email is incorrect!');
+        } else {
+          toast.error(res.data.message);
         }
       } catch (error) {
         console.error('Form submission error:', error);
@@ -114,6 +115,24 @@ export default function Register() {
             onChange={formik.handleChange}
             errors={
               formik.errors.email && formik.touched.email && formik.errors.email
+            }
+          />
+          <Input
+            autoComplete="new-password"
+            clasNames="btnLogin"
+            text="Student Id"
+            htmlFor="student_id"
+            id="student_id"
+            type="text"
+            required="required"
+            name="student_id"
+            placeholder="Student Id"
+            value={formik.values.student_id}
+            onChange={formik.handleChange}
+            errors={
+              formik.errors.student_id &&
+              formik.touched.student_id &&
+              formik.errors.student_id
             }
           />
           <Input
