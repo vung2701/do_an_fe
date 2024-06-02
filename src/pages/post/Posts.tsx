@@ -20,9 +20,15 @@ export default function Posts() {
     const fetchPosts = async () => {
       try {
         const data = await getPosts(page, pageSize, searchKey);
-        setPosts([...posts, ...data.post]);
-        setTotal(data.total);
-        setFilterPosts([...posts, ...data.post]);
+        if (page == 1) {
+          setPosts(data.post);
+          setTotal(data.total);
+          setFilterPosts(data.post);
+        } else {
+          setPosts([...posts, ...data.post]);
+          setTotal(data.total);
+          setFilterPosts([...posts, ...data.post]);
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       }

@@ -14,7 +14,6 @@ import { getProfileUser } from '../../../../services';
 import { isLogin } from '../../../../middlewares/Authorization';
 import { Link } from 'react-router-dom';
 import Shares from './Shares';
-import { bool } from 'yup';
 
 export default function Extend({
   handleLike,

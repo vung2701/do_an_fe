@@ -1,92 +1,66 @@
-import { Box, Button, FormControl, InputAdornment, InputLabel, MenuItem, TextField } from "@mui/material";
+import { Box, FormControl, TextField } from '@mui/material';
 import styles from './articles.module.css';
-import { FunctionBarProps } from "../../types";
-
+import { ChangeEvent, useState } from 'react';
+import CloseIcon from '@mui/icons-material/Close';
+import SearchIcon from '@mui/icons-material/Search';
 
 export default function FunctionBar({
-    author,
-    handleChangeAuthor,
-    authors,
-    publishedFrom,
-    handleChangePublishedFrom,
-    publishedTo,
-    handleChangePublishedTo,
-    handleFilter,
-    handleReset,
-    isLanguage,
-    handleLanguage,
-}: FunctionBarProps) {
+  seachKey,
+  setPage,
+  setSearchKey
+}: {
+  seachKey?: string;
+  setPage?: any;
+  setSearchKey?: any;
+}) {
+  const [searchValue, setSearchValue] = useState(seachKey);
 
-    return (
-        <Box className={styles.btnGroup}>
-            <Box className={styles.filterBox}>
-                <div className={styles.nation}>
-                    <InputLabel className={styles.nationLabel}>Language</InputLabel>
-                    <button onClick={handleLanguage}>
-                        {isLanguage ? (
-                            <img loading='lazy' src="public/images/vm-flag.gif" alt="langue" />
-                        ) : (
-                            <img loading='lazy' src="public/images/uk-flag.gif" alt="langue" />
-                        )}
-                    </button>
-                </div>
-                <FormControl className={styles.selectAuthor} sx={{ m: 1, minWidth: 100 }}>
-                    <TextField
-                        id='author-text-field'
-                        name='author'
-                        label="Author"
-                        select
-                        value={author}
-                        onChange={handleChangeAuthor}
-                        variant="standard"
-                    >
-                        <MenuItem value='none' disabled>-- Select --</MenuItem>
-                        {authors.map((item) =>
-                            <MenuItem key={item.user_id_profile} value={item.user_id_profile}>{`${item.first_name} ${item.last_name}`}</MenuItem>
-                        )}
-                    </TextField>
-                </FormControl>
-                <FormControl className={styles.dateInput} sx={{ m: 1, minWidth: 100 }} >
-                    <TextField
-                        id='published-from'
-                        label='Published from'
-                        variant='standard'
-                        type="date"
-                        name='publish_from'
-                        value={publishedFrom}
-                        onChange={handleChangePublishedFrom}
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                </InputAdornment>
-                            ),
-                        }}
-                        inputProps={{ max: publishedTo }}
-                    />
-                </FormControl>
-                <FormControl className={styles.dateInput} sx={{ m: 1, minWidth: 100 }}>
-                    <TextField
-                        id='published-to'
-                        label="Published to"
-                        variant='standard'
-                        name='published_to'
-                        type='date'
-                        value={publishedTo}
-                        onChange={handleChangePublishedTo}
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                </InputAdornment>
-                            ),
-                        }}
-                        inputProps={{ min: publishedFrom }}
-                    />
-                </FormControl>
-            </Box>
-            <Box className={styles.filterBtn}>
-                <button className={`${styles.btn} ${styles.btnBorrow}`} onClick={handleFilter}>Filter</button>
-                <button className={`${styles.btn} ${styles.btnLend}`} onClick={handleReset}>Reset</button>
-            </Box>
-        </Box>
-    )
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value);
+  };
+
+  const handleEnterKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      setSearchKey(searchValue);
+      setPage(1);
+    } else if (e.key === 'Delete') {
+      setSearchValue(''); // Clear input on Delete key press
+    }
+  };
+
+  return (
+    <Box className={styles.functionPostBar}>
+      <Box className={styles.searchBox}>
+        <FormControl className={styles.searchItem}>
+          <TextField
+            className={styles.searchInput}
+            margin="dense"
+            type="text"
+            value={searchValue}
+            onChange={handleChange}
+            variant="outlined"
+            onKeyDown={handleEnterKeyPress}
+          />
+        </FormControl>
+        <button
+          className={`${styles.btn} ${styles.btnSearch}`}
+          onClick={() => setSearchKey(searchValue)}
+        >
+          <SearchIcon />
+        </button>
+        {searchValue && (
+          <button
+            className={styles.clearBtn}
+            onClick={() => {
+              setSearchValue('');
+              setSearchKey('');
+              setPage(1);
+            }}
+          >
+            <CloseIcon />
+          </button>
+        )}
+      </Box>
+    </Box>
+  );
 }

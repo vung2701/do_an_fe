@@ -33,7 +33,7 @@ export default function FunctionPostBar({
   return (
     <Box className={styles.functionPostBar}>
       <div className={styles.recommendBox}>
-        <Link className={`${styles.btn} ${styles.btnCreate}`} to="/codes/create">
+        <Link className={`${styles.btn} ${styles.btnCreate}`} to="/posts/create">
           <AddCircleOutlineIcon />
           Create
         </Link>

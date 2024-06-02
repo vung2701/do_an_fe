@@ -25,7 +25,6 @@ const ContenArticleDetails = ({
     const fetchData = async () => {
       try {
         const data = await getArticleKnowledge(knowledge);
-        console.log(data);
         setKnowledges(data.knowledges.map((item: TypeKnowledge) => item.name));
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -51,7 +50,7 @@ const ContenArticleDetails = ({
         }}
       >
         <Typography variant="body1" className={styles.published}>
-          Author: {author}
+          Author: {author_username}
         </Typography>
         <Typography variant="body1" className={styles.published}>
           Published on: {convertDate(published_on)}
@@ -74,7 +73,7 @@ const ContenArticleDetails = ({
           <Typography variant="h2">Knowledge: {knowledges.join(', ')}</Typography>
         </Box>
       )}
-      
+
       <Box>
         <h2 className={styles.titleAuthor}>About The Author</h2>
         <Link to={`/profile/${author_user_id}`} className={styles.authorAbout}>

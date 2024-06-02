@@ -14,7 +14,7 @@ export default function PostHome() {
   const fetchPosts = async () => {
     try {
       const data = await getPosts();
-      setPosts(data.post.slice(0, 6));
+      setPosts(data.post.slice(0, 4));
     } catch (error) {
       console.error('Error fetching data:', error);
     }

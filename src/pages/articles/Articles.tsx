@@ -4,18 +4,19 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getArticles, getArticlesByType, getKnowledgeType } from '../../services';
 import { concatLinkImage, convertDate, sortByDate } from '../../types/utils';
-import { TypeArticle, TypeAuthor, TypeKnowledgeType } from '../../types';
+import { TypeArticle, TypeKnowledgeType } from '../../types';
 import FunctionBar from './FunctionBar';
 
 export default function Articles() {
   const [articles, setArticles] = useState<TypeArticle[]>([]);
   const [knowledgeTypes, setKnowledgeTypes] = useState<TypeKnowledgeType[]>([]);
-  const [tab, setTab] = useState('all');
+  const [tab, setTab] = useState('');
 
   // pagination
   const [pageSize, setPageSize] = useState(5);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
+  const [searchKey, setSearchKey] = useState('');
 
   if (articles.length > 0) {
     sortByDate(articles, 'created_on');
@@ -29,12 +30,12 @@ export default function Articles() {
 
   const fetchArticles = async () => {
     try {
-      if (tab == 'all') {
-        const res = await getArticles();
+      const res = await getArticles(page, pageSize, searchKey, tab);
+      if (page == 1) {
         setArticles(res.article);
+        setTotal(res.total);
       } else {
-        const res = await getArticlesByType(tab);
-        setArticles(res.articles);
+        setArticles([...articles, ...res.article]);
       }
     } catch (error) {
       console.error('Error fetching articles:', error);
@@ -52,14 +53,11 @@ export default function Articles() {
 
   useEffect(() => {
     fetchKnowledgeTypes();
-    if (tab == 'all') {
-      fetchArticles();
-    }
   }, []);
 
   useEffect(() => {
     fetchArticles();
-  }, [tab]);
+  }, [tab, page, pageSize, searchKey]);
   return (
     <Container className={`container-1`}>
       <Box className={styles.article}>
@@ -69,21 +67,13 @@ export default function Articles() {
           </h2>
         </div>
 
-        {/* <FunctionBar
-          author={author}
-          handleChangeAuthor={handleChangeAuthor}
-          authors={authors}
-          publishedFrom={publishedFrom}
-          handleChangePublishedFrom={handleChangePublishedFrom}
-          publishedTo={publishedTo}
-          handleChangePublishedTo={handleChangePublishedTo}
-          handleFilter={handleFilter}
-          isLanguage={isLanguage}
-          handleLanguage={handleLanguage}
-          handleReset={handleReset}
-        /> */}
-
         <List className={styles.listArticle}>
+          <FunctionBar
+            seachKey={searchKey}
+            setSearchKey={setSearchKey}
+            setPage={setPage}
+          />
+
           {/* tab in top list */}
           <Box sx={{ width: '100%' }}>
             <Tabs
@@ -98,7 +88,7 @@ export default function Articles() {
               sx={{ borderBottom: '1px solid #ccc' }}
             >
               <Tab
-                value="all"
+                value=""
                 label="All "
                 sx={{
                   color: '#666',
@@ -159,16 +149,18 @@ export default function Articles() {
                   <Avatar alt={item.author} src={concatLinkImage(item.author_img)} />
                   <p className={styles.articleInforLike}>{item.likes} likes</p>
                   <p className={styles.articleInforComment}>
-                    {item.comment_list?.length} comments
+                    {item?.comments} comments
                   </p>
                 </Box>
               </Link>
             ))
           ) : (
-            <Box className={styles.noArticles}>No article.</Box>
+            <Box className={styles.noArticles}>
+              <p>No article.</p>
+            </Box>
           )}
         </List>
-        {page * pageSize <= total && (
+        {page * pageSize < total && (
           <button
             className={styles.viewMore}
             onClick={() => {

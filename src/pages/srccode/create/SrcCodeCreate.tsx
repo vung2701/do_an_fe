@@ -124,7 +124,11 @@ export default function SrcCodeCreate() {
               />
             </FormControl>
 
-            <FormControl className={styles.formItem}>
+            <FormControl
+              className={`${styles.formItem} ${
+                posts && posts.length > 0 ? '' : styles.full
+              }`}
+            >
               <FormLabel>
                 Language <span className={styles.required}> *</span>:
               </FormLabel>
@@ -154,25 +158,27 @@ export default function SrcCodeCreate() {
               )}
             </FormControl>
 
-            <FormControl className={styles.formItem}>
-              <FormLabel>Post:</FormLabel>
-              <TextField
-                select
-                className={styles.formSelect}
-                variant="outlined"
-                size="small"
-                name="post_id"
-                value={formik.values.post_id}
-                onChange={formik.handleChange}
-                sx={{ marginTop: '8px' }}
-              >
-                {posts.map((post) => (
-                  <MenuItem key={post.post_id} value={post.post_id}>
-                    {post.title}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </FormControl>
+            {posts && posts.length > 0 && (
+              <FormControl className={styles.formItem}>
+                <FormLabel>Post:</FormLabel>
+                <TextField
+                  select
+                  className={styles.formSelect}
+                  variant="outlined"
+                  size="small"
+                  name="post_id"
+                  value={formik.values.post_id}
+                  onChange={formik.handleChange}
+                  sx={{ marginTop: '8px' }}
+                >
+                  {posts.map((post) => (
+                    <MenuItem key={post.post_id} value={post.post_id}>
+                      {post.title}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </FormControl>
+            )}
 
             <RichEditor1
               clasNames={styles.richEditor}

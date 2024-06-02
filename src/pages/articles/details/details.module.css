@@ -107,6 +107,8 @@
 .content code {
   background-color: #333;
   color: #fff;
+  text-wrap: wrap;
+  white-space: normal;
 }
 
 .tagDetails h2 {

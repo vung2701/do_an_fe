@@ -29,6 +29,7 @@ const ContentDetails = ({
   author_description,
   author_user_id,
   image,
+  author_img,
   limit,
   knowledge
 }: TypeContentPosts) => {

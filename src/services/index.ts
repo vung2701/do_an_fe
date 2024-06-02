@@ -51,19 +51,10 @@ const logoutUser = async () => {
     throw error;
   }
 };
-const getArticles = async ( page = 1, per_page= 10) => {
-  try {
-    const response = await axiosInstance.get(`article/get_all?page=${page}&per_page=${per_page}&sort=-created_on`);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching articles:', error);
-    throw error;
-  }
-};
 
-const getArticlesByType = async ( knowledge_type_id?: string, page = 1, per_page= 10) => {
+const getArticles = async ( page = 1, per_page= 10, searchKey='', knowledge_type_id= '') => {
   try {
-    const response = await axiosInstance.get(`article/by_knowledge_type?knowledge_type_id=${knowledge_type_id}&page=${page}&per_page=${per_page}&sort=-created_on`);
+    const response = await axiosInstance.get(`article/get?knowledge_type_id=${knowledge_type_id}&search=${searchKey}&page=${page}&per_page=${per_page}&sort=-created_on`);
     return response.data;
   } catch (error) {
     console.error('Error fetching articles:', error);
@@ -83,19 +74,10 @@ const getArticleReaded = async (webBrowser: string | null) => {
 };
 
 
-// const getArticleWithParams = async (params: string) => {
-//   try {
-//     const response = await axiosInstance.get('news/article' + params);
-//     return response.data.article;
-//   } catch (error) {
-//     console.error('Error fetching careers:', error);
-//     throw error;
-//   }
-// };
 
 const getArticleDetails = async (id: string | undefined) => {
   try {
-    const response = await axiosInstance.get(`article/get?article_id=${id}`);
+    const response = await axiosInstance.get(`article/get_detail?article_id=${id}`);
     return response?.data;
   } catch (error) {
     console.error('Error fetching articles detail:', error);

@@ -37,7 +37,8 @@ export default function Details() {
             content={details?.content}
             title={details?.title}
             created_on={details?.created_on}
-            image={details?.author_img}
+            image={details?.image}
+            author_img={details?.author_img}
             published_on={details?.published_on}
             reference_link={details?.reference_link}
             comments={details?.comment_list?.length}
