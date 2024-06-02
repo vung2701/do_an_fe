@@ -1,0 +1,21 @@
+{
+  "ALL": "Tất cả",
+  "ARTICLE": "Bài viết",
+  "ARTICLES": "Bài viết",
+  "CREATE": "Tạo mới",
+  "CREATE_ACCOUNT": "Tạo tài khoản",
+  "FIRST_NAME": "Tên",
+  "FOOTER": "Đã đăng ký bản quyền",
+  "LAST_NAME": "Họ",
+  "LOGIN": "Đăng nhập",
+  "LOGOUT": "Đăng xuất",
+  "PASSWORD": "Mật khẩu",
+  "PASSWORD_CONFIRMATION": "Xác nhận mật khẩu",
+  "POST": "Bài đăng",
+  "POSTS": "Bài đăng",
+  "PROFILE": "Trang cá nhân",
+  "REGISTER": "Đăng ký",
+  "STUDENT_ID": "Mã sinh viên",
+  "VIEW_MORE": "Xem thêm",
+  "WELCOME": "Chào mừng tthành viên mới"
+}

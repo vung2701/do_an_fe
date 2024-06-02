@@ -2,19 +2,22 @@ import { ReactNode, createContext, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { loginGetUser, logoutUser } from '../services';
+import i18n from '../types/i18n';
 
 type AuthContextType = {
   loggedIn: boolean;
   login: (userData: any, isToHome?: boolean) => void;
   logout: () => void;
   updateProfile: () => void;
+  changeLanguage: (lng: string) => void;
 };
 
 const AuthContext = createContext<AuthContextType>({
   loggedIn: false,
   login: () => {},
   logout: () => {},
-  updateProfile: () => {}
+  updateProfile: () => {},
+  changeLanguage: (lng: string) => {}
 });
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
@@ -25,6 +28,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const updateProfile = () => {
     setIsUpdate(!isUpdate);
+  };
+
+  const changeLanguage = (lang: string) => {
+    i18n.changeLanguage(lang);
   };
 
   const login = async (token?: string, isToHome?: boolean) => {
@@ -52,7 +59,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (userData) {
       const id = JSON.parse(userData);
       if (id && id.user_id) {
-        await logoutUser(id.user_id);
+        await logoutUser(id?.user_id);
       }
     }
     localStorage.removeItem('user');
@@ -61,7 +68,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ loggedIn, login, logout, updateProfile }}>
+    <AuthContext.Provider
+      value={{ loggedIn, login, logout, updateProfile, changeLanguage }}
+    >
       {children}
     </AuthContext.Provider>
   );

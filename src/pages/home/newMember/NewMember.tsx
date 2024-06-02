@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { concatLinkImage, getShortName } from '../../../types/utils';
 import styles from './newMember.module.css';
 import { getNewMember } from '../../../services';
+import { useTranslation } from 'react-i18next';
 
 interface TypeMember {
   DOB?: string | undefined;
@@ -51,6 +52,7 @@ const Member = ({
 
 export default function NewMember() {
   const [member, setMember] = useState([]);
+  const { t } = useTranslation();
   const fetchMember = async () => {
     try {
       const res = await getNewMember();
@@ -70,7 +72,7 @@ export default function NewMember() {
         <Box className={styles.newMember}>
           <div className={styles.wrapper1}>
             <h2 className={styles.containerNation}>
-              <Link to={'/'}>Welcome to ITV Website</Link>
+              <Link to={'/'}>{t('WELCOME')}</Link>
             </h2>
           </div>
           <Box className={styles.container}>

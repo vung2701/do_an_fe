@@ -7,9 +7,11 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { useEffect, useState } from 'react';
 import { TypePost } from '../../../../types';
 import { getPosts } from '../../../../services';
+import { useTranslation } from 'react-i18next';
 
 export default function PostHome() {
   const [posts, setPosts] = useState<TypePost[]>([]);
+  const { t } = useTranslation();
 
   const fetchPosts = async () => {
     try {
@@ -30,7 +32,7 @@ export default function PostHome() {
       {posts && (
         <Box className={`${styles.contents}`}>
           <Box className={styles.rowsTitle}>
-            <Titles classNameAdd="title" name="Posts" />
+            <Titles classNameAdd="title" name={t('POSTS')} />
           </Box>
           <div className={styles.content2}>
             {posts?.length > 0 &&
@@ -47,7 +49,7 @@ export default function PostHome() {
               ))}
           </div>
           <Box className={styles.viewmore}>
-            <Link to="/posts">View more</Link>
+            <Link to="/posts">{t('VIEW_MORE')}</Link>
           </Box>
           <Link to="/posts/create" className={styles.createBtn}>
             <AddCircleOutlineIcon />

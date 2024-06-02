@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { TypeArticle } from '../../../types';
-import { concatLinkImage, convertDate, sortByDate } from '../../../types/utils';
+import { concatLinkImage, sortByDate } from '../../../types/utils';
 import styles from './articlesContent.module.css';
 import { getArticles } from '../../../services';
 import { Box, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 export default function Articles() {
   const [articles, setArticles] = useState<TypeArticle[]>([]);
+  const { t } = useTranslation();
 
   if (articles && articles.length > 0) {
     sortByDate(articles, 'published_on');
@@ -32,7 +34,7 @@ export default function Articles() {
     <section className={styles.wrapper}>
       <div className={styles.wrapper1}>
         <h2 className={styles.containerNation}>
-          <Link to={'/'}>Articles</Link>
+          <Link to={'/'}>{t('ARTICLES')}</Link>
         </h2>
       </div>
       <div className={styles.wrapper2}>
@@ -59,7 +61,7 @@ export default function Articles() {
           ))}
       </div>
       <div className={styles.viewMore}>
-        <Link to="/articles">View more</Link>
+        <Link to="/articles">{t('VIEW_MORE')}</Link>
       </div>
     </section>
   );

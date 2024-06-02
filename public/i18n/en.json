@@ -1,0 +1,21 @@
+{
+  "ALL": "All",
+  "ARTICLE": "Article",
+  "ARTICLES": "Articles",
+  "CREATE": "Create",
+  "CREATE_ACCOUNT": "Create Account",
+  "FIRST_NAME": "First Name",
+  "FOOTER": "All Rights Reserved",
+  "LAST_NAME": "Last Name",
+  "LOGIN": "Login",
+  "LOGOUT": "Logout",
+  "PASSWORD": "Password",
+  "PASSWORD_CONFIRMATION": "Password Confirmation",
+  "POST": "Post",
+  "POSTS": "Posts",
+  "PROFILE": "Profile",
+  "REGISTER": "Register",
+  "STUDENT_ID": "Student Id",
+  "VIEW_MORE": "View more",
+  "WELCOME": "Welcome New Member"
+}

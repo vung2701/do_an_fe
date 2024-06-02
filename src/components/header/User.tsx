@@ -8,12 +8,14 @@ import styles from './header.module.css';
 import { useEffect, useState } from 'react';
 import { getProfileUser } from '../../services';
 import { TypeProfile } from '../../types';
+import { useTranslation } from 'react-i18next';
 
 const User = () => {
   const { updateProfile } = useAuth();
   const { logout, loggedIn } = useAuth();
   const [profile, setProfile] = useState<TypeProfile>();
   const location = useLocation();
+  const { t } = useTranslation();
 
   const fetchProfile = async () => {
     try {
@@ -56,12 +58,12 @@ const User = () => {
                 <>
                   <li>
                     <PermIdentityIcon />
-                    <Link to={`/profile/${profile?.user_id}`}>Profile</Link>
+                    <Link to={`/profile/${profile?.user_id}`}>{t('PROFILE')}</Link>
                   </li>
 
                   <li onClick={handleLogout}>
                     <LogoutIcon />
-                    <Link to="">Logout</Link>
+                    <Link to="">{t('LOGOUT')}</Link>
                   </li>
                 </>
               ) : (

@@ -7,9 +7,11 @@ import { useEffect, useState } from 'react';
 import { TypeSrcCode } from '../../../../types';
 import { getSrcCode } from '../../../../services';
 import ListCodeItem from './ListCodeItem';
+import { useTranslation } from 'react-i18next';
 
 export default function CodeHome() {
   const [codes, setCodes] = useState<TypeSrcCode[]>([]);
+  const { t } = useTranslation();
 
   const fetchCodes = async () => {
     try {
@@ -45,7 +47,7 @@ export default function CodeHome() {
               ))}
           </div>
           <Box className={styles.viewmore}>
-            <Link to="/codes">View more</Link>
+            <Link to="/codes">{t('VIEW_MORE')}</Link>
           </Box>
           <Link to="/codes/create" className={styles.createBtn}>
             <AddCircleOutlineIcon />

@@ -4,10 +4,15 @@ import styles from './header.module.css';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import User from './User';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import i18n from '../../types/i18n';
+import { useTranslation } from 'react-i18next';
+import { useAuth } from '../../context/AuthContext';
+import { LANGUAGES } from '../../constants/Language';
 
 const Menu = () => {
   const location = useLocation();
+  const { t } = useTranslation();
 
   return (
     <nav className={styles.menu}>
@@ -17,7 +22,7 @@ const Menu = () => {
             location.pathname === '/articles' ? styles.active : ''
           }`}
         >
-          <Link to="/articles">Article</Link>
+          <Link to="/articles">{t('ARTICLE')}</Link>
         </li>
         <li
           className={`${styles.menuItem} ${
@@ -31,7 +36,7 @@ const Menu = () => {
             location.pathname === '/posts' ? styles.active : ''
           }`}
         >
-          <Link to="/posts">Post</Link>
+          <Link to="/posts">{t('POST')}</Link>
         </li>
       </ul>
     </nav>
@@ -40,10 +45,22 @@ const Menu = () => {
 
 export default function Header() {
   const [isMobileMenu, setIsMobileMenu] = useState(false);
+  const { changeLanguage } = useAuth();
+  const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
+  const { t } = useTranslation();
 
   const handleMobileMenu = () => {
     setIsMobileMenu(!isMobileMenu);
   };
+
+  const toggleLanguage = () => {
+    setCurrentLanguage((prevLanguage) => (prevLanguage == 'vi' ? 'en' : 'vi'));
+  };
+
+  useEffect(() => {
+    changeLanguage(currentLanguage);
+  }, [currentLanguage]);
+
   return (
     <header className={styles.header}>
       <Container className="container">
@@ -54,7 +71,7 @@ export default function Header() {
                 <CloseIcon className={styles.closeMobileIcon} />
                 <ul className={styles.mobileList}>
                   <li className={styles.mobileItem}>
-                    <Link to="/articles">Article</Link>
+                    <Link to="/articles">{t('ARTICLE')}</Link>
                   </li>
                 </ul>
                 <ul className={styles.mobileList}>
@@ -64,7 +81,7 @@ export default function Header() {
                 </ul>
                 <ul className={styles.mobileList}>
                   <li className={styles.mobileItem}>
-                    <Link to="/posts">Post</Link>
+                    <Link to="/posts">{t('POST')}</Link>
                   </li>
                 </ul>
               </>
@@ -79,7 +96,17 @@ export default function Header() {
           </Link>
           <Menu />
         </Box>
-        <User />
+        <Box className={styles.headerRight}>
+          <button className={styles.btnLanguage}>
+            <img
+              src={currentLanguage == 'vi' ? LANGUAGES[0].flag : LANGUAGES[1].flag}
+              alt="flag"
+              loading="lazy"
+              onClick={toggleLanguage}
+            />
+          </button>
+          <User />
+        </Box>
       </Container>
     </header>
   );
