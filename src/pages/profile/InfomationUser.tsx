@@ -134,12 +134,12 @@ export default function InfomationUser({
                   <TextField
                     variant="standard"
                     value={formik.values.student_id}
-                    label="student Id"
+                    label="Student Id"
                     disabled
                   />
                 </span>
               ) : (
-                <span>{memberId?.student_id}</span>
+                <span>Student Id: {memberId?.student_id}</span>
               )}
             </div>
           </div>

@@ -79,11 +79,11 @@ const User = () => {
               className={styles.logiHeader}
             >
               <LoginIcon />
-              <span>Login</span>
+              <span>{t('LOGIN')}</span>
             </Link>
             <span className={styles.line}>/</span>
             <Link to="/register" className={styles.logiHeader}>
-              <span>Register </span>
+              <span>{t('REGISTER')}</span>
             </Link>
           </>
         )}

@@ -31,7 +31,7 @@ const SrcCodeItems = ({
         <img src={'/public/images/code.png'} alt="post user" />
         <div className={styles.content}>
           <h6>{name}</h6>
-          <span dangerouslySetInnerHTML={{ __html: content || '' }}></span>
+          <p dangerouslySetInnerHTML={{ __html: content || '' }}></p>
         </div>
       </Link>
       {created_by === user.user_id && (

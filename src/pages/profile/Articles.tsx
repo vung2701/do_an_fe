@@ -16,7 +16,7 @@ const ArticlesItems = ({ article_id, title, image, content }: TypeArticle) => {
       />
       <div className={styles.content}>
         <h6>{title}</h6>
-        <span dangerouslySetInnerHTML={{ __html: content || '' }}></span>
+        <p dangerouslySetInnerHTML={{ __html: content || '' }}></p>
       </div>
     </Link>
   );

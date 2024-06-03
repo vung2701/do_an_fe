@@ -39,7 +39,7 @@ const PostsItems = ({
         />
         <div className={styles.content}>
           <h6>{title}</h6>
-          <span dangerouslySetInnerHTML={{ __html: content || '' }}></span>
+          <p dangerouslySetInnerHTML={{ __html: content || '' }}></p>
         </div>
       </Link>
       {created_by === user.user_id && (
