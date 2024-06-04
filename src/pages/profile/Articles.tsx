@@ -6,6 +6,7 @@ import TitleProfile from './TitleProfile';
 import styles from './profile.module.css';
 import { Link, useParams } from 'react-router-dom';
 import { getArticles } from '../../services';
+import { useTranslation } from 'react-i18next';
 
 const ArticlesItems = ({ article_id, title, image, content }: TypeArticle) => {
   return (
@@ -25,6 +26,7 @@ const ArticlesItems = ({ article_id, title, image, content }: TypeArticle) => {
 export default function Articles() {
   let { id } = useParams();
   const [aticles, setArticles] = useState<TypeArticle[]>([]);
+  const { t } = useTranslation();
   useEffect(() => {
     if (id) {
       const fetchArticle = async () => {
@@ -46,10 +48,10 @@ export default function Articles() {
 
   return (
     <Box className={styles.article} sx={{ marginBottom: '30px' }}>
-      <TitleProfile title="Articles" />
+      <TitleProfile title={t('ARTICLES')} />
       <div className={styles.articleContent}>
         {aticles.length <= 0 ? (
-          <p className={styles.noProject}>You haven't published any article yet.</p>
+          <p className={styles.noProject}>{t('NO_ARTICLES')}</p>
         ) : (
           <>
             {aticles.length > 0 &&

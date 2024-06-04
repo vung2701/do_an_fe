@@ -10,6 +10,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import { Link, useParams } from 'react-router-dom';
 import DeleteDialog from './DeleteDialog';
+import { useTranslation } from 'react-i18next';
 
 const SrcCodeItems = ({
   src_code_id,
@@ -65,6 +66,7 @@ const SrcCodeItems = ({
 export default function SrcCodes() {
   let { id } = useParams();
   const [srcCodes, setSrcCodes] = useState<TypeSrcCode[]>([]);
+  const { t } = useTranslation();
 
   const fetchSrcCodes = async () => {
     try {
@@ -87,7 +89,7 @@ export default function SrcCodes() {
       <TitleProfile title="Codes" />
       <div className={styles.articleContent}>
         {srcCodes.length <= 0 ? (
-          <p className={styles.noProject}>No Codes.</p>
+          <p className={styles.noProject}>{t('NO_CODES')}</p>
         ) : (
           <>
             {srcCodes.length > 0 &&

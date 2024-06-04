@@ -10,12 +10,14 @@ import { getPost, updatePost } from '../../../services';
 import { getObjFromLocal } from '../../../types/utils';
 import { useNavigate, useParams } from 'react-router-dom';
 import { TypePost } from '../../../types';
+import { useTranslation } from 'react-i18next';
 
 export default function PostUpdate() {
   let { id } = useParams();
   const [post, setPost] = useState<TypePost>();
   const [errors, setErrors] = useState<string>('');
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleCancel = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
@@ -71,13 +73,13 @@ export default function PostUpdate() {
     <Container className="container-1">
       <Box className={styles.postForm}>
         <Box className={styles.titleDetails}>
-          <Typography variant="h2">Update Post</Typography>
+          <Typography variant="h2">{t('UPDATE_POST')}</Typography>
         </Box>
         <Box className={styles.content}>
           <form onSubmit={formik.handleSubmit}>
             <Input
               clasNames="btnLogin"
-              text="Title"
+              text={t('TITLE')}
               htmlFor="title"
               id="title"
               type="text"
@@ -92,7 +94,7 @@ export default function PostUpdate() {
 
             <RichEditor
               clasNames={styles.richEditor}
-              text="Content"
+              text={t('CONTENT')}
               required="required"
               name="content"
               value={formik.values.content}
@@ -104,13 +106,13 @@ export default function PostUpdate() {
 
             <div className={styles.btnGroup}>
               <button className={`${styles.btn} ${styles.btnPost}`} type="submit">
-                Submit
+                {t('SUBMIT')}
               </button>
               <button
                 className={`${styles.btn} ${styles.btnCancel}`}
                 onClick={(e) => handleCancel(e)}
               >
-                Cancel
+                {t('CANCEL')}
               </button>
             </div>
           </form>

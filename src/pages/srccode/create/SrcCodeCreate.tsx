@@ -18,6 +18,7 @@ import RichEditor1 from '../../../components/richEditor/RichEditor1';
 import Multiselect from 'multiselect-react-dropdown';
 import { TypeLanguage, TypePost } from '../../../types';
 import { createOrUpdateSrcCode, getAllLanguage, getPosts } from '../../../services';
+import { useTranslation } from 'react-i18next';
 
 export default function SrcCodeCreate() {
   const user = getObjFromLocal('user');
@@ -25,6 +26,7 @@ export default function SrcCodeCreate() {
   const navigate = useNavigate();
   const [languages, setLanguages] = useState<TypeLanguage[]>([]);
   const [posts, setPosts] = useState<TypePost[]>([]);
+  const { t } = useTranslation();
 
   const fetchLanguages = async () => {
     try {
@@ -98,7 +100,7 @@ export default function SrcCodeCreate() {
     <Container className="container-1">
       <Box className={styles.postForm}>
         <Box className={styles.titleDetails}>
-          <Typography variant="h2">Create Source Code</Typography>
+          <Typography variant="h2">{t('CREATE_CODE')}</Typography>
         </Box>
         <Box className={styles.content}>
           <form
@@ -109,7 +111,7 @@ export default function SrcCodeCreate() {
           >
             <FormControl className={`${styles.formItem} ${styles.full}`}>
               <FormLabel>
-                Name <span className={styles.required}> *</span>:
+                {t('TITLE')} <span className={styles.required}> *</span>:
               </FormLabel>
               <TextField
                 margin="dense"
@@ -130,7 +132,7 @@ export default function SrcCodeCreate() {
               }`}
             >
               <FormLabel>
-                Language <span className={styles.required}> *</span>:
+                {t('LANGUAGE')} <span className={styles.required}> *</span>:
               </FormLabel>
               <Multiselect
                 className={styles.multiSelect}
@@ -160,7 +162,7 @@ export default function SrcCodeCreate() {
 
             {posts && posts.length > 0 && (
               <FormControl className={styles.formItem}>
-                <FormLabel>Post:</FormLabel>
+                <FormLabel>{t('POST')}:</FormLabel>
                 <TextField
                   select
                   className={styles.formSelect}
@@ -194,13 +196,13 @@ export default function SrcCodeCreate() {
 
             <div className={styles.btnGroup}>
               <button className={`${styles.btn} ${styles.btnPost}`} type="submit">
-                Submit
+                {t('SUBMIT')}
               </button>
               <button
                 className={`${styles.btn} ${styles.btnCancel}`}
                 onClick={(e) => handleCancel(e)}
               >
-                Cancel
+                {t('CANCEL')}
               </button>
             </div>
           </form>

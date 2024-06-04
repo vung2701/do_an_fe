@@ -5,6 +5,7 @@ import { concatLinkImage, convertDate } from '../../../types/utils';
 import styles from './details.module.css';
 import { useEffect, useState } from 'react';
 import { getArticleKnowledge } from '../../../services';
+import { useTranslation } from 'react-i18next';
 
 const ContenArticleDetails = ({
   title,
@@ -21,6 +22,7 @@ const ContenArticleDetails = ({
   knowledge
 }: TypeContentPosts) => {
   const [knowledges, setKnowledges] = useState<TypeKnowledge[]>([]);
+  const { t } = useTranslation();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -50,10 +52,10 @@ const ContenArticleDetails = ({
         }}
       >
         <Typography variant="body1" className={styles.published}>
-          Author: {author_username}
+          {t('AUTHOR')}: {author_username}
         </Typography>
         <Typography variant="body1" className={styles.published}>
-          Published on: {convertDate(published_on)}
+          {t('PUBLISHED_ON')}: {convertDate(published_on)}
         </Typography>
       </Box>
       <Box
@@ -70,12 +72,14 @@ const ContenArticleDetails = ({
       )}
       {knowledges && knowledges.length > 0 && (
         <Box className={styles.tagDetails}>
-          <Typography variant="h2">Knowledge: {knowledges.join(', ')}</Typography>
+          <Typography variant="h2">
+            {t('KNOWLEDGE')}: {knowledges.join(', ')}
+          </Typography>
         </Box>
       )}
 
       <Box>
-        <h2 className={styles.titleAuthor}>About The Author</h2>
+        <h2 className={styles.titleAuthor}>{t('ABOUT_AUTHOR')}</h2>
         <Link to={`/profile/${author_user_id}`} className={styles.authorAbout}>
           <div className={styles.imageAuthor}>
             <img loading="lazy" src={concatLinkImage(image)} alt="author" />

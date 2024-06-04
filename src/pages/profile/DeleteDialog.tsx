@@ -8,6 +8,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import styles from './profile.module.css';
 import { toast } from 'react-toastify';
 import { deletePost, deleteSrcCode } from '../../services';
+import { useTranslation } from 'react-i18next';
 
 const DeleteDialog = ({
   id,
@@ -22,6 +23,7 @@ const DeleteDialog = ({
   handleClose: () => void;
   fetchData?: any;
 }) => {
+  const { t } = useTranslation();
   const handleDelete = async () => {
     try {
       if (type == 'post') {
@@ -40,13 +42,13 @@ const DeleteDialog = ({
   return (
     <Dialog open={isOpen} onClose={handleClose}>
       <DialogTitle className={styles.formTitle}>
-        Delete
+        {t('DELETE')}
         <button className={styles.closeBtn} onClick={handleClose}>
           <CloseIcon />
         </button>
       </DialogTitle>
       <DialogContentText className={styles.successText}>
-        Are you sure delete this item?
+        {t('DELETE_TEXT')}
       </DialogContentText>
       <DialogActions className={styles.actionGroup}>
         <button
@@ -57,7 +59,7 @@ const DeleteDialog = ({
             handleDelete();
           }}
         >
-          Delete
+          {t('DELETE')}
         </button>
         <button
           className={`${styles.btn} ${styles.grayBtn}`}
@@ -67,7 +69,7 @@ const DeleteDialog = ({
             handleClose();
           }}
         >
-          Cancel
+          {t('CANCEL')}
         </button>
       </DialogActions>
     </Dialog>

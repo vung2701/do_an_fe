@@ -9,11 +9,13 @@ import { useEffect, useState } from 'react';
 import { postPost } from '../../../services';
 import { getObjFromLocal } from '../../../types/utils';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export default function PostCreate() {
   const user = getObjFromLocal('user');
   const [errors, setErrors] = useState<string>('');
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleCancel = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
@@ -59,13 +61,13 @@ export default function PostCreate() {
     <Container className="container-1">
       <Box className={styles.postForm}>
         <Box className={styles.titleDetails}>
-          <Typography variant="h2">Create Post</Typography>
+          <Typography variant="h2">{t('CREATE_POST')}</Typography>
         </Box>
         <Box className={styles.content}>
           <form onSubmit={formik.handleSubmit}>
             <Input
               clasNames="btnLogin"
-              text="Title"
+              text={t('TITLE')}
               htmlFor="title"
               id="title"
               type="text"
@@ -80,7 +82,7 @@ export default function PostCreate() {
 
             <RichEditor
               clasNames={styles.richEditor}
-              text="Content"
+              text={t('CONTENT')}
               required="required"
               name="content"
               value={formik.values.content}
@@ -92,13 +94,13 @@ export default function PostCreate() {
 
             <div className={styles.btnGroup}>
               <button className={`${styles.btn} ${styles.btnPost}`} type="submit">
-                Submit
+                {t('SUBMIT')}
               </button>
               <button
                 className={`${styles.btn} ${styles.btnCancel}`}
                 onClick={(e) => handleCancel(e)}
               >
-                Cancel
+                {t('CANCEL')}
               </button>
             </div>
           </form>

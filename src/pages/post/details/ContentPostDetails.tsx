@@ -4,6 +4,7 @@ import { concatLinkImage, convertDate, getObjFromLocal } from '../../../types/ut
 import { TypePost } from '../../../types';
 import styles from './postDetails.module.css';
 import CreateIcon from '@mui/icons-material/Create';
+import { useTranslation } from 'react-i18next';
 
 const ContenPostDetails = ({
   post_id,
@@ -18,6 +19,7 @@ const ContenPostDetails = ({
   created_by_image
 }: TypePost) => {
   const user = getObjFromLocal('user');
+  const { t } = useTranslation();
   return (
     <>
       <Box className={styles.titleDetails}>
@@ -38,10 +40,10 @@ const ContenPostDetails = ({
         }}
       >
         <Typography variant="body1" className={styles.published}>
-          By: {`${first_name_created_by} ${last_name_created_by}`}
+          {t('AUTHOR')}: {`${first_name_created_by} ${last_name_created_by}`}
         </Typography>
         <Typography variant="body1" className={styles.published}>
-          On: {convertDate(created_on)}
+          {t('PUBLISHED_ON')}: {convertDate(created_on)}
         </Typography>
       </Box>
       <p
@@ -50,7 +52,7 @@ const ContenPostDetails = ({
       />
 
       <Box>
-        <h2 className={styles.titleAuthor}>About The Author</h2>
+        <h2 className={styles.titleAuthor}>{t('ABOUT_AUTHOR')}</h2>
         <Link to={`/profile/${created_by}`} className={styles.authorAbout}>
           <>
             <div className={styles.imageAuthor}>

@@ -5,6 +5,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import SearchIcon from '@mui/icons-material/Search';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export default function FunctionSrcCodeBar({
   seachKey,
@@ -16,6 +17,7 @@ export default function FunctionSrcCodeBar({
   setSearchKey?: any;
 }) {
   const [searchValue, setSearchValue] = useState(seachKey);
+  const { t } = useTranslation();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
@@ -35,7 +37,7 @@ export default function FunctionSrcCodeBar({
       <div className={styles.recommendBox}>
         <Link className={`${styles.btn} ${styles.btnCreate}`} to="/codes/create">
           <AddCircleOutlineIcon />
-          Create
+          {t('CREATE')}
         </Link>
       </div>
       <Box className={styles.searchBox}>

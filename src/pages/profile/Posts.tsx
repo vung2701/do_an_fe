@@ -10,6 +10,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import { Link, useParams } from 'react-router-dom';
 import DeleteDialog from './DeleteDialog';
+import { useTranslation } from 'react-i18next';
 
 const PostsItems = ({
   post_id,
@@ -73,6 +74,7 @@ const PostsItems = ({
 export default function Posts() {
   let { id } = useParams();
   const [posts, setPosts] = useState([]);
+  const { t } = useTranslation();
 
   const fetchPosts = async () => {
     try {
@@ -94,10 +96,10 @@ export default function Posts() {
 
   return (
     <Box className={styles.article} sx={{ marginBottom: '30px' }}>
-      <TitleProfile title="Posts" />
+      <TitleProfile title={t('POST')} />
       <div className={styles.articleContent}>
         {posts.length <= 0 ? (
-          <p className={styles.noProject}>No Posts.</p>
+          <p className={styles.noProject}>{t('NO_POSTS')}</p>
         ) : (
           <>
             {posts.length > 0 &&

@@ -6,11 +6,13 @@ import { getArticles, getArticlesByType, getKnowledgeType } from '../../services
 import { concatLinkImage, convertDate, sortByDate } from '../../types/utils';
 import { TypeArticle, TypeKnowledgeType } from '../../types';
 import FunctionBar from './FunctionBar';
+import { useTranslation } from 'react-i18next';
 
 export default function Articles() {
   const [articles, setArticles] = useState<TypeArticle[]>([]);
   const [knowledgeTypes, setKnowledgeTypes] = useState<TypeKnowledgeType[]>([]);
   const [tab, setTab] = useState('');
+  const { t } = useTranslation();
 
   // pagination
   const [pageSize, setPageSize] = useState(5);
@@ -63,7 +65,7 @@ export default function Articles() {
       <Box className={styles.article}>
         <div className={styles.articleTitleBox}>
           <h2 className={styles.articleTitle}>
-            <Link to={'/articles'}>Articles</Link>
+            <Link to={'/articles'}>{t('ARTICLES')}</Link>
           </h2>
         </div>
 
@@ -138,7 +140,7 @@ export default function Articles() {
                 <Box className={styles.articleContent}>
                   <Typography variant="h5">{item.title}</Typography>
                   <Typography variant="body1" className={styles.published}>
-                    Published on {convertDate(item.published_on)}
+                    {t('PUBLISHED_ON')} {convertDate(item.published_on)}
                   </Typography>
                   <Box
                     className={`${styles.content} `}
@@ -147,16 +149,18 @@ export default function Articles() {
                 </Box>
                 <Box className={styles.articleInfor}>
                   <Avatar alt={item.author} src={concatLinkImage(item.author_img)} />
-                  <p className={styles.articleInforLike}>{item.likes} likes</p>
+                  <p className={styles.articleInforLike}>
+                    {item.likes} {t('LIKES')}
+                  </p>
                   <p className={styles.articleInforComment}>
-                    {item?.comments} comments
+                    {item?.comments} {t('COMMENTS')}
                   </p>
                 </Box>
               </Link>
             ))
           ) : (
             <Box className={styles.noArticles}>
-              <p>No article.</p>
+              <p>{t('NO_ARTICLES')}</p>
             </Box>
           )}
         </List>
@@ -167,7 +171,7 @@ export default function Articles() {
               if (page * pageSize <= total) setPage(page + 1);
             }}
           >
-            View more
+            {t('VIEW_MORE')}
           </button>
         )}
       </Box>

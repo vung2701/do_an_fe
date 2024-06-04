@@ -7,24 +7,34 @@ import {
   TextField,
   Typography
 } from '@mui/material';
-import styles from './srcCodeCreate.module.css';
+import styles from './srcCodeUpdate.module.css';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 import { getObjFromLocal } from '../../../types/utils';
-import { useNavigate } from 'react-router-dom';
 import RichEditor1 from '../../../components/richEditor/RichEditor1';
 import Multiselect from 'multiselect-react-dropdown';
-import { TypeLanguage, TypePost } from '../../../types';
-import { createOrUpdateSrcCode, getAllLanguage, getPosts } from '../../../services';
+import { TypeLanguage, TypePost, TypeSrcCode } from '../../../types';
+import {
+  createOrUpdateSrcCode,
+  getAllLanguage,
+  getPosts,
+  getSrcCode,
+  getSrcCodeDetail
+} from '../../../services';
+import { useTranslation } from 'react-i18next';
+import { useNavigate, useParams } from 'react-router-dom';
 
-export default function SrcCodeCreate() {
+export default function SrcCodeUpdate() {
+  let { id } = useParams();
   const user = getObjFromLocal('user');
   const [errors, setErrors] = useState<string>('');
   const navigate = useNavigate();
   const [languages, setLanguages] = useState<TypeLanguage[]>([]);
   const [posts, setPosts] = useState<TypePost[]>([]);
+  const { t } = useTranslation();
+  const [srcCode, setSrcCode] = useState<TypeSrcCode>();
 
   const fetchLanguages = async () => {
     try {
@@ -59,6 +69,16 @@ export default function SrcCodeCreate() {
     }
     fetchLanguages();
     fetchPosts();
+
+    const fetchSrcCode = async () => {
+      try {
+        const data = await getSrcCodeDetail(id);
+        setSrcCode(data.src_code);
+      } catch (error) {
+        console.error('Error fetching or filtering post:', error);
+      }
+    };
+    fetchSrcCode();
   }, []);
 
   const formik = useFormik({
@@ -67,10 +87,10 @@ export default function SrcCodeCreate() {
     enableReinitialize: true,
     initialValues: {
       created_by: user?.user_id,
-      name: '',
-      content: '',
-      language_ids: [],
-      post_id: ''
+      name: srcCode?.name,
+      content: srcCode?.content,
+      language_ids: srcCode?.language_ids,
+      post_id: srcCode?.post_id
     },
     validationSchema: Yup.object({
       name: Yup.string().required('You must fill this field'),
@@ -98,7 +118,7 @@ export default function SrcCodeCreate() {
     <Container className="container-1">
       <Box className={styles.postForm}>
         <Box className={styles.titleDetails}>
-          <Typography variant="h2">Create Source Code</Typography>
+          <Typography variant="h2">{t('UPDATE_CODE')}</Typography>
         </Box>
         <Box className={styles.content}>
           <form
@@ -109,7 +129,7 @@ export default function SrcCodeCreate() {
           >
             <FormControl className={`${styles.formItem} ${styles.full}`}>
               <FormLabel>
-                Name <span className={styles.required}> *</span>:
+                {t('TITLE')} <span className={styles.required}> *</span>:
               </FormLabel>
               <TextField
                 margin="dense"
@@ -124,12 +144,21 @@ export default function SrcCodeCreate() {
               />
             </FormControl>
 
-            <FormControl className={styles.formItem}>
+            <FormControl
+              className={`${styles.formItem} ${
+                posts && posts.length > 0 ? '' : styles.full
+              }`}
+            >
               <FormLabel>
-                Language <span className={styles.required}> *</span>:
+                {t('LANGUAGE')} <span className={styles.required}> *</span>:
               </FormLabel>
               <Multiselect
                 className={styles.multiSelect}
+                selectedValues={languages.filter((item) => {
+                  if (formik.values.language_ids) {
+                    return formik.values.language_ids.includes(item.id);
+                  }
+                })}
                 options={languages}
                 displayValue="name"
                 showCheckbox
@@ -154,25 +183,27 @@ export default function SrcCodeCreate() {
               )}
             </FormControl>
 
-            <FormControl className={styles.formItem}>
-              <FormLabel>Post:</FormLabel>
-              <TextField
-                select
-                className={styles.formSelect}
-                variant="outlined"
-                size="small"
-                name="post_id"
-                value={formik.values.post_id}
-                onChange={formik.handleChange}
-                sx={{ marginTop: '8px' }}
-              >
-                {posts.map((post) => (
-                  <MenuItem key={post.post_id} value={post.post_id}>
-                    {post.title}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </FormControl>
+            {posts && posts.length > 0 && (
+              <FormControl className={styles.formItem}>
+                <FormLabel>{t('POST')}:</FormLabel>
+                <TextField
+                  select
+                  className={styles.formSelect}
+                  variant="outlined"
+                  size="small"
+                  name="post_id"
+                  value={formik.values.post_id}
+                  onChange={formik.handleChange}
+                  sx={{ marginTop: '8px' }}
+                >
+                  {posts.map((post) => (
+                    <MenuItem key={post.post_id} value={post.post_id}>
+                      {post.title}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </FormControl>
+            )}
 
             <RichEditor1
               clasNames={styles.richEditor}
@@ -188,13 +219,13 @@ export default function SrcCodeCreate() {
 
             <div className={styles.btnGroup}>
               <button className={`${styles.btn} ${styles.btnPost}`} type="submit">
-                Submit
+                {t('SUBMIT')}
               </button>
               <button
                 className={`${styles.btn} ${styles.btnCancel}`}
                 onClick={(e) => handleCancel(e)}
               >
-                Cancel
+                {t('CANCEL')}
               </button>
             </div>
           </form>

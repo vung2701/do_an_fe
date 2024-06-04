@@ -6,12 +6,14 @@ import { getAllLanguage, getSrcCode } from '../../services';
 import { convertDate } from '../../types/utils';
 import { TypeLanguage, TypeSrcCode } from '../../types';
 import FunctionSrcCodeBar from './FunctionSrcCodeBar';
+import { useTranslation } from 'react-i18next';
 
 export default function Articles() {
   const [srcCodes, setSrcCodes] = useState<TypeSrcCode[]>([]);
   const [languages, setLanguage] = useState<TypeLanguage[]>([]);
   const [searchKey, setSearchKey] = useState('');
   const [tab, setTab] = useState('all');
+  const { t } = useTranslation();
 
   // pagination
   const [pageSize, setPageSize] = useState(5);
@@ -143,7 +145,7 @@ export default function Articles() {
                 <Box className={styles.articleContent}>
                   <Typography variant="h5">{item.name}</Typography>
                   <Typography variant="body1" className={styles.published}>
-                    Published on {convertDate(item.created_on)}
+                    {t('PUBLISHED_ON')} {convertDate(item.created_on)}
                   </Typography>
                   <Box className={`${styles.content} `}>
                     <p dangerouslySetInnerHTML={{ __html: item.content || '' }}></p>
@@ -152,7 +154,7 @@ export default function Articles() {
               </Link>
             ))
           ) : (
-            <Box className={styles.noArticles}>No source code.</Box>
+            <Box className={styles.noArticles}>{t('NO_CODES')}</Box>
           )}
         </List>
         {page * pageSize <= total && (
@@ -162,7 +164,7 @@ export default function Articles() {
               if (page * pageSize <= total) setPage(page + 1);
             }}
           >
-            View more
+            {t('VIEW_MORE')}
           </button>
         )}
       </Box>

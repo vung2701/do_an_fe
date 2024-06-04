@@ -7,11 +7,13 @@ import { Box, Typography } from '@mui/material';
 import BackBtn from '../../../components/backBtn/BackBtn';
 import { concatLinkImage, getObjFromLocal } from '../../../types/utils';
 import CreateIcon from '@mui/icons-material/Create';
+import { useTranslation } from 'react-i18next';
 
 export default function CodeDetails() {
   let { id } = useParams();
   const [details, setDetails] = useState<TypeSrcCode>();
   const user = getObjFromLocal('user');
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,7 +49,7 @@ export default function CodeDetails() {
           />
 
           <Box>
-            <h2 className={styles.titleAuthor}>About The Author</h2>
+            <h2 className={styles.titleAuthor}>{t('ABOUT_AUTHOR')}</h2>
             <Link
               to={`/profile/${details.created_by}`}
               className={styles.authorAbout}

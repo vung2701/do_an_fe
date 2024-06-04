@@ -6,11 +6,13 @@ import { TypePost } from '../../types';
 import { useEffect, useState } from 'react';
 import { getPosts } from '../../services';
 import { concatLinkImage, convertDate } from '../../types/utils';
+import { useTranslation } from 'react-i18next';
 
 export default function Posts() {
   const [posts, setPosts] = useState<TypePost[]>([]);
   const [filterPosts, setFilterPosts] = useState<TypePost[]>([]);
   const [searchKey, setSearchKey] = useState('');
+  const { t } = useTranslation();
   // pagination
   const [pageSize, setPageSize] = useState(5);
   const [page, setPage] = useState(1);
@@ -41,7 +43,7 @@ export default function Posts() {
       <Box className={styles.article}>
         <div className={styles.articleTitleBox}>
           <h2 className={styles.articleTitle}>
-            <Link to={'/posts'}>Posts</Link>
+            <Link to={'/posts'}>{t('POSTS')}</Link>
           </h2>
         </div>
 
@@ -53,7 +55,7 @@ export default function Posts() {
 
         <List className={styles.listArticle}>
           <Box className={styles.boxDivider}>
-            <h3>List of Post</h3>
+            <h3>{t('LIST_OF_POST')}</h3>
             <Box className={styles.divider}></Box>
           </Box>
 
@@ -78,22 +80,24 @@ export default function Posts() {
                 <Box className={styles.articleContent}>
                   <Typography variant="h5">{item.title}</Typography>
                   <Typography variant="body1" className={styles.published}>
-                    Published on: {convertDate(item.created_on)}
+                    {t('PUBLISHED_ON')} {convertDate(item.created_on)}
                   </Typography>
                   <Box className={`${styles.content} `}>
                     <p dangerouslySetInnerHTML={{ __html: item.content || '' }}></p>
                   </Box>
                 </Box>
                 <Box className={styles.articleInfor}>
-                  <p className={styles.articleInforLike}>{item.likes} Likes</p>
+                  <p className={styles.articleInforLike}>
+                    {item.likes} {t('LIKES')}
+                  </p>
                   <p className={styles.articleInforComment}>
-                    {item.comments} Comments
+                    {item.comments} {t('COMMENTS')}
                   </p>
                 </Box>
               </Link>
             ))
           ) : (
-            <Box className={styles.noArticles}>No Post.</Box>
+            <Box className={styles.noArticles}>{t('NO_POSTS')} </Box>
           )}
         </List>
         {page * pageSize <= total && (
@@ -103,7 +107,7 @@ export default function Posts() {
               if (page * pageSize <= total) setPage(page + 1);
             }}
           >
-            View more
+            {t('VIEW_MORE')}
           </button>
         )}
       </Box>

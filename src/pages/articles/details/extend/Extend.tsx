@@ -14,6 +14,7 @@ import { getProfileUser } from '../../../../services';
 import { isLogin } from '../../../../middlewares/Authorization';
 import { Link } from 'react-router-dom';
 import Shares from './Shares';
+import { useTranslation } from 'react-i18next';
 
 export default function Extend({
   handleLike,
@@ -35,6 +36,7 @@ export default function Extend({
 }: ExtendProps) {
   const [showLike, setShowLike] = useState(false);
   const [profile, setProfile] = useState<TypeProfile>();
+  const { t } = useTranslation();
 
   const fetchProfile = async () => {
     try {
@@ -72,13 +74,13 @@ export default function Extend({
     <Box>
       <Grid container sx={{ padding: '10px 0' }} className={styles.contentlike}>
         <button onClick={handleShowListLike}>
-          {likess} {''}
-          <span> Likes</span>
+          {likess}
+          <span> {t('LIKES')}</span>
         </button>
 
         <button>
           {commentd}
-          {''} <span> Comments</span>
+          <span> {t('COMMENTS')}</span>
         </button>
         <DialogLike
           likeAuth={likeAuth}
@@ -94,15 +96,15 @@ export default function Extend({
           ) : (
             <FavoriteBorderIcon />
           )}
-          <span> Like</span>
+          <span> {t('LIKE')}</span>
         </button>
         <button onClick={handleComments}>
           <ChatBubbleOutlineIcon />
-          <span> Comment</span>
+          <span> {t('COMMENT')}</span>
         </button>
         <button onClick={handleShare}>
           <ShareIcon />
-          <span> Share</span>
+          <span> {t('SHARE')}</span>
         </button>
         {open && <Shares baseUrl={baseUrl} />}
       </Box>
@@ -111,7 +113,7 @@ export default function Extend({
           <ul className={styles.listMoreComments}>
             {Boolean(commentd && commentd > 5) && (
               <button className={styles.moreComments} onClick={showMore}>
-                See previous comment
+                {t('SEE_COMMENT')}
               </button>
             )}
             {moreComment
@@ -150,7 +152,7 @@ export default function Extend({
             <textarea
               ref={commentsRef}
               className={styles.commentsPost}
-              placeholder="Post your comment"
+              placeholder={t('POST_COMMENT')}
               value={comment}
               onChange={handleChange}
               onClick={handleComments}
