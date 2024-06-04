@@ -12,6 +12,7 @@ import styles from './profile.module.css';
 import { updateProfileUser } from '../../services';
 import { useAuth } from '../../context/AuthContext';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
+import { t } from 'i18next';
 
 export default function InfomationUser({
   oppen,
@@ -78,7 +79,7 @@ export default function InfomationUser({
                 onClick={handleFileClick}
                 type="submit"
               >
-                Upload
+                {t('UPLOAD')}
               </button>
 
               <input
@@ -102,7 +103,7 @@ export default function InfomationUser({
                 <>
                   <span className={styles.f_name}>
                     <TextField
-                      label="First name"
+                      label={t('FIRST_NAME')}
                       className={styles.titleInput}
                       variant="standard"
                       value={formik.values?.first_name || ''}
@@ -112,7 +113,7 @@ export default function InfomationUser({
                   </span>
                   <span className={styles.f_name}>
                     <TextField
-                      label="Last name"
+                      label={t('LAST_NAME')}
                       className={styles.titleInput}
                       variant="standard"
                       value={formik.values.last_name || ''}
@@ -134,12 +135,14 @@ export default function InfomationUser({
                   <TextField
                     variant="standard"
                     value={formik.values.student_id}
-                    label="Student Id"
+                    label={t('STUDENT_ID')}
                     disabled
                   />
                 </span>
               ) : (
-                <span>Student Id: {memberId?.student_id}</span>
+                <span>
+                  {t('STUDENT_ID')}: {memberId?.student_id}
+                </span>
               )}
             </div>
           </div>
@@ -149,7 +152,7 @@ export default function InfomationUser({
               {oppen ? (
                 <span>
                   <TextField
-                    label="School"
+                    label={t('SCHOOL')}
                     className={styles.contactInput}
                     variant="standard"
                     value={formik.values.school || ''}
@@ -166,7 +169,7 @@ export default function InfomationUser({
               {oppen ? (
                 <span>
                   <TextField
-                    label="Class"
+                    label={t('CLASS')}
                     className={styles.contactInput}
                     variant="standard"
                     value={formik.values.class}
@@ -184,7 +187,7 @@ export default function InfomationUser({
               {oppen ? (
                 <span>
                   <TextField
-                    label="Major"
+                    label={t('MAJOR')}
                     className={styles.contactInput}
                     variant="standard"
                     value={formik.values.major || ''}
@@ -202,7 +205,7 @@ export default function InfomationUser({
               {oppen ? (
                 <span>
                   <TextField
-                    label="Location"
+                    label={t('LOCATION')}
                     className={styles.contactInput}
                     variant="standard"
                     value={formik.values.location || ''}
@@ -219,7 +222,7 @@ export default function InfomationUser({
               {oppen ? (
                 <span>
                   <TextField
-                    label="Date of Birth"
+                    label={t('DATE_OF_BIRTH')}
                     className={styles.contactInput}
                     variant="standard"
                     value={formik.values.DOB || ''}
@@ -262,7 +265,7 @@ export default function InfomationUser({
           {oppen && (
             <div className={styles.saveBtn}>
               <Button variant="contained" size="small" color="success" type="submit">
-                Save
+                {t('SAVE')}
               </Button>
             </div>
           )}

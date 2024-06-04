@@ -10,9 +10,11 @@ import styles from './register.module.css';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { isLogin } from '../../middlewares/Authorization';
+import { useTranslation } from 'react-i18next';
 
 export default function Register() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (isLogin()) {
@@ -29,19 +31,17 @@ export default function Register() {
       password2: ''
     },
     validationSchema: Yup.object({
-      first_name: Yup.string().required('You must fill in this section'),
-      last_name: Yup.string().required('You must fill in this section'),
-      student_id: Yup.string().required('You must fill in this section'),
-      email: Yup.string()
-        .email('Invalid Email')
-        .required('You must fill in this section'),
+      first_name: Yup.string().required(t('NOT_EMPTY')),
+      last_name: Yup.string().required(t('NOT_EMPTY')),
+      student_id: Yup.string().required(t('NOT_EMPTY')),
+      email: Yup.string().email(t('INVALID_EMAIL')).required(t('NOT_EMPTY')),
       password1: Yup.string()
-        .required('No password provided.')
-        .min(6, 'Password is too short - should be 6 chars minimum.')
-        .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.'),
+        .required(t('NO_PASS'))
+        .min(6, t('PASS_TOO_SHORT'))
+        .matches(/[a-zA-Z]/, t('PASS_LETTER')),
       password2: Yup.string()
-        .required('Please retype your password.')
-        .oneOf([Yup.ref('password1')], 'Your passwords do not match.')
+        .required(t('RETYPE_PASS'))
+        .oneOf([Yup.ref('password1')], t('PASS_NOT_MATCH'))
     }),
     onSubmit: async (values, { resetForm }: { resetForm: () => void }) => {
       try {
@@ -68,13 +68,13 @@ export default function Register() {
           <Input
             autoComplete="new-password"
             clasNames="btnLogin"
-            text="First Name  "
+            text={t('FIRST_NAME')}
             htmlFor="first_name"
             id="first_name"
             type="text"
             required="required"
             name="first_name"
-            placeholder="First Name"
+            placeholder={t('FIRST_NAME')}
             value={formik.values.first_name}
             onChange={formik.handleChange}
             errors={
@@ -86,13 +86,13 @@ export default function Register() {
           <Input
             autoComplete="new-password"
             clasNames="btnLogin"
-            text="Last Name"
+            text={t('LAST_NAME')}
             htmlFor="last_name"
             id="last_name"
             type="text"
             required="required"
             name="last_name"
-            placeholder="Last Name"
+            placeholder={t('LAST_NAME')}
             value={formik.values.last_name}
             onChange={formik.handleChange}
             errors={
@@ -120,13 +120,13 @@ export default function Register() {
           <Input
             autoComplete="new-password"
             clasNames="btnLogin"
-            text="Student Id"
+            text={t('STUDENT_ID')}
             htmlFor="student_id"
             id="student_id"
             type="text"
             required="required"
             name="student_id"
-            placeholder="Student Id"
+            placeholder={t('STUDENT_ID')}
             value={formik.values.student_id}
             onChange={formik.handleChange}
             errors={
@@ -138,13 +138,13 @@ export default function Register() {
           <Input
             autoComplete="new-password"
             clasNames="btnLogin"
-            text="Password"
+            text={t('PASSWORD')}
             htmlFor="passworks"
             id="passworks"
             type="password"
             required="required"
             name="password1"
-            placeholder="Password"
+            placeholder={t('PASSWORD')}
             value={formik.values.password1}
             onChange={formik.handleChange}
             errors={
@@ -156,13 +156,13 @@ export default function Register() {
           <Input
             autoComplete="new-password"
             clasNames="btnLogin"
-            text="Password confirmation"
+            text={t('PASSWORD_CONFIRMATION')}
             htmlFor="passworksconfirmation"
             id="passworksconfirmation"
             type="password"
             required="required"
             name="password2"
-            placeholder="Password Confirmation"
+            placeholder={t('PASSWORD_CONFIRMATION')}
             value={formik.values.password2}
             onChange={formik.handleChange}
             errors={
@@ -172,7 +172,10 @@ export default function Register() {
             }
           />
           <Box className={styles.btnLogin}>
-            <CustomButton name="Create Account" classNameAdd={styles.register} />
+            <CustomButton
+              name={t('CREATE_ACCOUNT')}
+              classNameAdd={styles.register}
+            />
           </Box>
         </form>
       </Box>

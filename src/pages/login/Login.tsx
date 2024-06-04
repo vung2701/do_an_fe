@@ -3,62 +3,25 @@ import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { useAuth } from '../../context/AuthContext';
-import {
-  LoginFacebook,
-  LoginGoogle,
-  LoginLinkedIn,
-  loginUser
-} from '../../services';
+import { loginUser } from '../../services';
 import CustomButton from '../../components/customButton/CustomButton';
 import CustomLinks from '../../components/customLinks/CustomLinks';
 import Titles from '../../components/titles/Titles';
 import Input from '../../components/input/Input';
 import styles from './login.module.css';
 import { useLocation, useNavigate } from 'react-router-dom';
-import {
-  LoginSocialFacebook,
-  LoginSocialGoogle,
-  LoginSocialLinkedin
-} from 'reactjs-social-login';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { isLogin } from '../../middlewares/Authorization';
+import Login1 from '../../components/Oauth/Login1';
+import { useTranslation } from 'react-i18next';
+import axios from 'axios';
 
 export default function Login() {
   const { login } = useAuth();
   const location = useLocation();
   const informMsg = location.state?.key;
   const navigate = useNavigate();
-
-  // const handleLoginFacebook = async ({ data }: any) => {
-  //   try {
-  //     const response = await LoginFacebook(data.accessToken);
-  //     login(response?.data?.token, location.state);
-  //   } catch (error) {
-  //     console.log('Login facebook false');
-  //   }
-  // };
-
-  // const handleLoginGoogle = async ({ data }: any) => {
-  //   try {
-  //     const response = await LoginGoogle(data.access_token);
-  //     login(response?.data?.token, location.state);
-  //   } catch (error) {
-  //     console.log('Login google false');
-  //   }
-  // };
-
-  // const handleLoginLinkedIn = async ({ data }: any) => {
-  //   try {
-  //     const response = await LoginLinkedIn(data.access_token);
-  //     login(response?.data?.token, location.state);
-  //   } catch (error) {
-  //     console.log('Login linked false');
-  //   }
-  // };
-
-  // const handleReject = ({ err }: any) => {
-  //   console.log('Login reject:', err);
-  // };
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (isLogin()) {
@@ -72,11 +35,11 @@ export default function Login() {
       password: ''
     },
     validationSchema: Yup.object({
-      username: Yup.string().email('Invalid email').required('Required'),
+      username: Yup.string().email(t('INVALID_EMAIL')).required(t('REQUIRED')),
       password: Yup.string()
-        .required('No password provided.')
-        .min(6, 'Password is too short - should be 6 chars minimum.')
-        .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.')
+        .required(t('NO_PASS'))
+        .min(6, t('PASS_TOO_SHORT'))
+        .matches(/[a-zA-Z]/, t('PASS_LETTER'))
     }),
     onSubmit: async (values, { resetForm }: { resetForm: () => void }) => {
       try {
@@ -129,13 +92,13 @@ export default function Login() {
           <Input
             autoComplete="new-password"
             clasNames="btnLogin"
-            text="Password"
+            text={t('PASSWORD')}
             htmlFor="passworks"
             id="passworks"
             type="password"
             required="required"
             name="password"
-            placeholder="Password"
+            placeholder={t('PASSWORD')}
             value={formik.values.password}
             onChange={formik.handleChange}
             errors={
@@ -145,66 +108,20 @@ export default function Login() {
             }
           />
           <Box className={styles.btnLogin}>
-            <CustomButton name="Login" classNameAdd={styles.login} />
-            <p className={styles.or}>Or</p>
+            <CustomButton name={t('LOGIN')} classNameAdd={styles.login} />
+            <p className={styles.or}>{t('OR')}</p>
           </Box>
         </form>
 
-        {/* <Box className={styles.socialLogin}>
-          <span>Login with:</span>
-          <Box className={styles.socialBtnBox}>
-            <LoginSocialFacebook
-              className={styles.socialLoginBtn}
-              appId={import.meta.env.VITE_FB_APP_ID}
-              isOnlyGetToken
-              onResolve={handleLoginFacebook}
-              scope={[
-                'public_profile',
-                'email',
-              ]}
-              onReject={handleReject}
-            >
-              <img loading='lazy' src="/public/images/facebook.png" alt="facebook" />
-            </LoginSocialFacebook>
-
-            <LoginSocialGoogle
-              className={styles.socialLoginBtn}
-              client_id={import.meta.env.VITE_GG_APP_ID}
-              isOnlyGetToken
-              scope="openid profile email"
-              discoveryDocs="claims_supported"
-              onResolve={handleLoginGoogle}
-              onReject={handleReject}
-            >
-              <img loading='lazy' src="/public/images/google.png" alt="google" />
-            </LoginSocialGoogle>
-
-            <LoginSocialLinkedin
-              className={styles.socialLoginBtn}
-              client_id={import.meta.env.VITE_LINKEDIN_APP_ID}
-              client_secret={import.meta.env.VITE_LINKEDIN_APP_SECRET}
-              redirect_uri={
-                (window.location.hostname === 'baw.avtvn.com') ? "https://baw.avtvn.com/login" :
-                  ((window.location.hostname === 'test-baw.avtvn.com') ? "https://test-baw.avtvn.com/login" :
-                    "http://localhost:5173/login")}
-              isOnlyGetToken
-              scope={["profile", "openid", "email"]}
-              onResolve={handleLoginLinkedIn}
-              onReject={handleReject}
-            >
-              <img loading='lazy' src="/public/images/linkedin.png" alt="linkedin" />
-            </LoginSocialLinkedin>
-
-          </Box>
-        </Box> */}
-
         <Box className={styles.addLogin}>
           <CustomLinks
-            name="Register"
+            name={t('REGISTER')}
             classNameAdd={styles.register}
             links="/register"
           />
         </Box>
+        {/* <Login1 />
+        {protectedData && <p>{protectedData}</p>} */}
       </Box>
     </Container>
   );

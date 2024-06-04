@@ -13,6 +13,7 @@ import HomePage from '../pages/home/HomePage';
 import SrcCode from '../pages/srccode/SrcCode';
 import CodeDetails from '../pages/srccode/details/CodeDetails';
 import SrcCodeCreate from '../pages/srccode/create/SrcCodeCreate';
+import AuthCallback from '../components/Oauth/AuthCallback';
 
 export default function AppRouters() {
   return (
@@ -31,6 +32,7 @@ export default function AppRouters() {
       {/* <Route path="/codes/update/:id" element={< />} /> */}
       <Route path="/codes/:id" element={<CodeDetails />} />
       <Route path="/codes" element={<SrcCode />} />
+      <Route path="/callback" element={<AuthCallback />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

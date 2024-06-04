@@ -14,6 +14,7 @@ import { getObjFromLocal } from '../../types/utils';
 import { TypeProfile } from '../../types';
 import Posts from './Posts';
 import SrcCodes from './SrcCodes';
+import { useTranslation } from 'react-i18next';
 
 export default function Profile() {
   let { id } = useParams();
@@ -23,6 +24,7 @@ export default function Profile() {
   const [memberId, setMemberId] = useState<TypeProfile>();
   const [oppen, setOppen] = useState(false);
   const [user, setUser] = useState();
+  const { t } = useTranslation();
 
   const navigate = useNavigate();
 
@@ -90,7 +92,7 @@ export default function Profile() {
     <Container className="container-1">
       <Box className={styles.profile}>
         <div className={styles.profileTitle}>
-          <Titles classNameAdd={styles.titleLogin} name={`Profile`} />
+          <Titles classNameAdd={styles.titleLogin} name={t('PROFILE')} />
           {id === user && (
             <button onClick={handleShowEditProfile}>
               {oppen ? <CloseIcon /> : <CreateIcon />}
