@@ -51,7 +51,7 @@ export default function Register() {
           resetForm();
           navigate('/login', { state: { key: res?.data?.inform_msg } });
         } else {
-          toast.error(res.data.message);
+          toast.error(res.data.message, { autoClose: 4000 });
         }
       } catch (error) {
         console.error('Form submission error:', error);

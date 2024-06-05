@@ -213,6 +213,7 @@ export type TypeSrcCode = {
   languages?: string[]; 
   language_ids?: string[]; 
   post_id?: string; 
+  article_id?: string; 
   fetchSrcCodes?: () => void;
 };
 

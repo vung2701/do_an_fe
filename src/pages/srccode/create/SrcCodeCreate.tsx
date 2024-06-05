@@ -121,7 +121,6 @@ export default function SrcCodeCreate() {
                 value={formik.values.name}
                 onChange={formik.handleChange}
                 error={Boolean(formik.errors.name && formik.touched.name)}
-                size="small"
                 helperText={formik.errors.name}
               />
             </FormControl>
@@ -167,7 +166,6 @@ export default function SrcCodeCreate() {
                   select
                   className={styles.formSelect}
                   variant="outlined"
-                  size="small"
                   name="post_id"
                   value={formik.values.post_id}
                   onChange={formik.handleChange}

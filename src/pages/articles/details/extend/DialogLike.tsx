@@ -11,6 +11,7 @@ import { getProfileUser } from '../../../../services';
 import { TypeProfile } from '../../../../types';
 import { concatLinkImage } from '../../../../types/utils';
 import { isLogin } from '../../../../middlewares/Authorization';
+import { useTranslation } from 'react-i18next';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -80,6 +81,7 @@ export default function DialogLike({
   likess,
   likeAuth
 }: TypeDialogLike) {
+  const { t } = useTranslation();
   return (
     <BootstrapDialog
       onClose={handleClose}
@@ -88,7 +90,7 @@ export default function DialogLike({
       className={styles.containerLike}
     >
       <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-        {likess} Likes
+        {likess} {t('LIKE_LIST')}
       </DialogTitle>
       <IconButton
         aria-label="close"

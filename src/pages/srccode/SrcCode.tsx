@@ -100,7 +100,7 @@ export default function Articles() {
             >
               <Tab
                 value="all"
-                label="All "
+                label={t('ALL')}
                 sx={{
                   color: '#666',
                   '&.Mui-selected': {

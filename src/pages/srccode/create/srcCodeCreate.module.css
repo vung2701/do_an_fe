@@ -106,6 +106,7 @@
 .multiSelect > div {
   border-radius: 12px;
   background-color: #fff;
+  min-height: 57px;
 }
 
 .multiSelect input {

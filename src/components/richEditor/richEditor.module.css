@@ -1,6 +1,7 @@
 .fromControl {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 .fromControl label {
   margin: 15px 0;
