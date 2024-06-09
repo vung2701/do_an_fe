@@ -15,12 +15,12 @@ import { useEffect, useState } from 'react';
 import { getObjFromLocal } from '../../../types/utils';
 import RichEditor1 from '../../../components/richEditor/RichEditor1';
 import Multiselect from 'multiselect-react-dropdown';
-import { TypeLanguage, TypePost, TypeSrcCode } from '../../../types';
+import { TypeArticle, TypeLanguage, TypePost, TypeSrcCode } from '../../../types';
 import {
   createOrUpdateSrcCode,
   getAllLanguage,
+  getArticles,
   getPosts,
-  getSrcCode,
   getSrcCodeDetail
 } from '../../../services';
 import { useTranslation } from 'react-i18next';
@@ -33,6 +33,7 @@ export default function SrcCodeUpdate() {
   const navigate = useNavigate();
   const [languages, setLanguages] = useState<TypeLanguage[]>([]);
   const [posts, setPosts] = useState<TypePost[]>([]);
+  const [articles, setArticles] = useState<TypeArticle[]>([]);
   const { t } = useTranslation();
   const [srcCode, setSrcCode] = useState<TypeSrcCode>();
 
@@ -90,7 +91,8 @@ export default function SrcCodeUpdate() {
       name: srcCode?.name,
       content: srcCode?.content,
       language_ids: srcCode?.language_ids,
-      post_id: srcCode?.post_id
+      post_id: srcCode?.post_id,
+      article_id: srcCode?.article_id
     },
     validationSchema: Yup.object({
       name: Yup.string().required('You must fill this field'),
@@ -109,7 +111,7 @@ export default function SrcCodeUpdate() {
         }
       } catch (error) {
         console.error('Cannot add new src code', error);
-        toast.error('Cannot add new src code');
+        toast.error(t('REQUEST_ERROR'));
       }
     }
   });
@@ -127,7 +129,9 @@ export default function SrcCodeUpdate() {
               formik.handleSubmit(e);
             }}
           >
-            <FormControl className={`${styles.formItem} ${styles.full}`}>
+            <FormControl
+              className={`${styles.formItem} ${styles.full} ${styles.formInput}`}
+            >
               <FormLabel>
                 {t('TITLE')} <span className={styles.required}> *</span>:
               </FormLabel>
@@ -140,6 +144,7 @@ export default function SrcCodeUpdate() {
                 onChange={formik.handleChange}
                 error={Boolean(formik.errors.name && formik.touched.name)}
                 helperText={formik.errors.name}
+                size="small"
               />
             </FormControl>
 
@@ -193,6 +198,7 @@ export default function SrcCodeUpdate() {
                   value={formik.values.post_id}
                   onChange={formik.handleChange}
                   sx={{ marginTop: '8px' }}
+                  size="small"
                 >
                   {posts.map((post) => (
                     <MenuItem key={post.post_id} value={post.post_id}>
@@ -205,7 +211,7 @@ export default function SrcCodeUpdate() {
 
             <RichEditor1
               clasNames={styles.richEditor}
-              text="Content"
+              text={t('CONTENT')}
               required="required"
               name="content"
               value={formik.values.content}

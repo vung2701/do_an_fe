@@ -1,15 +1,23 @@
 import { Box, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
-import { TypeContentPosts, TypeKnowledge, TypeKnowledgeType } from '../../../types';
+import { Link, useParams } from 'react-router-dom';
+import {
+  TypeContentPosts,
+  TypeKnowledge,
+  TypeKnowledgeType,
+  TypeSrcCode
+} from '../../../types';
 import { concatLinkImage, convertDate } from '../../../types/utils';
 import styles from './details.module.css';
 import { useEffect, useState } from 'react';
-import { getArticleKnowledge } from '../../../services';
+import {
+  getArticleKnowledge,
+  getSrcCodeArticle,
+  getSrcCodeId
+} from '../../../services';
 import { useTranslation } from 'react-i18next';
 
 const ContenArticleDetails = ({
   title,
-  author,
   published_on,
   content,
   author_description,
@@ -21,7 +29,9 @@ const ContenArticleDetails = ({
   limit,
   knowledge
 }: TypeContentPosts) => {
+  const { id } = useParams();
   const [knowledges, setKnowledges] = useState<TypeKnowledge[]>([]);
+  const [srcCode, setSrcCode] = useState<TypeSrcCode>();
   const { t } = useTranslation();
   useEffect(() => {
     const fetchData = async () => {
@@ -32,7 +42,18 @@ const ContenArticleDetails = ({
         console.error('Error fetching data:', error);
       }
     };
+
     fetchData();
+
+    const fetchSrcCode = async () => {
+      try {
+        const data = await getSrcCodeArticle(id);
+        setSrcCode(data.src_code);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchSrcCode();
   }, []);
   return (
     <>
@@ -62,14 +83,7 @@ const ContenArticleDetails = ({
         className={styles.content}
         dangerouslySetInnerHTML={{ __html: content || '' }}
       />
-      {limit && (
-        <div className={styles.loginToview}>
-          Please login to view more content
-          <Link className={styles.clickHere} to={'/login'}>
-            Click here
-          </Link>
-        </div>
-      )}
+
       {knowledges && knowledges.length > 0 && (
         <Box className={styles.tagDetails}>
           <Typography variant="h2">
@@ -77,6 +91,14 @@ const ContenArticleDetails = ({
           </Typography>
         </Box>
       )}
+
+      <Box className={styles.btnLinkBox}>
+        {srcCode && (
+          <Link className={styles.btnLink} to={`/codes/${srcCode.src_code_id}`}>
+            {t('VIEW_CODE')}
+          </Link>
+        )}
+      </Box>
 
       <Box>
         <h2 className={styles.titleAuthor}>{t('ABOUT_AUTHOR')}</h2>

@@ -52,7 +52,7 @@ export default function PostCreate() {
         }
       } catch (error) {
         console.error('Cannot add new post', error);
-        toast.error('Cannot add new post');
+        toast.error(t('REQUEST_ERROR'));
       }
     }
   });

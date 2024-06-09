@@ -52,7 +52,7 @@ const logoutUser = async () => {
   }
 };
 
-const getArticles = async ( page = 1, per_page= 10, searchKey='', knowledge_type_id= '') => {
+const getArticles = async ( page = 1, per_page= 25, searchKey='', knowledge_type_id= '') => {
   try {
     const response = await axiosInstance.get(`article/get?knowledge_type_id=${knowledge_type_id}&search=${searchKey}&page=${page}&per_page=${per_page}&sort=-created_on`);
     return response.data;
@@ -61,19 +61,6 @@ const getArticles = async ( page = 1, per_page= 10, searchKey='', knowledge_type
     throw error;
   }
 };
-
-
-const getArticleReaded = async (webBrowser: string | null) => {
-  try {
-    const response = await axiosInstance.get(`/unreg_user/get?web_browser=${webBrowser}`);
-    return response.data.public_user.read_articles;
-  } catch (error) {
-    console.error('Error fetching careers:', error);
-    throw error;
-  }
-};
-
-
 
 const getArticleDetails = async (id: string | undefined) => {
   try {
@@ -110,17 +97,6 @@ const getArticleKnowledge = async (ids?: string[]) => {
   }
 };
 
-
-// const getArticlePublic = async ( id: string | undefined, webBrowser: string | null) => { 
-//   try {
-//     const axiosInstance = createAxios();
-//     const response = await axiosInstance.get(`/article_details?article_id=${id}&web_browser=${webBrowser}`);
-//     return response?.data;
-//   } catch (error) {
-//     console.error('Error fetching articles public:', error);
-//     throw error;
-//   }
-// }
 
 
 const postComments = async (newComment: any) => {
@@ -428,6 +404,24 @@ const getSrcCode = async (page = 1, per_page = 5, language_id = '', searchKey = 
     throw error;
   }
 };
+const getSrcCodeArticle = async (article_id?: string) => {
+  try {
+    const response = await axiosInstance.get(`src_code/get_src_code_id?article_id=${article_id}`);
+    return response.data
+  } catch (error) {
+    console.error('Error get src code:', error);
+    throw error;
+  }
+};
+const getSrcCodePost = async (post_id?: string) => {
+  try {
+    const response = await axiosInstance.get(`src_code/get_src_code_id?post_id=${post_id}`);
+    return response.data
+  } catch (error) {
+    console.error('Error get src code:', error);
+    throw error;
+  }
+};
 
 const getSrcCodeDetail = async (srcCodeId?: string) => {
   try {
@@ -466,11 +460,7 @@ export {
   logoutUser,
   deleteLikes,
   getArticles,
-  getArticlesByType,
-  getArticleReaded,
-  // getArticleWithParams,
   getArticleDetails,
-  // getArticlePublic,
   getKnowledgeType,
   getPost,
   getPosts,
@@ -497,6 +487,8 @@ export {
   getSpotlight,
   getArticleKnowledge,
   getSrcCode,
+  getSrcCodeArticle,
+  getSrcCodePost,
   getAllLanguage,
   getSrcCodeDetail,
   createOrUpdateSrcCode,

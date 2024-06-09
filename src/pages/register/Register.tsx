@@ -47,15 +47,15 @@ export default function Register() {
       try {
         const res = await registerUser(values);
         if (res.data.error == 0) {
-          toast.success('Account successfully created!');
+          toast.success(t('REGISTER_SUCCESS'));
           resetForm();
-          navigate('/login', { state: { key: res?.data?.inform_msg } });
+          navigate('/login', { state: { key: t(`${res?.data?.inform_msg}`) } });
         } else {
-          toast.error(res.data.message, { autoClose: 4000 });
+          toast.error(t(`${res.data.message}`), { autoClose: 4000 });
         }
       } catch (error) {
         console.error('Form submission error:', error);
-        toast.error('The account already exists or the email is incorrect!');
+        toast.error(t('REQUEST_ERROR'));
       }
     }
   });

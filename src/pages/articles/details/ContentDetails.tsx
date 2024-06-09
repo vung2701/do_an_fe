@@ -122,7 +122,7 @@ const ContentDetails = ({
 
   const fetchComments = async () => {
     try {
-      const paramsComments = { id: id, page: 1, per_page: 5 };
+      const paramsComments = { id: id, page: 1, perPage: 4 };
       const moreComment = await getComments(paramsComments);
       if (moreComment?.total) {
         setCommentd(moreComment?.total);
@@ -135,7 +135,7 @@ const ContentDetails = ({
 
   const showMoreComments = async () => {
     const nextPage = currentPage + 1;
-    const paramsComments = { id: id, page: nextPage, perPage: 5 };
+    const paramsComments = { id: id, page: nextPage, perPage: 4 };
     try {
       const moreComments = await getComments(paramsComments);
       const oldComments = moreComments?.comment;

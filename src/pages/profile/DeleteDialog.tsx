@@ -33,10 +33,10 @@ const DeleteDialog = ({
       }
       handleClose();
       await fetchData();
-      toast.success('delete success');
+      toast.success(t('DELETE_SUCCESS'));
     } catch (error) {
       console.error('error delete item:', error);
-      toast.error('delete error');
+      toast.error(t('REQUEST_ERROR'));
     }
   };
   return (

@@ -10,11 +10,9 @@ import Titles from '../../components/titles/Titles';
 import Input from '../../components/input/Input';
 import styles from './login.module.css';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { isLogin } from '../../middlewares/Authorization';
-import Login1 from '../../components/Oauth/Login1';
 import { useTranslation } from 'react-i18next';
-import axios from 'axios';
 
 export default function Login() {
   const { login } = useAuth();
@@ -52,7 +50,7 @@ export default function Login() {
         resetForm();
       } catch (error) {
         console.error('Form submission error:', error);
-        toast.error('Form submission failed. Please try again.');
+        toast.error(t('REQUEST_ERROR'));
       }
     }
   });
@@ -120,8 +118,6 @@ export default function Login() {
             links="/register"
           />
         </Box>
-        {/* <Login1 />
-        {protectedData && <p>{protectedData}</p>} */}
       </Box>
     </Container>
   );

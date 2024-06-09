@@ -6,7 +6,6 @@ import { getArticleDetails } from '../../../services';
 import { TypeArticle } from '../../../types';
 import styles from './details.module.css';
 import ContentDetails from './ContentDetails';
-import LimitDetails from './LimitDetails';
 
 export default function Details() {
   let { id } = useParams();
@@ -50,8 +49,8 @@ export default function Details() {
             author_description={details?.author_description}
             limit={details?.limit}
             knowledge={details.knowledge}
+            art
           />
-          {details?.limit && <LimitDetails />}
         </>
       )}
     </Box>

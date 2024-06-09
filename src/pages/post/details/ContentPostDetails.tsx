@@ -1,10 +1,12 @@
 import { Box, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { concatLinkImage, convertDate, getObjFromLocal } from '../../../types/utils';
-import { TypePost } from '../../../types';
+import { TypePost, TypeSrcCode } from '../../../types';
 import styles from './postDetails.module.css';
 import CreateIcon from '@mui/icons-material/Create';
 import { useTranslation } from 'react-i18next';
+import { useEffect, useState } from 'react';
+import { getSrcCodeId, getSrcCodePost } from '../../../services';
 
 const ContenPostDetails = ({
   post_id,
@@ -20,6 +22,19 @@ const ContenPostDetails = ({
 }: TypePost) => {
   const user = getObjFromLocal('user');
   const { t } = useTranslation();
+  const { id } = useParams();
+  const [srcCode, setSrcCode] = useState<TypeSrcCode>();
+  useEffect(() => {
+    const fetchSrcCode = async () => {
+      try {
+        const data = await getSrcCodePost(id);
+        setSrcCode(data.src_code);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchSrcCode();
+  }, []);
   return (
     <>
       <Box className={styles.titleDetails}>
@@ -50,6 +65,14 @@ const ContenPostDetails = ({
         className={styles.content}
         dangerouslySetInnerHTML={{ __html: content || '' }}
       />
+
+      <Box className={styles.btnLinkBox}>
+        {srcCode && (
+          <Link className={styles.btnLink} to={`/codes/${srcCode.src_code_id}`}>
+            {t('VIEW_CODE')}
+          </Link>
+        )}
+      </Box>
 
       <Box>
         <h2 className={styles.titleAuthor}>{t('ABOUT_AUTHOR')}</h2>

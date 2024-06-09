@@ -164,45 +164,17 @@
   margin-bottom: 20px;
 }
 
-.loginToview {
-  margin-top: 16px;
-  font-size: 20px;
-  color: var(--colorBlue1);
-  font-style: italic;
+.btnLinkBox {
+  text-align: right;
+  margin-bottom: 30px;
 }
 
-.clickHere {
-  color: var(--colorBlue1);
-  text-decoration: underline;
-  font-style: italic;
-  margin-left: 4px;
-}
-
-/* Limit details */
-.limitDetails {
-  position: fixed;
-  top: 80%;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 100;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #333;
+.btnLink {
+  padding: 10px 15px;
+  border-radius: 8px;
+  background-color: #389738;
   color: #fff;
-  font-size: 18px;
-  opacity: 0.9;
-}
-
-.limitDetails a {
-  color: #6e6ee2;
-  text-decoration: underline;
-  margin-left: 4px;
-  font-style: italic;
-}
-.readed {
-  margin-top: 8px;
+  font-size: 16px;
 }
 
 @media (max-width: 767px) {

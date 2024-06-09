@@ -151,6 +151,19 @@
   color: #fff;
 }
 
+.btnLinkBox {
+  text-align: right;
+  margin-bottom: 30px;
+}
+
+.btnLink {
+  padding: 10px 15px;
+  border-radius: 8px;
+  background-color: #389738;
+  color: #fff;
+  font-size: 16px;
+}
+
 @media (max-width: 767px) {
   .titleDetails h2 {
     font-size: 28px !important;

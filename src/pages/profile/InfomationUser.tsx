@@ -53,7 +53,7 @@ export default function InfomationUser({
         resetForm();
       } catch (error) {
         console.error('Please fill all information to update profile.', error);
-        toast.error('Please fill all information to update profile.');
+        toast.error(t('REQUEST_ERROR'));
       }
     }
   });

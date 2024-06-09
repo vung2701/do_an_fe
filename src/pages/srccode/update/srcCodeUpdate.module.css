@@ -89,7 +89,6 @@
 .formItem p {
   color: red;
 }
-
 .formRemarks > div > div,
 .formSelect > div > div,
 .formItem input {
@@ -97,15 +96,23 @@
   border-radius: 15px;
 }
 
+.formSelect > div > div,
+.formInput input {
+  height: 46px;
+  line-height: 46px;
+  padding: 0 14px;
+}
+
 .multiSelect {
   margin-top: 8px;
   z-index: 10;
+  min-height: 48px;
 }
 
 .multiSelect > div {
   border-radius: 12px;
   background-color: #fff;
-  min-height: 57px;
+  min-height: 48px;
 }
 
 .multiSelect input {

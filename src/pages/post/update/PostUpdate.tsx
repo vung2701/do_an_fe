@@ -64,7 +64,7 @@ export default function PostUpdate() {
         }
       } catch (error) {
         console.error('Cannot update post', error);
-        toast.error('Cannot update post');
+        toast.error(t('REQUEST_ERROR'));
       }
     }
   });

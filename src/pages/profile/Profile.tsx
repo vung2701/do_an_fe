@@ -52,10 +52,10 @@ export default function Profile() {
       try {
         await profileUser(userProfile);
         updateProfile();
-        toast.success('Image uploaded successfully');
+        toast.success(t('UPLOAD_IMG_SUCCESS'));
       } catch (error) {
         console.log(error);
-        toast.error('Image upload failed');
+        toast.error(t('REQUEST_ERROR'));
       }
     }
   };

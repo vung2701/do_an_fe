@@ -111,7 +111,7 @@ export default function Extend({
       <Box className={styles.comments}>
         {isLogin() ? (
           <ul className={styles.listMoreComments}>
-            {Boolean(commentd && commentd > 5) && (
+            {Boolean(commentd && commentd > 4 && commentd > moreComment.length) && (
               <button className={styles.moreComments} onClick={showMore}>
                 {t('SEE_COMMENT')}
               </button>

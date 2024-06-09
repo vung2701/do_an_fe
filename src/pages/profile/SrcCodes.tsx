@@ -17,7 +17,8 @@ const SrcCodeItems = ({
   name,
   content,
   created_by,
-  fetchSrcCodes
+  fetchSrcCodes,
+  article_id
 }: TypeSrcCode) => {
   const user = getObjFromLocal('user');
   const [deleteDialog, setDeleteDialog] = useState(false);
@@ -28,14 +29,14 @@ const SrcCodeItems = ({
 
   return (
     <Box className={styles.contentProject}>
-      <Link to={`/code/${src_code_id}`} className={styles.contentLink}>
+      <Link to={`/codes/${src_code_id}`} className={styles.contentLink}>
         <img src={'/public/images/code.png'} alt="post user" />
         <div className={styles.content}>
           <h6>{name}</h6>
           <p dangerouslySetInnerHTML={{ __html: content || '' }}></p>
         </div>
       </Link>
-      {created_by === user.user_id && (
+      {created_by === user.user_id && !article_id && (
         <div className={styles.icon}>
           <button>
             <Link to={`/codes/update/${src_code_id}`}>
@@ -100,6 +101,7 @@ export default function SrcCodes() {
                   name={item?.name}
                   content={item?.content}
                   created_by={item?.created_by}
+                  article_id={item?.article_id}
                   fetchSrcCodes={fetchSrcCodes}
                 />
               ))}

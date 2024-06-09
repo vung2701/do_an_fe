@@ -35,11 +35,13 @@ export default function CodeDetails() {
           <Box className={styles.titleDetails}>
             <Typography variant="h2">{details.name}</Typography>
             <div className={styles.icon}>
-              {user && user.user_id === details.created_by && (
-                <Link to={`/codes/update/${details.src_code_id}`}>
-                  <CreateIcon />
-                </Link>
-              )}
+              {user &&
+                user.user_id === details.created_by &&
+                !details.article_id && (
+                  <Link to={`/codes/update/${details.src_code_id}`}>
+                    <CreateIcon />
+                  </Link>
+                )}
             </div>
           </Box>
 
@@ -47,6 +49,21 @@ export default function CodeDetails() {
             className={styles.content}
             dangerouslySetInnerHTML={{ __html: details.content || '' }}
           />
+          <Box className={styles.btnLinkBox}>
+            {details.article_id && (
+              <Link
+                className={styles.btnLink}
+                to={`/articles/${details.article_id}`}
+              >
+                {t('VIEW_ARTICLE')}
+              </Link>
+            )}
+            {details.post_id && (
+              <Link className={styles.btnLink} to={`/posts/${details.post_id}`}>
+                {t('VIEW_POST')}
+              </Link>
+            )}
+          </Box>
 
           <Box>
             <h2 className={styles.titleAuthor}>{t('ABOUT_AUTHOR')}</h2>

@@ -91,7 +91,7 @@ export default function SrcCodeCreate() {
         }
       } catch (error) {
         console.error('Cannot add new src code', error);
-        toast.error('Cannot add new src code');
+        toast.error(t('REQUEST_ERROR'));
       }
     }
   });
@@ -109,7 +109,9 @@ export default function SrcCodeCreate() {
               formik.handleSubmit(e);
             }}
           >
-            <FormControl className={`${styles.formItem} ${styles.full}`}>
+            <FormControl
+              className={`${styles.formItem} ${styles.full} ${styles.formInput}`}
+            >
               <FormLabel>
                 {t('TITLE')} <span className={styles.required}> *</span>:
               </FormLabel>
@@ -122,6 +124,7 @@ export default function SrcCodeCreate() {
                 onChange={formik.handleChange}
                 error={Boolean(formik.errors.name && formik.touched.name)}
                 helperText={formik.errors.name}
+                size="small"
               />
             </FormControl>
 
@@ -160,7 +163,7 @@ export default function SrcCodeCreate() {
             </FormControl>
 
             {posts && posts.length > 0 && (
-              <FormControl className={styles.formItem}>
+              <FormControl className={`${styles.formItem}`}>
                 <FormLabel>{t('POST')}:</FormLabel>
                 <TextField
                   select
@@ -170,6 +173,7 @@ export default function SrcCodeCreate() {
                   value={formik.values.post_id}
                   onChange={formik.handleChange}
                   sx={{ marginTop: '8px' }}
+                  size="small"
                 >
                   {posts.map((post) => (
                     <MenuItem key={post.post_id} value={post.post_id}>
@@ -182,7 +186,7 @@ export default function SrcCodeCreate() {
 
             <RichEditor1
               clasNames={styles.richEditor}
-              text="Content"
+              text={t('CONTENT')}
               required="required"
               name="content"
               value={formik.values.content}
