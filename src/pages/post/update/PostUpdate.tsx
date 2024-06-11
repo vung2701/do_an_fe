@@ -11,6 +11,7 @@ import { getObjFromLocal } from '../../../types/utils';
 import { useNavigate, useParams } from 'react-router-dom';
 import { TypePost } from '../../../types';
 import { useTranslation } from 'react-i18next';
+import RichEditor1 from '../../../components/richEditor/RichEditor1';
 
 export default function PostUpdate() {
   let { id } = useParams();
@@ -92,7 +93,18 @@ export default function PostUpdate() {
               }
             />
 
-            <RichEditor
+            {/* <RichEditor
+              clasNames={styles.richEditor}
+              text={t('CONTENT')}
+              required="required"
+              name="content"
+              value={formik.values.content}
+              onEditorChange={(content: string) =>
+                formik.setFieldValue('content', content)
+              }
+              errors={errors}
+            /> */}
+            <RichEditor1
               clasNames={styles.richEditor}
               text={t('CONTENT')}
               required="required"

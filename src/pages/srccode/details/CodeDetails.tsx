@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getSrcCodeDetail } from '../../../services';
 import { TypeSrcCode } from '../../../types';
 import styles from './codeDetails.module.css';
@@ -8,14 +8,19 @@ import BackBtn from '../../../components/backBtn/BackBtn';
 import { concatLinkImage, getObjFromLocal } from '../../../types/utils';
 import CreateIcon from '@mui/icons-material/Create';
 import { useTranslation } from 'react-i18next';
+import { isLogin } from '../../../middlewares/Authorization';
 
 export default function CodeDetails() {
   let { id } = useParams();
   const [details, setDetails] = useState<TypeSrcCode>();
   const user = getObjFromLocal('user');
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   useEffect(() => {
+    if (!isLogin()) {
+      navigate('/login');
+    }
     const fetchData = async () => {
       try {
         const data = await getSrcCodeDetail(id);

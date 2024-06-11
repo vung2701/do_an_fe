@@ -21,6 +21,7 @@ import {
   getAllLanguage,
   getArticles,
   getPosts,
+  getSrcCode,
   getSrcCodeDetail
 } from '../../../services';
 import { useTranslation } from 'react-i18next';
@@ -33,7 +34,6 @@ export default function SrcCodeUpdate() {
   const navigate = useNavigate();
   const [languages, setLanguages] = useState<TypeLanguage[]>([]);
   const [posts, setPosts] = useState<TypePost[]>([]);
-  const [articles, setArticles] = useState<TypeArticle[]>([]);
   const { t } = useTranslation();
   const [srcCode, setSrcCode] = useState<TypeSrcCode>();
 
@@ -48,9 +48,15 @@ export default function SrcCodeUpdate() {
 
   const fetchPosts = async () => {
     try {
+      const res = await getSrcCode(1, 25);
+      const post_ids = res.src_code.map((item: any) => item.post_id);
+      const post_ids2 = post_ids.filter((item: any) => item != srcCode?.post_id);
       const data = await getPosts();
       setPosts(
-        data.post.filter((item: TypePost) => item.created_by == user.user_id)
+        data.post.filter(
+          (item: TypePost) =>
+            item.created_by == user.user_id && !post_ids2.includes(item.post_id)
+        )
       );
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -87,6 +93,7 @@ export default function SrcCodeUpdate() {
     validateOnChange: false,
     enableReinitialize: true,
     initialValues: {
+      src_code_id: srcCode?.src_code_id,
       created_by: user?.user_id,
       name: srcCode?.name,
       content: srcCode?.content,

@@ -1,12 +1,13 @@
 import { Box, Container, List, Tab, Tabs, Typography } from '@mui/material';
 import styles from './srcCode.module.css';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getAllLanguage, getSrcCode } from '../../services';
 import { convertDate } from '../../types/utils';
 import { TypeLanguage, TypeSrcCode } from '../../types';
 import FunctionSrcCodeBar from './FunctionSrcCodeBar';
 import { useTranslation } from 'react-i18next';
+import { isLogin } from '../../middlewares/Authorization';
 
 export default function Articles() {
   const [srcCodes, setSrcCodes] = useState<TypeSrcCode[]>([]);
@@ -14,6 +15,13 @@ export default function Articles() {
   const [searchKey, setSearchKey] = useState('');
   const [tab, setTab] = useState('all');
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLogin()) {
+      navigate('/login');
+    }
+  }, []);
 
   // pagination
   const [pageSize, setPageSize] = useState(5);

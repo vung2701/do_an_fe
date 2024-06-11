@@ -1,17 +1,22 @@
 import { Box } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { getArticleDetails } from '../../../services';
 import { TypeArticle } from '../../../types';
 import styles from './details.module.css';
 import ContentDetails from './ContentDetails';
+import { isLogin } from '../../../middlewares/Authorization';
 
 export default function Details() {
   let { id } = useParams();
   const [details, setDetails] = useState<TypeArticle>();
+  const navigate = useNavigate();
 
   useEffect(() => {
+    if (!isLogin()) {
+      navigate('/login');
+    }
     const fetchData = async () => {
       try {
         const article = await getArticleDetails(id);

@@ -10,6 +10,7 @@ import { postPost } from '../../../services';
 import { getObjFromLocal } from '../../../types/utils';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import RichEditor1 from '../../../components/richEditor/RichEditor1';
 
 export default function PostCreate() {
   const user = getObjFromLocal('user');
@@ -38,7 +39,7 @@ export default function PostCreate() {
       content: ''
     },
     validationSchema: Yup.object({
-      title: Yup.string().required('You must fill this field')
+      title: Yup.string().required(t('REQUIRED'))
     }),
     onSubmit: async (values, { resetForm }: { resetForm: () => void }) => {
       try {
@@ -80,7 +81,18 @@ export default function PostCreate() {
               }
             />
 
-            <RichEditor
+            {/* <RichEditor
+              clasNames={styles.richEditor}
+              text={t('CONTENT')}
+              required="required"
+              name="content"
+              value={formik.values.content}
+              onEditorChange={(content: string) =>
+                formik.setFieldValue('content', content)
+              }
+              errors={errors}
+            /> */}
+            <RichEditor1
               clasNames={styles.richEditor}
               text={t('CONTENT')}
               required="required"

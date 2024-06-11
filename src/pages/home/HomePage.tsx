@@ -4,9 +4,18 @@ import { getSpotlight } from '../../services';
 import Blogs from './blogs/Blogs';
 import styles from './homePage.module.css';
 import { TypeSpotlight } from '../../types';
+import { useNavigate } from 'react-router-dom';
+import { isLogin } from '../../middlewares/Authorization';
 
 export default function HomePage() {
   const [spotlight, setSpotlight] = useState<TypeSpotlight[]>([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLogin()) {
+      navigate('/login');
+    }
+  }, []);
 
   const fetchSpotlight = async () => {
     try {

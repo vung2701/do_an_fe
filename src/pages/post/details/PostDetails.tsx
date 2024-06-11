@@ -1,14 +1,22 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getPost } from '../../../services';
 import { TypePost } from '../../../types';
 import styles from './postDetails.module.css';
 import { Box } from '@mui/material';
 import ContentPost from './ContentPost';
+import { isLogin } from '../../../middlewares/Authorization';
 
 export default function PostDetails() {
   let { id } = useParams();
   const [details, setDetails] = useState<TypePost>();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLogin()) {
+      navigate('/login');
+    }
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {

@@ -15,6 +15,7 @@ import { TypeProfile } from '../../types';
 import Posts from './Posts';
 import SrcCodes from './SrcCodes';
 import { useTranslation } from 'react-i18next';
+import { isLogin } from '../../middlewares/Authorization';
 
 export default function Profile() {
   let { id } = useParams();
@@ -80,10 +81,7 @@ export default function Profile() {
   }, [updateProfile, id]);
 
   useEffect(() => {
-    const user = getObjFromLocal('user');
-    if (user) {
-      setUser(user.user_id);
-    } else {
+    if (!isLogin()) {
       navigate('/login');
     }
   }, []);

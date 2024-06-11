@@ -1,12 +1,13 @@
 import { Box, Container, List, Typography } from '@mui/material';
 import styles from './posts.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import FunctionPostBar from './FunctionPostBar';
 import { TypePost } from '../../types';
 import { useEffect, useState } from 'react';
 import { getPosts } from '../../services';
 import { concatLinkImage, convertDate } from '../../types/utils';
 import { useTranslation } from 'react-i18next';
+import { isLogin } from '../../middlewares/Authorization';
 
 export default function Posts() {
   const [posts, setPosts] = useState<TypePost[]>([]);
@@ -17,6 +18,13 @@ export default function Posts() {
   const [pageSize, setPageSize] = useState(5);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLogin()) {
+      navigate('/login');
+    }
+  }, []);
 
   useEffect(() => {
     const fetchPosts = async () => {
