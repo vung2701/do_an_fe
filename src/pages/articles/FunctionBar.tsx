@@ -44,7 +44,10 @@ export default function FunctionBar({
         </FormControl>
         <button
           className={`${styles.btn} ${styles.btnSearch}`}
-          onClick={() => setSearchKey(searchValue)}
+          onClick={() => {
+            setSearchKey(searchValue);
+            setPage(1);
+          }}
         >
           <SearchIcon />
         </button>

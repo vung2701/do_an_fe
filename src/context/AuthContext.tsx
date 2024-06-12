@@ -65,6 +65,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     setLoggedIn(false);
+    navigate('/login');
   };
 
   return (

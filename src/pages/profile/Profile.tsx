@@ -24,8 +24,8 @@ export default function Profile() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [memberId, setMemberId] = useState<TypeProfile>();
   const [oppen, setOppen] = useState(false);
-  const [user, setUser] = useState();
   const { t } = useTranslation();
+  const user = getObjFromLocal('user');
 
   const navigate = useNavigate();
 
@@ -91,7 +91,7 @@ export default function Profile() {
       <Box className={styles.profile}>
         <div className={styles.profileTitle}>
           <Titles classNameAdd={styles.titleLogin} name={t('PROFILE')} />
-          {id === user && (
+          {id === user.user_id && (
             <button onClick={handleShowEditProfile}>
               {oppen ? <CloseIcon /> : <CreateIcon />}
             </button>
