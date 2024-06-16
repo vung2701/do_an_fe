@@ -54,7 +54,6 @@ export default function Details() {
             author_description={details?.author_description}
             limit={details?.limit}
             knowledge={details.knowledge}
-            art
           />
         </>
       )}

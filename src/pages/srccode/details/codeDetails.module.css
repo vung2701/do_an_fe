@@ -164,6 +164,10 @@
   font-size: 16px;
 }
 
+.icon svg {
+  color: var(--colorBlue1);
+}
+
 @media (max-width: 767px) {
   .titleDetails h2 {
     font-size: 28px !important;

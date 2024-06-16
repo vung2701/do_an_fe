@@ -1,12 +1,11 @@
 import { Box, Typography } from '@mui/material';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { TypeContentPosts, TypeKnowledge, TypeSrcCode } from '../../../types';
 import { concatLinkImage, convertDate } from '../../../types/utils';
 import styles from './details.module.css';
 import { useEffect, useState } from 'react';
 import { getArticleKnowledge, getSrcCodeArticle } from '../../../services';
 import { useTranslation } from 'react-i18next';
-import { isLogin } from '../../../middlewares/Authorization';
 
 const ContenArticleDetails = ({
   title,

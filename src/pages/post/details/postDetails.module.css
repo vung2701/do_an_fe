@@ -43,6 +43,10 @@
   font-style: italic;
 }
 
+.icon svg {
+  color: var(--colorBlue1);
+}
+
 .content {
   font-size: 16px !important;
   line-height: 23px !important;
