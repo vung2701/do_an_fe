@@ -30,7 +30,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 export default function SrcCodeUpdate() {
   let { id } = useParams();
   const user = getObjFromLocal('user');
-  const [errors, setErrors] = useState<string>('');
   const navigate = useNavigate();
   const [languages, setLanguages] = useState<TypeLanguage[]>([]);
   const [posts, setPosts] = useState<TypePost[]>([]);
@@ -46,11 +45,16 @@ export default function SrcCodeUpdate() {
     }
   };
 
-  const fetchPosts = async () => {
+  const fetchDatas = async () => {
     try {
-      const res = await getSrcCode(1, 25);
-      const post_ids = res.src_code.map((item: any) => item.post_id);
-      const post_ids2 = post_ids.filter((item: any) => item != srcCode?.post_id);
+      const res = await getSrcCodeDetail(id);
+      setSrcCode(res.src_code);
+      const res1 = await getSrcCode(1, 25);
+      const post_ids = res1.src_code.map((item: any) => item.post_id);
+      console.log(srcCode?.post_id);
+      const post_ids2 = post_ids.filter(
+        (item: any) => item != res.src_code?.post_id
+      );
       const data = await getPosts();
       setPosts(
         data.post.filter(
@@ -65,7 +69,6 @@ export default function SrcCodeUpdate() {
 
   const handleCancel = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    setErrors('');
     navigate(-1);
   };
 
@@ -75,17 +78,7 @@ export default function SrcCodeUpdate() {
       navigate('/login');
     }
     fetchLanguages();
-    fetchPosts();
-
-    const fetchSrcCode = async () => {
-      try {
-        const data = await getSrcCodeDetail(id);
-        setSrcCode(data.src_code);
-      } catch (error) {
-        console.error('Error fetching or filtering post:', error);
-      }
-    };
-    fetchSrcCode();
+    fetchDatas();
   }, []);
 
   const formik = useFormik({
@@ -102,20 +95,15 @@ export default function SrcCodeUpdate() {
       article_id: srcCode?.article_id
     },
     validationSchema: Yup.object({
-      name: Yup.string().required('You must fill this field'),
-      content: Yup.string().required('You must fill this field'),
-      language_ids: Yup.array().min(1, 'You must select at least one language')
+      name: Yup.string().required(t('NOT_EMPTY')),
+      content: Yup.string().required(t('NOT_EMPTY')),
+      language_ids: Yup.array().min(1, t('LANGUAGES_LEAST'))
     }),
     onSubmit: async (values, { resetForm }: { resetForm: () => void }) => {
       try {
-        if (values.content) {
-          await createOrUpdateSrcCode(values);
-          resetForm();
-          setErrors('');
-          navigate(-1);
-        } else {
-          setErrors('You must fill this field');
-        }
+        await createOrUpdateSrcCode(values);
+        resetForm();
+        navigate(-1);
       } catch (error) {
         console.error('Cannot add new src code', error);
         toast.error(t('REQUEST_ERROR'));
@@ -206,6 +194,7 @@ export default function SrcCodeUpdate() {
                   onChange={formik.handleChange}
                   sx={{ marginTop: '8px' }}
                   size="small"
+                  defaultValue={formik.values.post_id}
                 >
                   {posts.map((post) => (
                     <MenuItem key={post.post_id} value={post.post_id}>
@@ -225,8 +214,10 @@ export default function SrcCodeUpdate() {
               onEditorChange={(content: string) =>
                 formik.setFieldValue('content', content)
               }
-              errors={errors}
             />
+            {formik.errors.content && (
+              <p className={styles.error}>{formik.errors.content}</p>
+            )}
 
             <div className={styles.btnGroup}>
               <button className={`${styles.btn} ${styles.btnPost}`} type="submit">

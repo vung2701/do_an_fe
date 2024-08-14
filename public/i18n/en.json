@@ -28,6 +28,7 @@
   "INVALID_EMAIL": "Invalid Email",
   "KNOWLEDGE": "Knowledge",
   "LANGUAGE": "Language",
+  "LANGUAGES_LEAST": "You must select at least one language",
   "LAST_NAME": "Last Name",
   "LIKE": "Like",
   "LIKES": "Likes",

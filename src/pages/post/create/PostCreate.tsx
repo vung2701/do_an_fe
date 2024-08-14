@@ -4,7 +4,6 @@ import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import Input from '../../../components/input/Input';
-import RichEditor from '../../../components/richEditor/RichEditor';
 import { useEffect, useState } from 'react';
 import { postPost } from '../../../services';
 import { getObjFromLocal } from '../../../types/utils';
@@ -14,13 +13,11 @@ import RichEditor1 from '../../../components/richEditor/RichEditor1';
 
 export default function PostCreate() {
   const user = getObjFromLocal('user');
-  const [errors, setErrors] = useState<string>('');
   const navigate = useNavigate();
   const { t } = useTranslation();
 
   const handleCancel = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    setErrors('');
     navigate(-1);
   };
 
@@ -39,18 +36,14 @@ export default function PostCreate() {
       content: ''
     },
     validationSchema: Yup.object({
-      title: Yup.string().required(t('REQUIRED'))
+      title: Yup.string().required(t('NOT_EMPTY')),
+      content: Yup.string().required(t('NOT_EMPTY'))
     }),
     onSubmit: async (values, { resetForm }: { resetForm: () => void }) => {
       try {
-        if (values.content) {
-          await postPost(values);
-          resetForm();
-          setErrors('');
-          navigate(-1);
-        } else {
-          setErrors('You must fill this field');
-        }
+        await postPost(values);
+        resetForm();
+        navigate(-1);
       } catch (error) {
         console.error('Cannot add new post', error);
         toast.error(t('REQUEST_ERROR'));
@@ -101,8 +94,10 @@ export default function PostCreate() {
               onEditorChange={(content: string) =>
                 formik.setFieldValue('content', content)
               }
-              errors={errors}
             />
+            {formik.errors.content && (
+              <p className={styles.error}>{formik.errors.content}</p>
+            )}
 
             <div className={styles.btnGroup}>
               <button className={`${styles.btn} ${styles.btnPost}`} type="submit">

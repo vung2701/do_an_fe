@@ -52,3 +52,10 @@
   background-color: #ccc;
   margin-left: 8px;
 }
+
+.error {
+  font-size: 12px;
+  margin-top: 4px;
+  margin-left: 14px;
+  color: red;
+}

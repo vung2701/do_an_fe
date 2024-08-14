@@ -17,12 +17,16 @@ import { useNavigate } from 'react-router-dom';
 import RichEditor1 from '../../../components/richEditor/RichEditor1';
 import Multiselect from 'multiselect-react-dropdown';
 import { TypeLanguage, TypePost } from '../../../types';
-import { createOrUpdateSrcCode, getAllLanguage, getPosts } from '../../../services';
+import {
+  createOrUpdateSrcCode,
+  getAllLanguage,
+  getPosts,
+  getSrcCode
+} from '../../../services';
 import { useTranslation } from 'react-i18next';
 
 export default function SrcCodeCreate() {
   const user = getObjFromLocal('user');
-  const [errors, setErrors] = useState<string>('');
   const navigate = useNavigate();
   const [languages, setLanguages] = useState<TypeLanguage[]>([]);
   const [posts, setPosts] = useState<TypePost[]>([]);
@@ -39,9 +43,14 @@ export default function SrcCodeCreate() {
 
   const fetchPosts = async () => {
     try {
+      const res = await getSrcCode(1, 25);
+      const post_ids = res.src_code.map((item: any) => item.post_id);
       const data = await getPosts();
       setPosts(
-        data.post.filter((item: TypePost) => item.created_by == user.user_id)
+        data.post.filter(
+          (item: TypePost) =>
+            item.created_by == user.user_id && !post_ids.includes(item.post_id)
+        )
       );
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -50,7 +59,6 @@ export default function SrcCodeCreate() {
 
   const handleCancel = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    setErrors('');
     navigate(-1);
   };
 
@@ -72,23 +80,18 @@ export default function SrcCodeCreate() {
       name: '',
       content: '',
       language_ids: [],
-      post_id: ''
+      post_id: undefined
     },
     validationSchema: Yup.object({
-      name: Yup.string().required('You must fill this field'),
-      content: Yup.string().required('You must fill this field'),
-      language_ids: Yup.array().min(1, 'You must select at least one language')
+      name: Yup.string().required(t('NOT_EMPTY')),
+      content: Yup.string().required(t('NOT_EMPTY')),
+      language_ids: Yup.array().min(1, t('LANGUAGES_LEAST'))
     }),
     onSubmit: async (values, { resetForm }: { resetForm: () => void }) => {
       try {
-        if (values.content) {
-          await createOrUpdateSrcCode(values);
-          resetForm();
-          setErrors('');
-          navigate(-1);
-        } else {
-          setErrors('You must fill this field');
-        }
+        await createOrUpdateSrcCode(values);
+        resetForm();
+        navigate(-1);
       } catch (error) {
         console.error('Cannot add new src code', error);
         toast.error(t('REQUEST_ERROR'));
@@ -193,8 +196,10 @@ export default function SrcCodeCreate() {
               onEditorChange={(content: string) =>
                 formik.setFieldValue('content', content)
               }
-              errors={errors}
             />
+            {formik.errors.content && (
+              <p className={styles.error}>{formik.errors.content}</p>
+            )}
 
             <div className={styles.btnGroup}>
               <button className={`${styles.btn} ${styles.btnPost}`} type="submit">

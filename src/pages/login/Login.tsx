@@ -13,6 +13,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { isLogin } from '../../middlewares/Authorization';
 import { useTranslation } from 'react-i18next';
+import CallComponent from '../../components/call/CallComponents';
 
 export default function Login() {
   const { login } = useAuth();
@@ -118,6 +119,7 @@ export default function Login() {
             links="/register"
           />
         </Box>
+        <CallComponent />
       </Box>
     </Container>
   );

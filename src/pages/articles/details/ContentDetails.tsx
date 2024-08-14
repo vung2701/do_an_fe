@@ -174,7 +174,7 @@ const ContentDetails = ({
           author_school={author_school}
           author_description={author_description}
           author_user_id={author_user_id}
-          image={image}
+          image={author_img}
           limit={limit}
           knowledge={knowledge}
         />

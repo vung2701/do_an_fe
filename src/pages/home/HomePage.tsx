@@ -6,6 +6,7 @@ import styles from './homePage.module.css';
 import { TypeSpotlight } from '../../types';
 import { useNavigate } from 'react-router-dom';
 import { isLogin } from '../../middlewares/Authorization';
+import CallComponent from '../../components/call/CallComponent';
 
 export default function HomePage() {
   const [spotlight, setSpotlight] = useState<TypeSpotlight[]>([]);

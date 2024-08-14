@@ -9,6 +9,6 @@
   },
   "include": [
     "vite.config.ts",
-    "src/**/*.ts",
+    "src/**/*.ts", "src/components/call/CallComponent.tsx",
   ]
 }

@@ -1,18 +1,20 @@
 import { Avatar, Box, Container, List, Tab, Tabs, Typography } from '@mui/material';
 import styles from './articles.module.css';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { getArticles, getArticlesByType, getKnowledgeType } from '../../services';
+import { Link, useNavigate } from 'react-router-dom';
+import { getArticles, getKnowledgeType } from '../../services';
 import { concatLinkImage, convertDate, sortByDate } from '../../types/utils';
 import { TypeArticle, TypeKnowledgeType } from '../../types';
 import FunctionBar from './FunctionBar';
 import { useTranslation } from 'react-i18next';
+import { isLogin } from '../../middlewares/Authorization';
 
 export default function Articles() {
   const [articles, setArticles] = useState<TypeArticle[]>([]);
   const [knowledgeTypes, setKnowledgeTypes] = useState<TypeKnowledgeType[]>([]);
   const [tab, setTab] = useState('');
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   // pagination
   const [pageSize, setPageSize] = useState(5);
@@ -54,6 +56,9 @@ export default function Articles() {
   };
 
   useEffect(() => {
+    if (!isLogin()) {
+      navigate('/login');
+    }
     fetchKnowledgeTypes();
   }, []);
 

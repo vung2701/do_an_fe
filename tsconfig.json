@@ -2,11 +2,7 @@
   "compilerOptions": {
     "target": "ES2020",
     "useDefineForClassFields": true,
-    "lib": [
-      "ES2020",
-      "DOM",
-      "DOM.Iterable"
-    ],
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
     /* Bundler mode */
@@ -26,14 +22,14 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "src/**/*.css"
+    "src/**/*.css",
+    "src/components/call/StringeeClient.jsx",
+    "src/components/call/CallComponents.jsx"
   ],
   "references": [
     {
       "path": "./tsconfig.node.json"
     }
   ],
-  "typeRoots": [
-    "../dist/index.d.ts"
-  ]
+  "typeRoots": ["../dist/index.d.ts"]
 }

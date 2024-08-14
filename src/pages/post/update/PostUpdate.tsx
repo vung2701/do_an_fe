@@ -16,13 +16,11 @@ import RichEditor1 from '../../../components/richEditor/RichEditor1';
 export default function PostUpdate() {
   let { id } = useParams();
   const [post, setPost] = useState<TypePost>();
-  const [errors, setErrors] = useState<string>('');
   const navigate = useNavigate();
   const { t } = useTranslation();
 
   const handleCancel = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    setErrors('');
     navigate(-1);
   };
 
@@ -51,18 +49,14 @@ export default function PostUpdate() {
       content: post?.content || ''
     },
     validationSchema: Yup.object({
-      title: Yup.string().required('You must fill this field.')
+      title: Yup.string().required(t('NOT_EMPTY')),
+      content: Yup.string().required(t('NOT_EMPTY'))
     }),
     onSubmit: async (values, { resetForm }: { resetForm: () => void }) => {
       try {
-        if (values.content) {
-          await updatePost(values);
-          resetForm();
-          setErrors('');
-          navigate(-1);
-        } else {
-          setErrors('You must fill this field.');
-        }
+        await updatePost(values);
+        resetForm();
+        navigate(-1);
       } catch (error) {
         console.error('Cannot update post', error);
         toast.error(t('REQUEST_ERROR'));
@@ -113,8 +107,10 @@ export default function PostUpdate() {
               onEditorChange={(content: string) =>
                 formik.setFieldValue('content', content)
               }
-              errors={errors}
             />
+            {formik.errors.content && (
+              <p className={styles.error}>{formik.errors.content}</p>
+            )}
 
             <div className={styles.btnGroup}>
               <button className={`${styles.btn} ${styles.btnPost}`} type="submit">
